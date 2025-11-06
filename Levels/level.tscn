@@ -172,6 +172,7 @@ navigation_polygon = SubResource("NavigationPolygon_gtnvv")
 [node name="Ship" parent="." instance=ExtResource("1_s41d2")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(721, 122)
+ship_type = 1
 team = 1
 patrolling = true
 

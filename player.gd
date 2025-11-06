@@ -26,6 +26,10 @@ func _physics_process(delta: float) -> void:
 						over_units.append(ship)
 	if Input.is_action_just_released("select"):
 		dragging = false
+		#Remove enemy ships
+		for i in over_units:
+			if i not in ships:
+				over_units.erase(i)
 		selected_units = over_units.duplicate()
 		over_units.clear()
 		print(selected_units)
@@ -33,3 +37,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("action"):
 		for unit in selected_units:
 			unit.set_target_pos(mouse_pos)
+			for i in over_units:
+				if over_units not in ships:
+					unit.enemy_target = i

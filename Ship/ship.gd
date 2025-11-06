@@ -193,6 +193,8 @@ func _physics_process(delta):
 					set_target_pos(path_points[current_point])
 						
 				return
+			if enemy_target != null:
+				set_target_pos(enemy_target.position)
 			var current_agent_position: Vector2 = global_position
 			var next_path_position: Vector2 = nav_agent.get_next_path_position()
 			
