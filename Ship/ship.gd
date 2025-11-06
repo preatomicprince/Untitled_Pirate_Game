@@ -37,7 +37,7 @@ var stats = { # [Strength, Speed, health]
 # Core stats
 var strength: float = 1.0
 var speed: float  = 1.0
-var health: int = 100
+var health: float = 100.0
 var firing_speed: float = 1.0
 var boarding_speed: float = 1.0
 var accuracy: float = 0.8
@@ -88,6 +88,8 @@ var max_abilities = 1
 @onready var target_pos: Vector2 = position
 @onready var nav_agent: NavigationAgent2D = $nav_agent
 
+var fleeing: bool = false
+
 func actor_setup():
 	await get_tree().physics_frame
 	set_target_pos(target_pos)
@@ -128,10 +130,12 @@ func attack(ship: Ship) -> void:
 	var hit_chance = randfn(0.0, 1.0)
 	if hit_chance < accuracy:
 		print(self, " Hit ", ship.health)
-		ship.take_damage(strength)
+		ship.take_damage(strength, self)
 		
-func take_damage(damage: int) -> void:
+func take_damage(damage: int, attacker: Ship) -> void:
 	health -= damage
+	if enemy_target == null:
+		enemy_target = attacker
 	if health <= 0:
 		state = State.Imobilised
 		#dedug
@@ -171,11 +175,12 @@ func _physics_process(delta):
 			if enemies != null:
 				for i in enemies:
 					if position.distance_to(i.position) < COMBAT_DISTANCE && i.state != State.Imobilised:
-						state = State.Combat
-						set_target_pos(position)
-						enemy_target = i
-						attack(enemy_target)
-						return
+						if not fleeing or enemy_target != null:
+							state = State.Combat
+							set_target_pos(position)
+							enemy_target = i
+							attack(enemy_target)
+							return
 			# If no combat, move to set target
 			if nav_agent.is_navigation_finished():
 				
@@ -203,8 +208,15 @@ func _physics_process(delta):
 			
 		State.Combat:
 			# Stop attacking if enemy imobilised or too far
+			if enemy_target == null:
+					state = State.Moving
+					fleeing = true
+					$Flee_Timer.start() # Won't automatically start combat until timer ends
+					return
 			if enemy_target.state == State.Imobilised or position.distance_to(enemy_target.position) > COMBAT_DISTANCE:
 				enemy_target == null
+				$Combat_Timer.start()
+				can_attack = false
 				state = State.Moving
 				return
 			if can_attack:
@@ -222,3 +234,7 @@ func _on_area_2d_mouse_exited() -> void:
 
 func _on_combat_timer_timeout() -> void:
 	can_attack = true
+
+
+func _on_flee_timer_timeout() -> void:
+	fleeing = false
