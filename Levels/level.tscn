@@ -155,9 +155,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(2, 1, 1154, 3, 1158, 64
 
 [sub_resource type="Curve2D" id="Curve2D_wav5q"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 2, -3, 0, 0, 0, 0, 143, 471, 0, 0, 0, 0, -497, 442)
+"points": PackedVector2Array(0, 0, 0, 0, 2, -3, 0, 0, 0, 0, -337, 295, 0, 0, 0, 0, -246, 496, 0, 0, 0, 0, 143, 471, 0, 0, 0, 0, 222, 263)
 }
-point_count = 3
+point_count = 5
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_wav5q")
@@ -185,3 +185,6 @@ position = Vector2(154, 191)
 [node name="Ship3" parent="." instance=ExtResource("1_s41d2")]
 position = Vector2(1109, 139)
 ship_type = 2
+
+[node name="Ship4" parent="." instance=ExtResource("1_s41d2")]
+position = Vector2(973, 60)

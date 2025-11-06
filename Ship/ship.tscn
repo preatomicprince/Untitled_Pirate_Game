@@ -17,10 +17,17 @@ position = Vector2(1, -2)
 scale = Vector2(1.046875, 0.484375)
 texture = ExtResource("1_1p84g")
 
+[node name="Highlight" type="Sprite2D" parent="."]
+modulate = Color(2.0531726, 2.0531726, 2.0531726, 1)
+position = Vector2(1, -2)
+scale = Vector2(1.046875, 0.484375)
+texture = ExtResource("1_1p84g")
+
 [node name="nav_agent" type="NavigationAgent2D" parent="."]
 path_desired_distance = 50.0
 target_desired_distance = 50.0
 path_postprocessing = 1
+simplify_path = true
 avoidance_enabled = true
 radius = 16.96
 

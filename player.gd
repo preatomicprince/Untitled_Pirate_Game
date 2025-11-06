@@ -14,11 +14,16 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("select"):
 		dragging = true
+		$Select_Box.visible = true
 		box_start = mouse_pos
+		$Select_Box.position = box_start 
 	if Input.is_action_pressed("select"):
 		# Drag to select mechanic
 		var x_lims: Array = [box_start.x, mouse_pos.x]
 		var y_lims: Array = [box_start.y, mouse_pos.y]
+		
+		$Select_Box.scale.x = -(box_start.x - mouse_pos.x)/100
+		$Select_Box.scale.y = -(box_start.y - mouse_pos.y)/100
 		for ship in ships:
 			if ship.position.x > x_lims.min() and ship.position.x < x_lims.max():
 				if ship.position.y > y_lims.min() and ship.position.y < y_lims.max():
@@ -26,6 +31,7 @@ func _physics_process(delta: float) -> void:
 						over_units.append(ship)
 	if Input.is_action_just_released("select"):
 		dragging = false
+		$Select_Box.visible = false
 		#Remove enemy ships
 		for i in over_units:
 			if i not in ships:

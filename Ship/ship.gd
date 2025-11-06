@@ -151,15 +151,21 @@ func _ready() -> void:
 	match ship_type:
 		Ship_Type.Frigate:
 			$Sprite2D.scale = Vector2(0.7, 0.4)
+			$Highlight.scale = Vector2(0.7, 0.4)
 		Ship_Type.Clipper:
 			$Sprite2D.scale = Vector2(0.5, 0.3)
-	
+			$Highlight.scale = Vector2(0.5, 0.3)
 	# Navigation
 	nav_agent.path_desired_distance = 4.0
 	nav_agent.target_desired_distance = 4.0
 	actor_setup.call_deferred()
 
 func _physics_process(delta):
+	if player != null:
+		if self in player.selected_units:
+			$Highlight.visible = true
+		else:
+			$Highlight.visible = false
 	
 	# Get the correct list of enemies
 	var enemies

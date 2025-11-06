@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccxcsvry36gf7"]
+[gd_scene load_steps=3 format=3 uid="uid://ccxcsvry36gf7"]
 
 [ext_resource type="Script" uid="uid://bh147yr1lscts" path="res://player.gd" id="1_l8h54"]
+[ext_resource type="Texture2D" uid="uid://cy3acr7g8ficx" path="res://Player/square.png" id="2_4ntmi"]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_l8h54")
+
+[node name="Select_Box" type="Sprite2D" parent="."]
+self_modulate = Color(15.581995, 1.7779143, 1.9892012, 0.2784314)
+position = Vector2(-1, -1)
+texture = ExtResource("2_4ntmi")
+centered = false
