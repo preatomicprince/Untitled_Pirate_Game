@@ -35,8 +35,18 @@ func _physics_process(delta: float) -> void:
 		print(selected_units)
 		
 	if Input.is_action_just_pressed("action"):
+		# Keep unit position offset
+		var average_pos:  Vector2 = Vector2(0, 0)
+		for i in selected_units:
+			average_pos += i.position
+		average_pos.x = average_pos.x/len(selected_units)
+		average_pos.y = average_pos.y/len(selected_units)
+		
 		for unit in selected_units:
-			unit.set_target_pos(mouse_pos)
+			var offset = unit.position - average_pos
+			unit.set_target_pos(mouse_pos + offset)
+			
+			# Setting combat target
 			if unit.enemy_target != null:
 				unit.enemy_target = null
 			for i in over_units:
