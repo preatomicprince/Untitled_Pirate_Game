@@ -6,8 +6,9 @@ class_name Level extends Node2D
 @onready var town_layer : Node2D =$"map layers/town layer"
 #set current level with an enum
 enum levels {
-	tortuga = 0,
-	jamaica = 1
+	none = 0,
+	tortuga = 1,
+	jamaica = 2
 }
 var current_level : int = levels.tortuga
 

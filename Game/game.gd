@@ -51,6 +51,16 @@ func choose_scene(cur : int):
 			
 
 
+func reset_loop():
+	"""
+	if you get booted back to the town, this function resets all the levels and shit
+	called in town ui
+	"""
+	level.current_level = level.levels.tortuga
+	current_scene = scenes.Battle_field
+	choose_scene(current_scene)
+	level.reload_map()
+
 func _on_game_timer_timeout() -> void:
 	#TODO this should only kill you if you didnt reach the gold threshold
 	if player.gold >= self.gold_target:

@@ -8,6 +8,13 @@ var town_cells : Array[Vector2i] = [Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, 
 func reload_map():
 	spawn_towns(self.get_parent().map_layer)
 
+func clear_towns():
+	"""
+	so that towns dont carry over map to map
+	"""
+	for child in self.get_children():
+		child.queue_free()
+
 func spawn_towns(tile_layer : TileMapLayer):
 	"""
 	takes the tile layer and places towns in the appropriate places

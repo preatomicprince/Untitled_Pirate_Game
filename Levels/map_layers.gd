@@ -75,6 +75,8 @@ func reload_map():
 	will want all the towns setting as well probably
 	"""
 	set_level_map(level.current_level)
+	if len(town_layer.get_children()) > 0:
+		town_layer.clear_towns()
 	town_layer.spawn_towns(map_layer)
 	set_initial_fog()
 

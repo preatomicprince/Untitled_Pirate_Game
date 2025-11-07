@@ -1,5 +1,6 @@
 extends Control
 
+@onready var ui : CanvasLayer = self.get_parent()
 
 func _on_button_pressed() -> void:
-	pass # Replace with function body.
+	ui.game.reset_loop()
