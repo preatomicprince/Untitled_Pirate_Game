@@ -67,5 +67,5 @@ func _physics_process(delta: float) -> void:
 			if unit.enemy_target != null:
 				unit.enemy_target = null
 			for i in over_units:
-				if over_units in level.enemy_ships:
+				if i in level.enemy_ships:
 					unit.enemy_target = i
