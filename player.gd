@@ -9,8 +9,17 @@ var box_start: Vector2 = Vector2(-1, -1)
 var over_units: Array = []
 var selected_units: Array = []
 
+var level: Level 
+
 var gold: int = 0
 var infamy: int = 0
+
+func setup() -> void:
+	await get_tree().physics_frame
+	level = $"../Level"
+	
+func _ready() -> void:
+	setup()
 
 func _physics_process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
@@ -59,5 +68,5 @@ func _physics_process(delta: float) -> void:
 			if unit.enemy_target != null:
 				unit.enemy_target = null
 			for i in over_units:
-				if over_units not in ships:
+				if i in level.enemy_ships:
 					unit.enemy_target = i

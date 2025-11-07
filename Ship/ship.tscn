@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dq614idwdgse5" path="res://Res/characters and towns/flags.png" id="4_d6neq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4ev1"]
-size = Vector2(136, 127)
+size = Vector2(181, 129)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edrfk"]
 radius = 79.24645
@@ -26,7 +26,7 @@ simplify_path = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1, 0.5)
+position = Vector2(9.5, -43.5)
 shape = SubResource("RectangleShape2D_q4ev1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -40,7 +40,11 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
+[node name="Boarding_Timer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Ships" type="Sprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(-4, -86)
 texture = ExtResource("3_1w8ol")
 hframes = 3
@@ -53,3 +57,4 @@ texture = ExtResource("4_d6neq")
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
 [connection signal="timeout" from="Combat_Timer" to="." method="_on_combat_timer_timeout"]
 [connection signal="timeout" from="Flee_Timer" to="." method="_on_flee_timer_timeout"]
+[connection signal="timeout" from="Boarding_Timer" to="." method="_on_boarding_timer_timeout"]

@@ -23,7 +23,14 @@ enum Team {
 enum State {
 	Moving,
 	Combat,
-	Imobilised
+	Imobilised,
+	Boarding
+}
+
+var rewards = { # [Gold drop, ability drop chance]
+	Ship_Type.Clipper : [10, 0],
+	Ship_Type.Frigate : [50, 0.1],
+	Ship_Type.Man_Of_War : [25, 0.3]
 }
 
 @export var ship_type: Ship_Type
@@ -46,7 +53,7 @@ var strength: float = 1.0
 var speed: float  = 1.0
 var health: float = 100.0
 var firing_speed: float = 1.0
-var boarding_speed: float = 1.0
+var boarding_speed: float = 6.0
 var accuracy: float = 0.8
 
 const MOVE_SPEED = 50 # Const to change speed of all ships moving
@@ -54,9 +61,7 @@ const MOVE_SPEED = 50 # Const to change speed of all ships moving
 func set_core_stats() -> void:
 	self.strength = stats[ship_type][0]
 	self.speed = stats[ship_type][1]
-	self.health = stats[ship_type][2]
-	self.firing_speed = 1.0
-	self.boarding_speed = 1.0
+	self.health = stats[ship_type][2]	
 	
 	for i in self.abilities:
 		match i:
@@ -91,7 +96,8 @@ func set_attack_mult() -> void:
 var abilities = []
 var max_abilities = 1
 
-
+var team_colour = Color()
+var enemy_colour = Color(0.641, 0.515, 0.214, 1.0)
 
 var fleeing: bool = false
 
@@ -113,7 +119,7 @@ func set_target_pos(target_pos: Vector2):
 	
 # Combat
 var enemy_target: Ship = null
-const COMBAT_DISTANCE = 50
+const COMBAT_DISTANCE = 100
 var can_attack = true
 
 # AI
@@ -142,9 +148,61 @@ func take_damage(damage: int, attacker: Ship) -> void:
 	if enemy_target == null:
 		enemy_target = attacker
 	if health <= 0:
-		state = State.Imobilised
-		#dedug
-		visible = false
+		imobilise()
+			
+func imobilise()->void:
+	state = State.Imobilised
+	$Flags.visible = false
+	if team == Team.Player:
+		delete()
+	elif team == Team.Enemy:
+		for i in player.ships:
+			if i.enemy_target == self:
+				i.enemy_target = null
+		player.gold += rewards[ship_type][0]
+		var drop_chance = randf()
+		if drop_chance < rewards[ship_type][1]:
+			# todo: inventory
+			pass
+			
+func boarding() -> void:
+	if $Boarding_Timer.is_stopped():
+		$Boarding_Timer.set_wait_time(boarding_speed)
+		$Boarding_Timer.start(boarding_speed)
+		
+func stop_boarding() -> void:
+	state = State.Moving
+	$Boarding_Timer.stop()
+	
+func capture() -> void:
+	if team == Team.Player:
+		return
+	level.enemy_ships.erase(self)
+	player.ships.append(self)
+	team = Team.Player
+	for i in player.ships:
+			if i.enemy_target == self:
+				i.enemy_target = null
+	$Flags.visible = true
+	$Flags.modulate = team_colour
+	state = State.Moving
+	health = stats[ship_type][2]
+	patrolling = false
+			
+func delete()-> void:
+	if team == Team.Player:
+		player.selected_units.erase(self)
+		player.over_units.erase(self)
+		for i in level.enemy_ships:
+			if i.enemy_target == self:
+				i.enemy_target = null
+		player.ships.erase(self)
+	else:
+		for i in player.ships:
+			if i.enemy_target == self:
+				i.enemy_target = null
+		level.enemy_ships.erase(self)
+	queue_free()
 	
 	
 func _ready() -> void:
@@ -179,13 +237,18 @@ func _physics_process(delta):
 			#Check if we should move to combat
 			if enemies != null:
 				for i in enemies:
-					if position.distance_to(i.position) < COMBAT_DISTANCE && i.state != State.Imobilised:
-						if not fleeing or enemy_target != null:
-							state = State.Combat
-							set_target_pos(position)
-							enemy_target = i
-							attack(enemy_target)
-							return
+					if position.distance_to(i.position) < COMBAT_DISTANCE:
+						if i.state != State.Imobilised:
+							if not fleeing or i == enemy_target:
+								state = State.Combat
+								set_target_pos(position)
+								enemy_target = i
+								attack(enemy_target)
+								return
+						if i.state == State.Imobilised && i == enemy_target:
+							state = State.Boarding
+							boarding()
+					
 			# If no combat, move to set target
 			if nav_agent.is_navigation_finished():
 				
@@ -226,6 +289,10 @@ func _physics_process(delta):
 				return
 			if can_attack:
 				attack(enemy_target)
+		
+		State.Boarding:
+			if enemy_target == null or enemy_target.state != State.Imobilised:
+				stop_boarding()
 	
 
 func decide_animation()->void:
@@ -238,9 +305,9 @@ func decide_animation()->void:
 	#decide the ships flags and sails
 	
 	if self.team == Team.Player:
-		ship_flag.modulate = Color()
+		ship_flag.modulate = team_colour
 	else:
-		ship_flag.modulate = Color(0.641, 0.515, 0.214, 1.0)
+		ship_flag.modulate = enemy_colour
 
 
 ############
@@ -264,3 +331,14 @@ func _on_combat_timer_timeout() -> void:
 
 func _on_flee_timer_timeout() -> void:
 	fleeing = false
+
+
+func _on_boarding_timer_timeout() -> void:
+	if state != State.Boarding:
+		return
+	if enemy_target == null:
+		stop_boarding()
+		return
+	enemy_target.capture()
+	enemy_target = null
+	state = State.Moving
