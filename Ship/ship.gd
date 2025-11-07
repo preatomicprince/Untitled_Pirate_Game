@@ -143,8 +143,17 @@ func take_damage(damage: int, attacker: Ship) -> void:
 		enemy_target = attacker
 	if health <= 0:
 		state = State.Imobilised
-		#dedug
-		visible = false
+		$Flags.visible = false
+		if team == Team.Player:
+			delete()
+			
+func delete()-> void:
+	if team == Team.Player:
+		player.ships.erase(self)
+	else:
+		level.enemy_ships.erase(self)
+		
+	queue_free()
 	
 	
 func _ready() -> void:
