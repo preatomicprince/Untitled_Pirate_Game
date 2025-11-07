@@ -8,6 +8,6 @@ enum levels {
 	tortuga = 0,
 	jamaica = 1
 }
-var current_level : int = levels.tortuga
+var current_level : int = levels.jamaica
 
 var enemy_ships: Array = []

@@ -1,0 +1,27 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cq13714u6bbye"]
+
+[ext_resource type="Texture2D" uid="uid://vgfjdofy28a2" path="res://Res/map/to_tom.png" id="1_hs587"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lyxtx"]
+texture = ExtResource("1_hs587")
+texture_region_size = Vector2i(256, 200)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -30)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -30)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -30)
+2:2/0 = 0
+2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, -30)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -30)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, -30)
+
+[resource]
+tile_shape = 3
+tile_layout = 5
+tile_offset_axis = 1
+tile_size = Vector2i(250, 128)
+sources/0 = SubResource("TileSetAtlasSource_lyxtx")

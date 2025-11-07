@@ -1,19 +1,25 @@
 extends Node2D
 @onready var level = self.get_parent()
-@onready var map_layer : TileMapLayer = $"map layer"
+@onready var map_layer : TileMapLayer 
+@onready var tortuga_layer : TileMapLayer = $"tortuga layer"
+@onready var jamaica_layer : TileMapLayer = $"jamaica layer"
 @onready var fog_layer : TileMapLayer = $"fog layer"
 @onready var nav_region : NavigationRegion2D = $NavigationRegion2D
 
+var layer_array : Array 
 #vectors for the fog of war
 var UNEXPLORED_VEC : Vector2i = Vector2i(4, 1)
 var SHADOW_VEC : Vector2i = Vector2i(1, 1)
 #preloads for maps and its accociated map layer
-@onready var tortuga_map = preload("res://Levels/tortuga_tileset.tres")
+#TORTUGA
 @onready var tortuga_nav = preload("res://Levels/tortuga_nav_region.tres")
 
+#JAMAICA
+@onready var jamaica_nav = preload("res://Levels/jamaica_nav_region.tres")
 #TODO set up a function that rolls back fog, and hides ships under the fog
 
 func _ready() -> void:
+	layer_array = [tortuga_layer, jamaica_layer]
 	set_level_map(level.current_level)
 	set_initial_fog()
 
@@ -68,11 +74,19 @@ func set_level_map(cur_level : int):
 	"""
 	match cur_level:
 		level.levels.tortuga:
-			map_layer.tile_set = tortuga_map
+			map_layer = tortuga_layer
 			nav_region.navigation_polygon = tortuga_nav
+			
 		level.levels.jamaica:
-			pass
-
+			map_layer = jamaica_layer
+			nav_region.navigation_polygon = jamaica_nav
+	
+	for l in layer_array:
+		if map_layer == l:
+			l.visible = true
+		else:
+			l.visible = false
+			
 func set_initial_fog():
 	for t in map_layer.get_used_cells():
 		fog_layer.set_cell(t, 0, UNEXPLORED_VEC)
