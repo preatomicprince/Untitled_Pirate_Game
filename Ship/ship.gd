@@ -149,10 +149,17 @@ func take_damage(damage: int, attacker: Ship) -> void:
 			
 func delete()-> void:
 	if team == Team.Player:
+		player.selected_units.erase(self)
+		player.over_units.erase(self)
+		for i in level.enemy_ships:
+			if i.enemy_target == self:
+				i.enemy_target = null
 		player.ships.erase(self)
 	else:
+		for i in player.ships:
+			if i.enemy_target == self:
+				i.enemy_target = null
 		level.enemy_ships.erase(self)
-		
 	queue_free()
 	
 	
