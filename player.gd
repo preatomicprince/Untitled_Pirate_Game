@@ -9,6 +9,8 @@ var box_start: Vector2 = Vector2(-1, -1)
 var over_units: Array = []
 var selected_units: Array = []
 
+var gold: int = 0
+
 func _physics_process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
 	
