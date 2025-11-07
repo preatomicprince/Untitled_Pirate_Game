@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://capdgdxlewyxf"]
+[gd_scene load_steps=4 format=3 uid="uid://capdgdxlewyxf"]
 
+[ext_resource type="Script" uid="uid://cl4b2in54sh7x" path="res://UI/progress_ui.gd" id="1_isfbs"]
 [ext_resource type="Texture2D" uid="uid://ighrpnt12tdq" path="res://Res/ui/progress back.png" id="1_v6mkb"]
 [ext_resource type="Texture2D" uid="uid://bu2vx0y5issy6" path="res://Res/ui/progress bar.png" id="2_isfbs"]
 
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_isfbs")
 
 [node name="back colour" type="ColorRect" parent="."]
 layout_mode = 1
@@ -50,3 +52,5 @@ offset_bottom = 28.75998
 grow_horizontal = 2
 grow_vertical = 2
 text = "continue"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

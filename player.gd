@@ -1,5 +1,9 @@
 class_name Player extends Node2D
 
+@onready var game : Node2D = self.get_parent()
+
+var defeated : bool = false
+
 var ships: Array[Ship] = []
 
 var mouse_pos: Vector2 = Vector2(-1, -1)
@@ -20,6 +24,16 @@ func setup() -> void:
 	
 func _ready() -> void:
 	setup()
+
+func _process(delta: float) -> void:
+	if defeated == true:
+		game.current_scene = game.scenes.Town_builder
+		game.choose_scene(game.current_scene)
+		defeated = false
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("motherload"):
+		self.gold += 10
 
 func _physics_process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()

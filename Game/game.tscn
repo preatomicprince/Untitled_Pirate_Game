@@ -12,6 +12,7 @@
 script = ExtResource("1_fwxkx")
 
 [node name="Level" parent="." instance=ExtResource("1_1r4le")]
+visible = false
 
 [node name="Town screen" parent="." instance=ExtResource("6_qmv3x")]
 visible = false
@@ -26,3 +27,9 @@ visible = false
 position = Vector2(357, 350)
 
 [node name="ui main" parent="." instance=ExtResource("4_jcm6v")]
+
+[node name="game timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="timeout" from="game timer" to="." method="_on_game_timer_timeout"]

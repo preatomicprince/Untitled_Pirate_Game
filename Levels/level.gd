@@ -12,3 +12,6 @@ enum levels {
 var current_level : int = levels.tortuga
 
 var enemy_ships: Array = []
+
+func reload_map():
+	map_layers.reload_map()
