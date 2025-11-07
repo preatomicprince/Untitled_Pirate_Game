@@ -18,6 +18,8 @@ texture_region_size = Vector2i(256, 200)
 0:1/0/texture_origin = Vector2i(0, -30)
 1:1/0 = 0
 1:1/0/texture_origin = Vector2i(0, -30)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -20)
 
 [resource]
 tile_shape = 3

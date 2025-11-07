@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://wsshvp33a8sv"]
+
+[ext_resource type="Script" uid="uid://bqedlb04yewvt" path="res://town.gd" id="1_yp304"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7fig3"]
+radius = 85.84288
+
+[node name="town" type="Node2D"]
+script = ExtResource("1_yp304")
+
+[node name="town area" type="Area2D" parent="."]
+
+[node name="area col" type="CollisionShape2D" parent="town area"]
+shape = SubResource("CircleShape2D_7fig3")
+debug_color = Color(0.7431185, 0.4649496, 0, 0.41960785)

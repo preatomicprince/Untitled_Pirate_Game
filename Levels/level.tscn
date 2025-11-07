@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://dy0ycajp5q7kp"]
+[gd_scene load_steps=9 format=4 uid="uid://dy0ycajp5q7kp"]
 
 [ext_resource type="PackedScene" uid="uid://byo0wsmut2awi" path="res://Ship/ship.tscn" id="1_s41d2"]
 [ext_resource type="Script" uid="uid://bhr6fj6dq1r63" path="res://Levels/level.gd" id="1_wav5q"]
@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://cq13714u6bbye" path="res://Levels/jamaica_tileset.tres" id="3_t80w2"]
 [ext_resource type="TileSet" uid="uid://bvbwlmu1j523n" path="res://Levels/fog_tile_set.tres" id="3_uhyyw"]
 [ext_resource type="NavigationPolygon" uid="uid://opnyvgdxhfix" path="res://Levels/jamaica_nav_region.tres" id="5_8a2b0"]
+[ext_resource type="Script" uid="uid://x24tgnu8llwm" path="res://Levels/town_layer.gd" id="6_8a2b0"]
 
 [sub_resource type="Curve2D" id="Curve2D_wav5q"]
 _data = {
@@ -35,6 +36,9 @@ tile_set = ExtResource("3_uhyyw")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="map layers"]
 navigation_polygon = ExtResource("5_8a2b0")
+
+[node name="town layer" type="Node2D" parent="map layers"]
+script = ExtResource("6_8a2b0")
 
 [node name="ship layer" type="Node2D" parent="."]
 

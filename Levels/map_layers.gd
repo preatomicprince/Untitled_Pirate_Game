@@ -10,6 +10,9 @@ var layer_array : Array
 #vectors for the fog of war
 var UNEXPLORED_VEC : Vector2i = Vector2i(4, 1)
 var SHADOW_VEC : Vector2i = Vector2i(1, 1)
+#town layer
+@onready var town_layer : Node2D = $"town layer"
+
 #preloads for maps and its accociated map layer
 #TORTUGA
 @onready var tortuga_nav = preload("res://Levels/tortuga_nav_region.tres")
@@ -20,8 +23,7 @@ var SHADOW_VEC : Vector2i = Vector2i(1, 1)
 
 func _ready() -> void:
 	layer_array = [tortuga_layer, jamaica_layer]
-	set_level_map(level.current_level)
-	set_initial_fog()
+	reload_map()
 
 func _process(delta: float) -> void:
 	update_fog()
@@ -67,6 +69,15 @@ func update_fog():
 #	SET INTIAL MAP STUFF
 #
 ################
+func reload_map():
+	"""
+	resets the fog sets the level again
+	will want all the towns setting as well probably
+	"""
+	set_level_map(level.current_level)
+	town_layer.spawn_towns(map_layer)
+	set_initial_fog()
+
 func set_level_map(cur_level : int):
 	"""
 	this sets the tile map in the map layer, and the nav layer in nav region
