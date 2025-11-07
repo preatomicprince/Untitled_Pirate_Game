@@ -24,27 +24,31 @@ tile_map_data = PackedByteArray("AAACAAAAAAACAAEAAAACAAEAAAACAAEAAAADAAEAAAACAAE
 tile_set = ExtResource("2_xto7t")
 
 [node name="fog layer" type="TileMapLayer" parent="map layers"]
+z_index = 100
+z_as_relative = false
 tile_set = ExtResource("3_uhyyw")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="map layers"]
 navigation_polygon = ExtResource("5_t80w2")
 
-[node name="Ship" parent="." instance=ExtResource("1_s41d2")]
+[node name="ship layer" type="Node2D" parent="."]
+
+[node name="Ship" parent="ship layer" instance=ExtResource("1_s41d2")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(721, 122)
 ship_type = 1
 team = 1
 patrolling = true
 
-[node name="Path2D" type="Path2D" parent="Ship"]
+[node name="Path2D" type="Path2D" parent="ship layer/Ship"]
 curve = SubResource("Curve2D_wav5q")
 
-[node name="Ship2" parent="." instance=ExtResource("1_s41d2")]
+[node name="Ship2" parent="ship layer" instance=ExtResource("1_s41d2")]
 position = Vector2(154, 191)
 
-[node name="Ship3" parent="." instance=ExtResource("1_s41d2")]
+[node name="Ship3" parent="ship layer" instance=ExtResource("1_s41d2")]
 position = Vector2(1109, 139)
 ship_type = 2
 
-[node name="Ship4" parent="." instance=ExtResource("1_s41d2")]
+[node name="Ship4" parent="ship layer" instance=ExtResource("1_s41d2")]
 position = Vector2(973, 60)

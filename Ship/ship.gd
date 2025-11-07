@@ -4,8 +4,10 @@ class_name Ship extends CharacterBody2D
 @onready var ship_flag : Sprite2D = $Flags
 @onready var ship_collisions : CollisionShape2D = $CollisionShape2D
 @onready var interact_area : CollisionShape2D = $Area2D/CollisionShape2D
-var level: Level = null
-var player: Player = null
+
+# Navigation
+@onready var target_pos: Vector2 = position
+@onready var nav_agent: NavigationAgent2D = $nav_agent
 
 enum Ship_Type {
 	Clipper = 0,
@@ -37,7 +39,8 @@ var stats = { # [Strength, Speed, health]
 	Ship_Type.Frigate : [3, 2, 20],
 	Ship_Type.Man_Of_War : [5, 1, 25]
 }
-
+var level: Level = null
+var player: Player = null
 # Core stats
 var strength: float = 1.0
 var speed: float  = 1.0
@@ -88,16 +91,14 @@ func set_attack_mult() -> void:
 var abilities = []
 var max_abilities = 1
 
-# Navigation
-@onready var target_pos: Vector2 = position
-@onready var nav_agent: NavigationAgent2D = $nav_agent
+
 
 var fleeing: bool = false
 
 func actor_setup():
 	await get_tree().physics_frame
 	set_target_pos(target_pos)
-	level = get_parent()
+	level = self.get_parent().get_parent()
 	player = level.player
 	if team == Team.Player:
 		player.ships.append(self)
