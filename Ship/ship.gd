@@ -1,5 +1,9 @@
 class_name Ship extends CharacterBody2D
 
+@onready var ship_ims : Sprite2D = $Ships
+@onready var ship_flag : Sprite2D = $Flags
+@onready var ship_collisions : CollisionShape2D = $CollisionShape2D
+@onready var interact_area : CollisionShape2D = $Area2D/CollisionShape2D
 var level: Level = null
 var player: Player = null
 
@@ -147,14 +151,8 @@ func _ready() -> void:
 	set_core_stats()
 	set_attack_mult()
 	
-	# todo:- actual ship art
-	match ship_type:
-		Ship_Type.Frigate:
-			$Sprite2D.scale = Vector2(0.7, 0.4)
-			$Highlight.scale = Vector2(0.7, 0.4)
-		Ship_Type.Clipper:
-			$Sprite2D.scale = Vector2(0.5, 0.3)
-			$Highlight.scale = Vector2(0.5, 0.3)
+	# TODO, ships art but better
+	decide_animation()
 	# Navigation
 	nav_agent.path_desired_distance = 4.0
 	nav_agent.target_desired_distance = 4.0
@@ -228,6 +226,27 @@ func _physics_process(delta):
 			if can_attack:
 				attack(enemy_target)
 	
+
+func decide_animation()->void:
+	"""
+	right now this just decides what colour the ship flag is, and what image the 
+	ship is. Later on ill use this to trigger the animation player
+	"""
+	#decide the image
+	ship_ims.frame = ship_type
+	#decide the ships flags and sails
+	
+	if self.team == Team.Player:
+		ship_flag.modulate = Color()
+	else:
+		ship_flag.modulate = Color(0.641, 0.515, 0.214, 1.0)
+
+
+############
+#
+#   Signal Functions
+#
+############
 
 func _on_area_2d_mouse_entered() -> void:
 	self.player.over_units.append(self)

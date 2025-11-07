@@ -1,0 +1,22 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bvbwlmu1j523n"]
+
+[ext_resource type="Texture2D" uid="uid://md18qfcd3huy" path="res://Res/map/fog.png" id="1_afn8f"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n7r2l"]
+texture = ExtResource("1_afn8f")
+texture_region_size = Vector2i(256, 200)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, 20)
+4:1/0 = 0
+4:1/0/texture_origin = Vector2i(0, 20)
+1:2/0 = 0
+2:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+
+[resource]
+tile_shape = 3
+tile_layout = 5
+tile_offset_axis = 1
+tile_size = Vector2i(250, 128)
+sources/0 = SubResource("TileSetAtlasSource_n7r2l")
