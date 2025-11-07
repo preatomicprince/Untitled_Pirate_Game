@@ -15,6 +15,10 @@ run/main_scene="uid://bp7j3le3latsc"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+run_stats="*res://Game/run_stats.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlqb34m81iits"]
+
+[ext_resource type="Script" uid="uid://y82san22nvyp" path="res://UI/game_text.gd" id="1_irbpj"]
+
+[node name="game text" type="RichTextLabel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[center] booty"
+script = ExtResource("1_irbpj")

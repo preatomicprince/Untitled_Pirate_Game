@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvftrdskh0kj7"]
+[gd_scene load_steps=4 format=3 uid="uid://cvftrdskh0kj7"]
 
 [ext_resource type="Script" uid="uid://cgeycmew53tfv" path="res://UI/ui_main.gd" id="1_6s3vw"]
 [ext_resource type="PackedScene" uid="uid://c2hhyltkknfyn" path="res://UI/war_ui.tscn" id="2_psx24"]
+[ext_resource type="PackedScene" uid="uid://capdgdxlewyxf" path="res://UI/progress_ui.tscn" id="3_kkye7"]
 
 [node name="ui main" type="CanvasLayer"]
 script = ExtResource("1_6s3vw")
 
 [node name="war ui" parent="." instance=ExtResource("2_psx24")]
+
+[node name="progress ui" parent="." instance=ExtResource("3_kkye7")]
+visible = false

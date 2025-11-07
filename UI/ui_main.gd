@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var game : Node2D = self.get_parent()
 @onready var battle_ui : Control = $"war ui"
+@onready var progress_ui : Control = $"progress ui"
 
 var all_ui_nodes : Array
 
@@ -23,3 +24,6 @@ func decide_ui(cur_scene : int) -> void:
 	match cur_scene:
 		game.scenes.Battle_field:
 			battle_ui.visible = true
+		
+		game.scenes.Progress:
+			progress_ui.visible = true

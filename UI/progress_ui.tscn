@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://capdgdxlewyxf"]
+
+[ext_resource type="Texture2D" uid="uid://ighrpnt12tdq" path="res://Res/ui/progress back.png" id="1_v6mkb"]
+[ext_resource type="Texture2D" uid="uid://bu2vx0y5issy6" path="res://Res/ui/progress bar.png" id="2_isfbs"]
+
+[node name="progress ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="back colour" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.31248918, 0.550845, 0.7020146, 1)
+
+[node name="progress" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -100.0
+offset_right = 500.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_under = ExtResource("1_v6mkb")
+texture_progress = ExtResource("2_isfbs")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.63000005
+anchor_right = 0.5
+anchor_bottom = 0.63000005
+offset_left = -51.0
+offset_top = -28.24002
+offset_right = 51.0
+offset_bottom = 28.75998
+grow_horizontal = 2
+grow_vertical = 2
+text = "continue"

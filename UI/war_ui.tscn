@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2hhyltkknfyn"]
+[gd_scene load_steps=6 format=3 uid="uid://c2hhyltkknfyn"]
 
 [ext_resource type="Script" uid="uid://du8qcmpxxymv" path="res://UI/control_for_center.gd" id="1_pma6j"]
 [ext_resource type="Texture2D" uid="uid://7b6s0lw57fk2" path="res://Res/ui/back bar.png" id="2_4uqye"]
+[ext_resource type="Texture2D" uid="uid://b62ti5xl3ufrj" path="res://Res/ui/chest.png" id="2_xla0e"]
 [ext_resource type="Texture2D" uid="uid://cfcdeoxlcsmel" path="res://Res/ui/infamy bar.png" id="3_40vmw"]
+[ext_resource type="PackedScene" uid="uid://dlqb34m81iits" path="res://UI/game_text.tscn" id="5_3yusg"]
 
 [node name="war ui" type="Control"]
 layout_mode = 3
@@ -13,6 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_pma6j")
 
 [node name="top_grid" type="GridContainer" parent="."]
 layout_mode = 1
@@ -31,7 +34,6 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_pma6j")
 
 [node name="ColorRect" type="ColorRect" parent="top_grid/control for center"]
 layout_mode = 1
@@ -41,6 +43,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.44725388, 0.34791005, 0.27069116, 1)
+
+[node name="chest" type="TextureRect" parent="top_grid/control for center"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.1110001
+anchor_right = 1.1110001
+offset_left = -115.291016
+offset_top = -17.0
+offset_right = 12.708984
+offset_bottom = 111.0
+texture = ExtResource("2_xla0e")
 
 [node name="infamy progress" type="TextureProgressBar" parent="top_grid/control for center"]
 layout_mode = 1
@@ -57,6 +70,19 @@ grow_vertical = 0
 value = 10.0
 texture_under = ExtResource("2_4uqye")
 texture_progress = ExtResource("3_40vmw")
+
+[node name="text container" type="GridContainer" parent="top_grid/control for center"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.499
+anchor_right = 0.499
+offset_left = -190.119
+offset_right = 189.881
+offset_bottom = 40.0
+
+[node name="game text" parent="top_grid/control for center/text container" instance=ExtResource("5_3yusg")]
+layout_mode = 2
+text = "[center] Treasure: 0/100"
 
 [node name="control for right" type="Control" parent="top_grid"]
 layout_mode = 2
