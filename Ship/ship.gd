@@ -26,6 +26,12 @@ enum State {
 	Imobilised
 }
 
+var rewards = { # [Gold drop, ability drop chance]
+	Ship_Type.Clipper : [10, 0],
+	Ship_Type.Frigate : [50, 0.1],
+	Ship_Type.Man_Of_War : [25, 0.3]
+}
+
 @export var ship_type: Ship_Type
 @export var team: Team
 var state: State = State.Moving
@@ -142,10 +148,18 @@ func take_damage(damage: int, attacker: Ship) -> void:
 	if enemy_target == null:
 		enemy_target = attacker
 	if health <= 0:
-		state = State.Imobilised
-		$Flags.visible = false
-		if team == Team.Player:
-			delete()
+		imobilise()
+			
+func imobilise()->void:
+	state = State.Imobilised
+	$Flags.visible = false
+	if team == Team.Player:
+		delete()
+	elif team == Team.Enemy:
+		player.gold += rewards[ship_type][0]
+		var drop_chance = randf()
+		if drop_chance < rewards[ship_type][1]:
+			pass
 			
 func delete()-> void:
 	if team == Team.Player:
