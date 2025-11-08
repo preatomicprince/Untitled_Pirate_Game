@@ -27,10 +27,10 @@ enum State {
 	Boarding
 }
 
-var rewards = { # [Gold drop, ability drop chance]
-	Ship_Type.Clipper : [10, 0],
-	Ship_Type.Frigate : [50, 0.1],
-	Ship_Type.Man_Of_War : [25, 0.3]
+var rewards = { # [Gold drop, ability drop chance, max item drop]
+	Ship_Type.Clipper : [10, 0, 2],
+	Ship_Type.Frigate : [50, 0.1, 10],
+	Ship_Type.Man_Of_War : [25, 0.3, 5]
 }
 
 @export var ship_type: Ship_Type
@@ -162,8 +162,17 @@ func imobilise()->void:
 		player.gold += rewards[ship_type][0]
 		var drop_chance = randf()
 		if drop_chance < rewards[ship_type][1]:
-			# todo: inventory
-			pass
+			var new_ability: Ability = preload("res://Abilities/ability.tscn").instantiate()
+			new_ability.ability_type = randi_range(0, Ability_Types.MAX)
+			player.add_child(new_ability)
+			player.inventory.append(new_ability)
+			
+		# Booty drops
+		var item_type = randi_range(0, 2)
+		var item_ammount = randi_range(1, rewards[ship_type][2])
+		player.booty[item_type] += item_ammount
+		print("Booty ", player.booty)
+		
 			
 func boarding() -> void:
 	if $Boarding_Timer.is_stopped():

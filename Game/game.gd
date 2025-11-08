@@ -12,7 +12,7 @@ extends Node2D
 @onready var ui = $"ui main"
 
 #using to decide how long you have in a level
-var time_left : float = 10.00
+var time_left : float = 1000.00
 var gold_target : int = 100
 
 enum scenes {
