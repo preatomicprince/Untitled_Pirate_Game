@@ -10,10 +10,11 @@ extends Node2D
 @onready var progress = $"Progress screen"
 @onready var timer = $"game timer"
 @onready var ui = $"ui main"
+@onready var camera = $"game camera"
 
 #using to decide how long you have in a level
 
-var STARTING_TIME_LEFT : float = 10.00
+var STARTING_TIME_LEFT : float = 100.00
 var time_left : float = STARTING_TIME_LEFT
 var gold_target : int = 100
 
@@ -48,6 +49,7 @@ func choose_scene(cur : int):
 			return
 			
 		scenes.Town_builder:
+			camera.snap_to(town_screen.position)
 			town_screen.visible = true
 			return
 			

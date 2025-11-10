@@ -4,6 +4,7 @@ extends Node2D
 @onready var tortuga_layer : TileMapLayer = $"tortuga layer"
 @onready var jamaica_layer : TileMapLayer = $"jamaica layer"
 @onready var cuba_layer : TileMapLayer = $"cuba layer"
+@onready var virgin_layer : TileMapLayer = $"virginia layer"
 @onready var fog_layer : TileMapLayer = $"fog layer"
 @onready var nav_region : NavigationRegion2D = $NavigationRegion2D
 
@@ -23,10 +24,13 @@ var SHADOW_VEC : Vector2i = Vector2i(1, 1)
 
 #CUBA
 @onready var cuba_nav = preload("res://Levels/cuba_nav.tres")
+
+#VIRGINIA
+@onready var virgin_nav = preload("res://Levels/virginia_nav.tres")
 #TODO set up a function that rolls back fog, and hides ships under the fog
 
 func _ready() -> void:
-	layer_array = [tortuga_layer, jamaica_layer]
+	layer_array = [tortuga_layer, jamaica_layer, cuba_layer, virgin_layer]
 	reload_map()
 
 func _process(delta: float) -> void:
@@ -101,6 +105,10 @@ func set_level_map(cur_level : int):
 		level.levels.cuba:
 			map_layer = cuba_layer
 			nav_region.navigation_polygon = cuba_nav
+		
+		level.levels.virginia:
+			map_layer = virgin_layer
+			nav_region.navigation_polygon = virgin_nav
 		
 	for l in layer_array:
 		if map_layer == l:

@@ -10,9 +10,12 @@ enum levels {
 	tortuga = 1,
 	jamaica = 2,
 	cuba,
+	virginia,
+	florida,
+	
 }
 
-var gold_rec_per_level : Dictionary = {levels.tortuga : 100, levels.jamaica : 200, levels.cuba : 300}
+var gold_rec_per_level : Dictionary = {levels.tortuga : 100, levels.jamaica : 200, levels.cuba : 300, levels.virginia : 400}
 
 var current_level : int = levels.tortuga
 
