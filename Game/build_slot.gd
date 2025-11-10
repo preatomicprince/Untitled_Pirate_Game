@@ -12,13 +12,16 @@ func create_building(build_type: int):
 	"""
 	called in the town ui, adds a building over this slot
 	"""
-	#create the building instance
-	var building_instance = building_ims.instantiate()
-	building_instance.frame = build_type
-	building_instance.position = self.position
-	town_main.building_container.add_child(building_instance)
-	
-	town_main.building_que[self.get_parent().get_children().find(self)] = town_main.function_list[build_type]
-	print(town_main.building_que)
-	self.building_here = true
-	self.visible = false
+	if town_main.game.player.gold >= town_main.building_costs[build_type]:
+		#create the building instance
+		var building_instance = building_ims.instantiate()
+		building_instance.frame = build_type
+		building_instance.position = self.position
+		town_main.building_container.add_child(building_instance)
+		
+		town_main.building_que[self.get_parent().get_children().find(self)] = town_main.function_list[build_type]
+		town_main.game.player.gold -= town_main.building_costs[build_type]
+		self.building_here = true
+		self.visible = false
+	else:
+		print("not enough gold")

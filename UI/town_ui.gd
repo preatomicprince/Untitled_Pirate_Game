@@ -13,11 +13,12 @@ enum buildings {
 @onready var ui : CanvasLayer = self.get_parent()
 @onready var player_town 
 @onready var build_options_container : Control = $"build container"
+@onready var gold_text : RichTextLabel = $"gold text"
 
 var current_slot : TextureButton
 
-func _ready() -> void:
-	print(player_town)
+func _process(delta: float) -> void:
+	gold_text.text = "Current gold: {amount}".format({"amount": ui.game.player.gold})
 
 func _on_button_pressed() -> void:
 	ui.game.reset_loop()

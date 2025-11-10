@@ -23,6 +23,16 @@ enum buildings {
 	tavern,
 }
 
+var building_costs : Dictionary = {
+	buildings.map_maker : 10,
+	buildings.sextant : 10,
+	buildings.fishmonger : 10,
+	buildings.rum_dist : 10,
+	buildings.harbour : 10, 
+	buildings.fencer : 10,
+	buildings.tavern : 10
+	}
+
 #values related to buildings
 var TIME_ADD : float = 5.0
 var HEALTH_ADD : float = 5.0
