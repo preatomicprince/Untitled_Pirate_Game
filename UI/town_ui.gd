@@ -5,6 +5,7 @@ enum buildings {
 	sextant = 1,
 	fishmonger,
 	rum_dist,
+	harbour,
 	fencer,
 	tavern,
 }
@@ -59,6 +60,9 @@ func _on_tavern_pressed() -> void:
 	current_slot.create_building(buildings.tavern)
 	build_options_container.visible = false
 
-
+func _on_harbour_pressed() -> void:
+	current_slot.create_building(buildings.harbour)
+	build_options_container.visible = false
+	
 func _on_close_pressed() -> void:
 	build_options_container.visible = false

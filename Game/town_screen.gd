@@ -18,6 +18,7 @@ enum buildings {
 	sextant = 1,
 	fishmonger,
 	rum_dist,
+	harbour,
 	fencer,
 	tavern,
 }

@@ -27,7 +27,6 @@ offset_bottom = 38.22399
 text = "temp go to game button"
 
 [node name="build container" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchor_left = 0.049000002
 anchor_right = 0.96400005
@@ -80,7 +79,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-columns = 7
+columns = 8
 
 [node name="map maker" type="Button" parent="build container/GridContainer"]
 layout_mode = 2
@@ -108,6 +107,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Rum distilery"
 
+[node name="harbour" type="Button" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "harbour"
+
 [node name="fencer" type="Button" parent="build container/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -131,6 +136,7 @@ text = "close"
 [connection signal="pressed" from="build container/GridContainer/sextant" to="." method="_on_sextant_pressed"]
 [connection signal="pressed" from="build container/GridContainer/fishmonger" to="." method="_on_fishmonger_pressed"]
 [connection signal="pressed" from="build container/GridContainer/rum distilery" to="." method="_on_rum_distilery_pressed"]
+[connection signal="pressed" from="build container/GridContainer/harbour" to="." method="_on_harbour_pressed"]
 [connection signal="pressed" from="build container/GridContainer/fencer" to="." method="_on_fencer_pressed"]
 [connection signal="pressed" from="build container/GridContainer/tavern" to="." method="_on_tavern_pressed"]
 [connection signal="pressed" from="build container/GridContainer/close" to="." method="_on_close_pressed"]
