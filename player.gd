@@ -15,8 +15,12 @@ var selected_units: Array = []
 
 var level: Level 
 
+var STARTING_NUM_SHIPS : int = 3
+var maximum_number_of_ships : int = STARTING_NUM_SHIPS
 var gold: int = 0
 var infamy: int = 0
+var STARTING_MULTIPLIER : float = 1.0
+var sell_item_multiplier : float = 1.0
 
 func setup() -> void:
 	await get_tree().physics_frame

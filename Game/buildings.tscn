@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt8dt0i10r3cc"]
+
+[ext_resource type="Texture2D" uid="uid://h770ijgvu17e" path="res://Res/ui/building_animations.png" id="1_gipa0"]
+
+[node name="buildings" type="Sprite2D"]
+texture = ExtResource("1_gipa0")
+vframes = 7

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://si6480vywl32"]
+[gd_scene load_steps=3 format=3 uid="uid://si6480vywl32"]
 
 [ext_resource type="Script" uid="uid://bevmywlewuwg3" path="res://UI/town_ui.gd" id="1_t4npv"]
+[ext_resource type="PackedScene" uid="uid://dlqb34m81iits" path="res://UI/game_text.tscn" id="2_n54da"]
 
 [node name="town_ui" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_t4npv")
 
 [node name="Button" type="Button" parent="."]
@@ -24,4 +26,111 @@ offset_right = 146.656
 offset_bottom = 38.22399
 text = "temp go to game button"
 
+[node name="build container" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.049000002
+anchor_right = 0.96400005
+anchor_bottom = 1.0
+offset_left = -0.44800186
+offset_top = 532.0
+offset_right = -0.5280762
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="game text" parent="build container" instance=ExtResource("2_n54da")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -74.0
+offset_top = -50.0
+offset_right = 74.0
+offset_bottom = 6.0
+grow_horizontal = 1
+grow_vertical = 1
+text = "[center] Build options"
+
+[node name="ColorRect" type="ColorRect" parent="build container/game text"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.641399, 0.17218906, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="build container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.641399, 0.17218906, 0, 1)
+
+[node name="GridContainer" type="GridContainer" parent="build container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+columns = 7
+
+[node name="map maker" type="Button" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "map maker
+"
+
+[node name="sextant" type="Button" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Sextant"
+
+[node name="fishmonger" type="Button" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Fishmonger
+"
+
+[node name="rum distilery" type="Button" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Rum distilery"
+
+[node name="fencer" type="Button" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Fencer"
+
+[node name="tavern" type="Button" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Tavern
+"
+
+[node name="close" type="Button" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "close"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="build container/GridContainer/map maker" to="." method="_on_map_maker_pressed"]
+[connection signal="pressed" from="build container/GridContainer/sextant" to="." method="_on_sextant_pressed"]
+[connection signal="pressed" from="build container/GridContainer/fishmonger" to="." method="_on_fishmonger_pressed"]
+[connection signal="pressed" from="build container/GridContainer/rum distilery" to="." method="_on_rum_distilery_pressed"]
+[connection signal="pressed" from="build container/GridContainer/fencer" to="." method="_on_fencer_pressed"]
+[connection signal="pressed" from="build container/GridContainer/tavern" to="." method="_on_tavern_pressed"]
+[connection signal="pressed" from="build container/GridContainer/close" to="." method="_on_close_pressed"]
