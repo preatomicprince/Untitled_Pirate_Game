@@ -3,6 +3,7 @@ extends Node2D
 @onready var map_layer : TileMapLayer 
 @onready var tortuga_layer : TileMapLayer = $"tortuga layer"
 @onready var jamaica_layer : TileMapLayer = $"jamaica layer"
+@onready var cuba_layer : TileMapLayer = $"cuba layer"
 @onready var fog_layer : TileMapLayer = $"fog layer"
 @onready var nav_region : NavigationRegion2D = $NavigationRegion2D
 
@@ -19,6 +20,9 @@ var SHADOW_VEC : Vector2i = Vector2i(1, 1)
 
 #JAMAICA
 @onready var jamaica_nav = preload("res://Levels/jamaica_nav_region.tres")
+
+#CUBA
+@onready var cuba_nav = preload("res://Levels/cuba_nav.tres")
 #TODO set up a function that rolls back fog, and hides ships under the fog
 
 func _ready() -> void:
@@ -93,7 +97,11 @@ func set_level_map(cur_level : int):
 		level.levels.jamaica:
 			map_layer = jamaica_layer
 			nav_region.navigation_polygon = jamaica_nav
-	
+		
+		level.levels.cuba:
+			map_layer = cuba_layer
+			nav_region.navigation_polygon = cuba_nav
+		
 	for l in layer_array:
 		if map_layer == l:
 			l.visible = true
