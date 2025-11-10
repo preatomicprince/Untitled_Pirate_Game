@@ -21,8 +21,6 @@ position = Vector2(-192, 149)
 [node name="Progress screen" parent="." instance=ExtResource("4_oomkl")]
 visible = false
 
-[node name="Player" parent="." instance=ExtResource("2_1r4le")]
-
 [node name="game camera" parent="." instance=ExtResource("3_7raqb")]
 position = Vector2(357, 350)
 
@@ -31,5 +29,7 @@ position = Vector2(357, 350)
 [node name="game timer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
+
+[node name="Player" parent="." instance=ExtResource("2_1r4le")]
 
 [connection signal="timeout" from="game timer" to="." method="_on_game_timer_timeout"]

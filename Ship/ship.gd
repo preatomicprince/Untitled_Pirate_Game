@@ -27,10 +27,10 @@ enum State {
 	Boarding
 }
 
-var rewards = { # [Gold drop, ability drop chance]
-	Ship_Type.Clipper : [10, 0],
-	Ship_Type.Frigate : [50, 0.1],
-	Ship_Type.Man_Of_War : [25, 0.3]
+var rewards = { # [Gold drop, ability drop chance, max item drop]
+	Ship_Type.Clipper : [10, 0, 2],
+	Ship_Type.Frigate : [50, 0.1, 10],
+	Ship_Type.Man_Of_War : [25, 0.3, 5]
 }
 
 @export var ship_type: Ship_Type
@@ -56,6 +56,10 @@ var firing_speed: float = 1.0
 var boarding_speed: float = 6.0
 var accuracy: float = 0.8
 
+var damage_over_time: bool = false
+var crit_odds: float = 0.05
+const CRIT_MULT: float = 2.0
+
 const MOVE_SPEED = 50 # Const to change speed of all ships moving
 
 func set_core_stats() -> void:
@@ -73,6 +77,14 @@ func set_core_stats() -> void:
 				self.firing_speed += Ability_Values.Munitions_Training
 			Ability_Types.Grappling_Hooks:
 				self.boarding_speed += Ability_Values.Grappling_Hooks
+				
+			Ability_Types.Fireshot:
+				self.strength += self.strength*Ability_Values.Fireshot_Dam
+				self.damage_over_time = true
+			Ability_Types.Chainshot:
+				self.strength += self.strength*Ability_Values.Chainshot_Dam
+				self.crit_chance += Ability_Values.Chainshot_Crit
+				
 		
 	
 # Attack multipliers
@@ -86,11 +98,12 @@ func set_attack_mult() -> void:
 	for i in self.abilities:
 		match i:
 			Ability_Types.Grapeshot:
-				town_attack += Ability_Values.Grapeshot
-				ship_attack -= Ability_Values.Grapeshot
+				town_attack += Ability_Values.Grapeshot_Town_Dam
+				ship_attack += Ability_Values.Grapeshot_Ship_Dam
 			Ability_Types.Artillery:
-				town_attack -= Ability_Values.Artillery
-				ship_attack += Ability_Values.Artillery
+				town_attack += Ability_Values.Artillery_Town_Dam
+				ship_attack += Ability_Values.Artillery_Ship_Dam
+				
 
 # Ability slots
 var abilities = []
@@ -120,7 +133,9 @@ func set_target_pos(target_pos: Vector2):
 # Combat
 var enemy_target: Ship = null
 const COMBAT_DISTANCE = 100
-var can_attack = true
+var can_attack: bool = true
+var on_fire: bool = false
+var fire_time: int = 0
 
 # AI
 var path_points: Array = []
@@ -139,16 +154,32 @@ func attack(ship: Ship) -> void:
 	$Combat_Timer.start()
 	can_attack = false
 	var hit_chance = randfn(0.0, 1.0)
+	var crit_chance = randf()
 	if hit_chance < accuracy:
 		print(self, " Hit ", ship.health)
-		ship.take_damage(strength, self)
+		var damage = self.strength
+		if crit_chance < crit_odds:
+			damage = self.CRIT_MULT
+		ship.take_damage(damage, self)
 		
 func take_damage(damage: int, attacker: Ship) -> void:
 	health -= damage
+	
+	if health <= 0:
+		if attacker != null:
+			if Ability_Types.Charismatic_Captain in attacker.abilities:
+				attacker.health += Ability_Values.Charismatic_HP
+		imobilise()
+		
+	if attacker == null:
+		return
+		
+	if attacker.abilities.has(Ability_Types.Fireshot):
+		fire_time = Ability_Values.Fire_Time
+		$Fire_Timer.start(1.0)
 	if enemy_target == null:
 		enemy_target = attacker
-	if health <= 0:
-		imobilise()
+	
 			
 func imobilise()->void:
 	state = State.Imobilised
@@ -162,8 +193,17 @@ func imobilise()->void:
 		player.gold += rewards[ship_type][0]
 		var drop_chance = randf()
 		if drop_chance < rewards[ship_type][1]:
-			# todo: inventory
-			pass
+			var new_ability: Ability = preload("res://Abilities/ability.tscn").instantiate()
+			new_ability.ability_type = randi_range(0, Ability_Types.MAX)
+			player.add_child(new_ability)
+			player.inventory.append(new_ability)
+			
+		# Booty drops
+		var item_type = randi_range(0, 2)
+		var item_ammount = randi_range(1, rewards[ship_type][2])
+		player.booty[item_type] += item_ammount
+		print("Booty ", player.booty)
+		
 			
 func boarding() -> void:
 	if $Boarding_Timer.is_stopped():
@@ -342,3 +382,9 @@ func _on_boarding_timer_timeout() -> void:
 	enemy_target.capture()
 	enemy_target = null
 	state = State.Moving
+
+
+func _on_fire_timer_timeout() -> void:
+	if fire_time > 0:
+		take_damage(Ability_Values.Fire_Dam, null)
+		$Fire_Timer.start()

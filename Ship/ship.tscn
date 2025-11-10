@@ -43,6 +43,9 @@ one_shot = true
 [node name="Boarding_Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Fire_Timer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Ships" type="Sprite2D" parent="."]
 y_sort_enabled = true
 position = Vector2(-4, -86)
@@ -58,3 +61,4 @@ texture = ExtResource("4_d6neq")
 [connection signal="timeout" from="Combat_Timer" to="." method="_on_combat_timer_timeout"]
 [connection signal="timeout" from="Flee_Timer" to="." method="_on_flee_timer_timeout"]
 [connection signal="timeout" from="Boarding_Timer" to="." method="_on_boarding_timer_timeout"]
+[connection signal="timeout" from="Fire_Timer" to="." method="_on_fire_timer_timeout"]

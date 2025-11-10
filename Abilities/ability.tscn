@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx3j4l7xfnmgb"]
+
+[ext_resource type="Script" uid="uid://10u1id84xljv" path="res://Abilities/ability.gd" id="1_1hfje"]
+[ext_resource type="Texture2D" uid="uid://cjmt5ooo3amfk" path="res://icon.svg" id="2_8yxap"]
+
+[node name="Ability" type="Node2D"]
+script = ExtResource("1_1hfje")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_8yxap")

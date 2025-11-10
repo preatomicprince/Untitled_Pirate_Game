@@ -22,6 +22,15 @@ var infamy: int = 0
 var STARTING_MULTIPLIER : float = 1.0
 var sell_item_multiplier : float = 1.0
 
+# Used to buy abilities. Each type buy different types of abilities
+var booty: Array = [0, 0, 0]
+#0 Cotton, Defensive
+#1 Grain, Offensive
+#2 Jewels, Misc.
+
+# Stores abilities
+var inventory: Array = []
+
 func setup() -> void:
 	await get_tree().physics_frame
 	level = $"../Level"

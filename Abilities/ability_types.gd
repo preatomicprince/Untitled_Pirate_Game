@@ -6,11 +6,11 @@ enum {
 	Ornate_Cannons, # +Strength
 	Munitions_Training, # +Fire-rate
 	Grappling_Hooks, # +Boarding speed
-	#Fireshot, #1.25x damage. Damage over time
+	Fireshot, #0.75 base damage. Sets on fire (1 dam per sec for 5 secs)
 	Grapeshot, #+25% dam against towns, -25% dam against ships
 	Artillery, #+25% dam to ships, -25% dam against towns
-	#Chainshot, #-25% damage, 10% chance to immobilise
-	#Charismatic_Captain, #Restore 10hp when capturing enemy ship
+	Chainshot, #-25% damage, +10% crit chance
+	Charismatic_Captain, #Restore 10hp when capturing enemy ship
 	#Mouser, # Cat
-	#Bribes	#Start with -50 gold, infamy increases 5% slower 
+	MAX
 }
