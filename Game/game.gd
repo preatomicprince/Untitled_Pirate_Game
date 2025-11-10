@@ -12,7 +12,9 @@ extends Node2D
 @onready var ui = $"ui main"
 
 #using to decide how long you have in a level
-var time_left : float = 1000.00
+
+var STARTING_TIME_LEFT : float = 10.00
+var time_left : float = STARTING_TIME_LEFT
 var gold_target : int = 100
 
 enum scenes {
@@ -24,7 +26,7 @@ enum scenes {
 	Progress
 }
 
-var current_scene : int = scenes.Progress
+var current_scene : int = scenes.Town_builder
 
 func _ready() -> void:
 	choose_scene(current_scene)
@@ -38,7 +40,7 @@ func choose_scene(cur : int):
 	match cur:
 		scenes.Battle_field:
 			level.visible = true
-			timer.start(time_left)
+			town_screen.new_map()
 			return
 			
 		scenes.Progress:
@@ -50,7 +52,6 @@ func choose_scene(cur : int):
 			return
 			
 
-
 func reset_loop():
 	"""
 	if you get booted back to the town, this function resets all the levels and shit
@@ -58,15 +59,16 @@ func reset_loop():
 	"""
 	level.current_level = level.levels.tortuga
 	current_scene = scenes.Battle_field
-	choose_scene(current_scene)
 	level.reload_map()
+	choose_scene(current_scene)
+	
 
 func _on_game_timer_timeout() -> void:
 	#TODO this should only kill you if you didnt reach the gold threshold
 	if player.gold >= self.gold_target:
 		current_scene = scenes.Progress
-		choose_scene(current_scene)
 		level.current_level += 1
 		level.reload_map()
+		choose_scene(current_scene)
 	else:
 		player.defeated = true
