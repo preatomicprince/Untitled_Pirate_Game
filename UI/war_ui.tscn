@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2hhyltkknfyn"]
+[gd_scene load_steps=7 format=3 uid="uid://c2hhyltkknfyn"]
 
 [ext_resource type="Script" uid="uid://du8qcmpxxymv" path="res://UI/control_for_center.gd" id="1_pma6j"]
 [ext_resource type="Texture2D" uid="uid://7b6s0lw57fk2" path="res://Res/ui/back bar.png" id="2_4uqye"]
 [ext_resource type="Texture2D" uid="uid://b62ti5xl3ufrj" path="res://Res/ui/chest.png" id="2_xla0e"]
 [ext_resource type="Texture2D" uid="uid://cfcdeoxlcsmel" path="res://Res/ui/infamy bar.png" id="3_40vmw"]
 [ext_resource type="PackedScene" uid="uid://dlqb34m81iits" path="res://UI/game_text.tscn" id="5_3yusg"]
+[ext_resource type="PackedScene" uid="uid://jraafnv2rfcb" path="res://UI/Ability_UI.tscn" id="6_3yusg"]
 
 [node name="war ui" type="Control"]
 layout_mode = 3
@@ -88,3 +89,67 @@ text = "[center] Treasure: 0/100"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="bottom_grid" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.012
+anchor_top = 0.82100004
+anchor_right = 0.99000007
+anchor_bottom = 0.989
+offset_left = 0.17599964
+offset_top = -0.0079956055
+offset_right = 14.519897
+offset_bottom = 0.12799072
+grow_vertical = 0
+mouse_filter = 0
+columns = 3
+
+[node name="left" type="Control" parent="bottom_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="centre" type="HBoxContainer" parent="bottom_grid"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AbilityUi" parent="bottom_grid/centre" instance=ExtResource("6_3yusg")]
+layout_mode = 2
+ability_type = 2
+
+[node name="AbilityUi2" parent="bottom_grid/centre" instance=ExtResource("6_3yusg")]
+layout_mode = 2
+
+[node name="AbilityUi3" parent="bottom_grid/centre" instance=ExtResource("6_3yusg")]
+layout_mode = 2
+
+[node name="AbilityUi4" parent="bottom_grid/centre" instance=ExtResource("6_3yusg")]
+layout_mode = 2
+
+[node name="AbilityUi5" parent="bottom_grid/centre" instance=ExtResource("6_3yusg")]
+layout_mode = 2
+
+[node name="right" type="Control" parent="bottom_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Ship_Info" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 385.0
+offset_bottom = 351.0
+columns = 3
+
+[connection signal="mouse_entered" from="bottom_grid/centre/AbilityUi" to="." method="_on_UI_entered"]
+[connection signal="mouse_exited" from="bottom_grid/centre/AbilityUi" to="." method="_on_UI_exited"]
+[connection signal="mouse_entered" from="bottom_grid/centre/AbilityUi2" to="." method="_on_UI_entered"]
+[connection signal="mouse_exited" from="bottom_grid/centre/AbilityUi2" to="." method="_on_UI_exited"]
+[connection signal="mouse_entered" from="bottom_grid/centre/AbilityUi3" to="." method="_on_UI_entered"]
+[connection signal="mouse_exited" from="bottom_grid/centre/AbilityUi3" to="." method="_on_UI_exited"]
+[connection signal="mouse_entered" from="bottom_grid/centre/AbilityUi4" to="." method="_on_UI_entered"]
+[connection signal="mouse_exited" from="bottom_grid/centre/AbilityUi4" to="." method="_on_UI_exited"]
+[connection signal="mouse_entered" from="bottom_grid/centre/AbilityUi5" to="." method="_on_UI_entered"]
+[connection signal="mouse_exited" from="bottom_grid/centre/AbilityUi5" to="." method="_on_UI_exited"]

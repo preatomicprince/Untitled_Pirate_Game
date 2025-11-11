@@ -30,6 +30,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAACAAEAAAAAAAEAAAACAAEAAAAAAAIAAAACAAE
 tile_set = ExtResource("3_t80w2")
 
 [node name="fog layer" type="TileMapLayer" parent="map layers"]
+visible = false
 z_index = 100
 z_as_relative = false
 tile_set = ExtResource("3_uhyyw")

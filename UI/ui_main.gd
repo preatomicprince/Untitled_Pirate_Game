@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var game : Node2D = self.get_parent()
+@onready var game : Game = self.get_parent()
 @onready var battle_ui : Control = $"war ui"
 @onready var progress_ui : Control = $"progress ui"
 @onready var town_ui : Control = $town_ui

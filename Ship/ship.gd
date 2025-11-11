@@ -106,8 +106,8 @@ func set_attack_mult() -> void:
 				
 
 # Ability slots
-var abilities = []
-var max_abilities = 1
+var abilities = [0, 0, 0]
+var max_abilities = 3
 
 var team_colour = Color()
 var enemy_colour = Color(0.641, 0.515, 0.214, 1.0)
@@ -146,7 +146,6 @@ func get_path_points() -> void:
 	for i in range($Path2D.curve.get_point_count()):
 		path_points.append($Path2D.curve.get_point_position(i) + position)
 		
-	print(path_points)
 
 func attack(ship: Ship) -> void:
 	if can_attack == false:
@@ -156,7 +155,6 @@ func attack(ship: Ship) -> void:
 	var hit_chance = randfn(0.0, 1.0)
 	var crit_chance = randf()
 	if hit_chance < accuracy:
-		print(self, " Hit ", ship.health)
 		var damage = self.strength
 		if crit_chance < crit_odds:
 			damage = self.CRIT_MULT
@@ -193,16 +191,12 @@ func imobilise()->void:
 		player.gold += rewards[ship_type][0]
 		var drop_chance = randf()
 		if drop_chance < rewards[ship_type][1]:
-			var new_ability: Ability = preload("res://Abilities/ability.tscn").instantiate()
-			new_ability.ability_type = randi_range(0, Ability_Types.MAX)
-			player.add_child(new_ability)
-			player.inventory.append(new_ability)
+			player.get_ability(randi_range(0, Ability_Types.MAX))
 			
 		# Booty drops
 		var item_type = randi_range(0, 2)
 		var item_ammount = randi_range(1, rewards[ship_type][2])
 		player.booty[item_type] += item_ammount
-		print("Booty ", player.booty)
 		
 			
 func boarding() -> void:
