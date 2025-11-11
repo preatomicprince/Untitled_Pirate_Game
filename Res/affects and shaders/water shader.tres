@@ -17,5 +17,5 @@ shader_parameter/fractal_color = Color(1, 1, 1, 1)
 shader_parameter/fractals = ExtResource("2_wab7e")
 shader_parameter/scale = 110.0
 shader_parameter/opacity = 0.45000000670554
-shader_parameter/distortion_strength = 0.95000001415614
-shader_parameter/fractal_strength = 0.70000001043084
+shader_parameter/distortion_strength = 0.2500000037253
+shader_parameter/fractal_strength = 0.2500000037253

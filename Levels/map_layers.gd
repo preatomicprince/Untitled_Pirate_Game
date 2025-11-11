@@ -18,7 +18,7 @@ var SHADOW_VEC : Vector2i = Vector2i(1, 1)
 #vectors for water
 var WATER_VECS : Array[Vector2i] = [Vector2i(2, 1), Vector2i(2, 0)]
 #vects for ground
-var GROUND_TILE : Vector2i = Vector2i(1, 1)
+var GROUND_TILE : Array[Vector2i] = [Vector2i(1, 1), Vector2i(1, 2), Vector2i(1, 3), Vector2i(1, 4)]
 var TREE_TILE : Vector2i = Vector2i(3, 0)
 #town layer
 @onready var town_layer : Node2D = $"town layer"
@@ -138,5 +138,5 @@ func set_water_and_tree_tiles():
 		if map_layer.get_cell_atlas_coords(t) in WATER_VECS:
 			water_layer.set_cell(t, 0, map_layer.get_cell_atlas_coords(t))
 		
-		if map_layer.get_cell_atlas_coords(t) == GROUND_TILE:
+		if map_layer.get_cell_atlas_coords(t) in GROUND_TILE:
 			tree_layer.set_cell(t, 0, TREE_TILE)

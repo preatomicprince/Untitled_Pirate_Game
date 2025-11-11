@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://hocuafbd7ase"]
+
+[ext_resource type="Shader" uid="uid://caics0m83mlf4" path="res://Res/affects and shaders/fog shader.gdshader" id="1_nq0ax"]
+
+[resource]
+shader = ExtResource("1_nq0ax")
