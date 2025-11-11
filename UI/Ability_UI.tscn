@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://jraafnv2rfcb"]
 
-[ext_resource type="Script" uid="uid://4rc0na4dnx8r" path="res://UI/ability_ui.gd" id="1_m28sf"]
+[ext_resource type="Script" path="res://UI/ability_ui.gd" id="1_m28sf"]
 [ext_resource type="Texture2D" uid="uid://18dysms53dfw" path="res://UI/test_Ability_Sprites.png" id="2_cqnvb"]
 
 [node name="AbilityUi" type="Control"]
@@ -26,4 +26,3 @@ scale = Vector2(0.78, 0.78)
 texture = ExtResource("2_cqnvb")
 centered = false
 hframes = 10
-frame = 9

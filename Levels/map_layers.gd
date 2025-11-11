@@ -6,12 +6,20 @@ extends Node2D
 @onready var cuba_layer : TileMapLayer = $"cuba layer"
 @onready var virgin_layer : TileMapLayer = $"virginia layer"
 @onready var fog_layer : TileMapLayer = $"fog layer"
+@onready var water_layer : TileMapLayer = $"water layer"
+@onready var tree_layer : TileMapLayer = $"tree layer"
 @onready var nav_region : NavigationRegion2D = $NavigationRegion2D
+
 
 var layer_array : Array 
 #vectors for the fog of war
 var UNEXPLORED_VEC : Vector2i = Vector2i(4, 1)
 var SHADOW_VEC : Vector2i = Vector2i(1, 1)
+#vectors for water
+var WATER_VECS : Array[Vector2i] = [Vector2i(2, 1), Vector2i(2, 0)]
+#vects for ground
+var GROUND_TILE : Vector2i = Vector2i(1, 1)
+var TREE_TILE : Vector2i = Vector2i(3, 0)
 #town layer
 @onready var town_layer : Node2D = $"town layer"
 
@@ -87,6 +95,7 @@ func reload_map():
 		town_layer.clear_towns()
 	town_layer.spawn_towns(map_layer)
 	set_initial_fog()
+	set_water_and_tree_tiles()
 
 func set_level_map(cur_level : int):
 	"""
@@ -119,3 +128,15 @@ func set_level_map(cur_level : int):
 func set_initial_fog():
 	for t in map_layer.get_used_cells():
 		fog_layer.set_cell(t, 0, UNEXPLORED_VEC)
+
+func set_water_and_tree_tiles():
+	"""
+	this layer has a shader on it that goes over the normal tile map and gives movement to the ocean
+	"""
+	water_layer.clear()
+	for t in map_layer.get_used_cells():
+		if map_layer.get_cell_atlas_coords(t) in WATER_VECS:
+			water_layer.set_cell(t, 0, map_layer.get_cell_atlas_coords(t))
+		
+		if map_layer.get_cell_atlas_coords(t) == GROUND_TILE:
+			tree_layer.set_cell(t, 0, TREE_TILE)
