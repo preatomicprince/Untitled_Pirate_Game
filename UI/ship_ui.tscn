@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1j1en2lqv2lr"]
+
+[ext_resource type="Script" uid="uid://ctgpsvqluht2t" path="res://UI/ship_ui.gd" id="1_du878"]
+[ext_resource type="Texture2D" uid="uid://cjmt5ooo3amfk" path="res://icon.svg" id="1_k7m5k"]
+[ext_resource type="Texture2D" uid="uid://18dysms53dfw" path="res://UI/test_Ability_Sprites.png" id="3_du878"]
+
+[node name="Ship_UI" type="Control"]
+z_index = 1000
+custom_minimum_size = Vector2(100, 400)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1052.0
+offset_bottom = -348.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_du878")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 400.0
+mouse_filter = 2
+
+[node name="Ship" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("1_k7m5k")
+expand_mode = 1
+
+[node name="Ability" type="Sprite2D" parent="."]
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("3_du878")
+centered = false
+offset = Vector2(0, 128)
+hframes = 10
+
+[node name="Ability2" type="Sprite2D" parent="."]
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("3_du878")
+centered = false
+offset = Vector2(0, 256)
+hframes = 10
+frame = 2
+
+[node name="Ability3" type="Sprite2D" parent="."]
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("3_du878")
+centered = false
+offset = Vector2(0, 382)
+hframes = 10
+frame = 4
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

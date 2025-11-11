@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnpyd2j68dpuf"]
+
+[ext_resource type="PackedScene" uid="uid://jraafnv2rfcb" path="res://UI/Ability_UI.tscn" id="1_3jdsf"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AbilityUi" parent="." instance=ExtResource("1_3jdsf")]
+layout_mode = 1
+offset_left = 141.0
+offset_top = 80.84799
+offset_right = 141.12799
+offset_bottom = 80.543976
+ability_type = 1
+
+[node name="AbilityUi2" parent="." instance=ExtResource("1_3jdsf")]
+layout_mode = 1
+offset_left = 706.0
+offset_top = 245.84799
+offset_right = 706.128
+offset_bottom = 245.54398
+ability_type = 2
+
+[node name="AbilityUi3" parent="." instance=ExtResource("1_3jdsf")]
+layout_mode = 1
+offset_left = 280.0
+offset_top = 450.848
+offset_right = 280.128
+offset_bottom = 450.544
