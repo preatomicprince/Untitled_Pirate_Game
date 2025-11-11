@@ -21,6 +21,7 @@ func set_ability_type(ability: int, index: int) -> int:
 	var prev_type = abilities[index]
 	abilities[index] = ability
 	ship.abilities[index] = abilities[index]
+	ship.set_abilities()
 	update_texture()
 	return prev_type
 	

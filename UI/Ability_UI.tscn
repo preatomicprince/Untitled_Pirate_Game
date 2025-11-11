@@ -26,3 +26,4 @@ scale = Vector2(0.78, 0.78)
 texture = ExtResource("2_cqnvb")
 centered = false
 hframes = 10
+frame = 9

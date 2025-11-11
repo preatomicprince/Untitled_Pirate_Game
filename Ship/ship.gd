@@ -85,7 +85,9 @@ func set_core_stats() -> void:
 				self.strength += self.strength*Ability_Values.Chainshot_Dam
 				self.crit_chance += Ability_Values.Chainshot_Crit
 				
-		
+func set_abilities():
+	set_core_stats()
+	set_attack_mult()
 	
 # Attack multipliers
 var town_attack: float = 1.0
