@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://byo0wsmut2awi"]
+[gd_scene load_steps=8 format=3 uid="uid://byo0wsmut2awi"]
 
 [ext_resource type="Texture2D" uid="uid://cjmt5ooo3amfk" path="res://icon.svg" id="1_1p84g"]
 [ext_resource type="Script" uid="uid://cpkkr2dlf0oww" path="res://Ship/ship.gd" id="1_q4ev1"]
 [ext_resource type="Texture2D" uid="uid://dta8x6s13djgd" path="res://Res/characters and towns/ships.png" id="3_1w8ol"]
 [ext_resource type="Texture2D" uid="uid://dq614idwdgse5" path="res://Res/characters and towns/flags.png" id="4_d6neq"]
+[ext_resource type="Texture2D" uid="uid://e71cg1xkaxja" path="res://Res/characters and towns/carrack.png" id="5_d6neq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4ev1"]
 size = Vector2(181, 129)
@@ -47,14 +48,21 @@ one_shot = true
 one_shot = true
 
 [node name="Ships" type="Sprite2D" parent="."]
+visible = false
 y_sort_enabled = true
 position = Vector2(-4, -86)
 texture = ExtResource("3_1w8ol")
 hframes = 3
 
 [node name="Flags" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-5, -88)
 texture = ExtResource("4_d6neq")
+
+[node name="Carrack" type="Sprite2D" parent="."]
+texture = ExtResource("5_d6neq")
+hframes = 20
+vframes = 4
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

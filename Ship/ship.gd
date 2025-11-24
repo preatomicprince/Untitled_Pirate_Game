@@ -9,6 +9,15 @@ class_name Ship extends CharacterBody2D
 @onready var target_pos: Vector2 = position
 @onready var nav_agent: NavigationAgent2D = $nav_agent
 
+var ship_frames : Dictionary = {"LEFT": 60,
+		"RIGHT": 20,
+		"UP": 0,
+		"DOWN": 40,
+		"TOP_LEFT": 70,
+		"TOP_RIGHT": 10,
+		"BOTTOM_LEFT": 50,
+		"BOTTOM_RIGHT": 30}
+
 enum Ship_Type {
 	Clipper = 0,
 	Frigate = 1,
@@ -246,8 +255,7 @@ func _ready() -> void:
 	set_core_stats()
 	set_attack_mult()
 	
-	# TODO, ships art but better
-	decide_animation()
+
 	# Navigation
 	nav_agent.path_desired_distance = 4.0
 	nav_agent.target_desired_distance = 4.0
@@ -308,6 +316,18 @@ func _physics_process(delta):
 			var next_path_position: Vector2 = nav_agent.get_next_path_position()
 			
 			velocity = current_agent_position.direction_to(next_path_position) * speed * MOVE_SPEED
+			var angle = velocity.angle()
+			
+			var angle_deg = rad_to_deg(velocity.angle())
+			if angle_deg < 0:
+				angle_deg += 360
+
+			$Carrack.frame = lerp($Carrack.frame, int(round(angle_deg / 360.0 * 80)) % 80, 0.1)
+
+
+				#var dirs = get_direction_flags(angle)
+				#decide_animation(dirs)
+					
 			move_and_slide()
 			
 		State.Combat:
@@ -330,8 +350,48 @@ func _physics_process(delta):
 			if enemy_target == null or enemy_target.state != State.Imobilised:
 				stop_boarding()
 	
+func get_direction_flags(angle: float) -> Dictionary:
+	# Convert radians to degrees for easier reasoning
+	var deg = rad_to_deg(angle)
 
-func decide_animation()->void:
+	# Normalize to -180..180
+	if deg > 180:
+		deg -= 360
+	elif deg < -180:
+		deg += 360
+
+	# Initialize flags
+	var flags = {
+		"LEFT": false,
+		"RIGHT": false,
+		"UP": false,
+		"DOWN": false,
+		"TOP_LEFT": false,
+		"TOP_RIGHT": false,
+		"BOTTOM_LEFT": false,
+		"BOTTOM_RIGHT": false
+	}
+
+	# Each slice is 45° wide
+	if deg >= -22.5 and deg < 22.5:
+		flags["RIGHT"] = true
+	elif deg >= 22.5 and deg < 67.5:
+		flags["BOTTOM_RIGHT"] = true
+	elif deg >= 67.5 and deg < 112.5:
+		flags["DOWN"] = true
+	elif deg >= 112.5 and deg < 157.5:
+		flags["BOTTOM_LEFT"] = true
+	elif deg >= 157.5 or deg < -157.5:
+		flags["LEFT"] = true
+	elif deg >= -157.5 and deg < -112.5:
+		flags["TOP_LEFT"] = true
+	elif deg >= -112.5 and deg < -67.5:
+		flags["UP"] = true
+	elif deg >= -67.5 and deg < -22.5:
+		flags["TOP_RIGHT"] = true
+
+	return flags
+func decide_animation(direction : Dictionary)->void:
 	"""
 	right now this just decides what colour the ship flag is, and what image the 
 	ship is. Later on ill use this to trigger the animation player
@@ -344,7 +404,30 @@ func decide_animation()->void:
 		ship_flag.modulate = team_colour
 	else:
 		ship_flag.modulate = enemy_colour
+	
+	if direction["LEFT"] ==  true:
+		$Carrack.frame = lerp($Carrack.frame, ship_frames["LEFT"], 0.1)
 
+	if direction["RIGHT"] ==  true:
+		$Carrack.frame = lerp($Carrack.frame, ship_frames["RIGHT"], 0.1)
+		
+	if direction["UP"] ==  true:
+		$Carrack.frame = lerp($Carrack.frame, ship_frames["UP"], 0.1)
+		
+	if direction["DOWN"] ==  true:
+		$Carrack.frame = lerp($Carrack.frame, ship_frames["DOWN"], 0.1)
+		
+	if direction["TOP_LEFT"] ==  true:
+		$Carrack.frame = lerp($Carrack.frame, ship_frames["TOP_LEFT"], 0.1)
+		
+	if direction["TOP_RIGHT"] ==  true:
+		$Carrack.frame = lerp($Carrack.frame, ship_frames["TOP_RIGHT"], 0.1)
+		
+	if direction["BOTTOM_LEFT"] ==  true:
+		$Carrack.frame = lerp($Carrack.frame, ship_frames["BOTTOM_LEFT"], 0.1)
+		
+	if direction["BOTTOM_RIGHT"] == true:
+		$Carrack.frame = lerp($Carrack.frame, ship_frames["BOTTOM_RIGHT"], 0.1)
 
 ############
 #
