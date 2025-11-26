@@ -9,14 +9,10 @@ class_name Ship extends CharacterBody2D
 @onready var target_pos: Vector2 = position
 @onready var nav_agent: NavigationAgent2D = $nav_agent
 
-var ship_frames : Dictionary = {"LEFT": 60,
-		"RIGHT": 20,
-		"UP": 0,
-		"DOWN": 40,
-		"TOP_LEFT": 70,
-		"TOP_RIGHT": 10,
-		"BOTTOM_LEFT": 50,
-		"BOTTOM_RIGHT": 30}
+#for player ship navigation
+var forward = false
+var left = false
+var right = false
 
 enum Ship_Type {
 	Clipper = 0,
@@ -261,7 +257,40 @@ func _ready() -> void:
 	nav_agent.target_desired_distance = 4.0
 	actor_setup.call_deferred()
 
+func _process(delta: float) -> void:
+	if team == Team.Player:
+		#lets just see about getting the angle
+		var node_pos = self.global_position
+		var mouse_pos = get_global_mouse_position()
+		var to_mouse = mouse_pos - node_pos
+		
+		var angle_rad = atan2(to_mouse.y, to_mouse.x)
+		
+		var angle_deg = $Highlight.rotation_degrees
+		if angle_deg < 0:
+			angle_deg += 360
+
+		#$ManOWar.frame = lerp($ManOWar.frame, int(round(angle_deg / 360.0 * 80)) % 80, 0.1)
+		$ShotRadius.rotation_degrees = angle_deg + 90
+
+
+func _input(event: InputEvent) -> void:
+	if team == Team.Player:
+		if event.is_action_pressed("up"):
+			forward = true
+		if event.is_action_pressed("right"):
+			right = true
+		if event.is_action_pressed("left"):
+			left = true
+			
+		if event.is_action_released("up"):
+			forward = false
+		if event.is_action_released("right"):
+			right = false
+		if event.is_action_released("left"):
+			left = false
 func _physics_process(delta):
+	player_movement(delta)
 	if player != null:
 		if self in player.selected_units:
 			$Highlight.visible = true
@@ -349,7 +378,35 @@ func _physics_process(delta):
 		State.Boarding:
 			if enemy_target == null or enemy_target.state != State.Imobilised:
 				stop_boarding()
-	
+				
+
+func player_movement(delta):
+	"""
+	move the player based on inputs
+	"""
+	if self.team == Team.Player:
+		if right == true:
+			#$Highlight.rotation_degrees += 5
+			if $ManOWar.frame == 79:
+				$ManOWar.frame = 0
+			else:
+				$ManOWar.frame += 1
+		if left == true:
+			#$Highlight.rotation_degrees -= 5
+			if $ManOWar.frame == 0:
+				$ManOWar.frame = 79
+			else:
+				$ManOWar.frame -= 1
+		if forward == true:
+			var angle_deg = float($ManOWar.frame) * 4.5
+			var angle_rad = deg_to_rad(angle_deg)
+			
+			var forwar = Vector2(cos(angle_rad), sin(angle_rad))
+
+			velocity = forwar * 100
+		
+			move_and_slide()
+		
 func get_direction_flags(angle: float) -> Dictionary:
 	# Convert radians to degrees for easier reasoning
 	var deg = rad_to_deg(angle)
@@ -404,30 +461,6 @@ func decide_animation(direction : Dictionary)->void:
 		ship_flag.modulate = team_colour
 	else:
 		ship_flag.modulate = enemy_colour
-	
-	if direction["LEFT"] ==  true:
-		$Carrack.frame = lerp($Carrack.frame, ship_frames["LEFT"], 0.1)
-
-	if direction["RIGHT"] ==  true:
-		$Carrack.frame = lerp($Carrack.frame, ship_frames["RIGHT"], 0.1)
-		
-	if direction["UP"] ==  true:
-		$Carrack.frame = lerp($Carrack.frame, ship_frames["UP"], 0.1)
-		
-	if direction["DOWN"] ==  true:
-		$Carrack.frame = lerp($Carrack.frame, ship_frames["DOWN"], 0.1)
-		
-	if direction["TOP_LEFT"] ==  true:
-		$Carrack.frame = lerp($Carrack.frame, ship_frames["TOP_LEFT"], 0.1)
-		
-	if direction["TOP_RIGHT"] ==  true:
-		$Carrack.frame = lerp($Carrack.frame, ship_frames["TOP_RIGHT"], 0.1)
-		
-	if direction["BOTTOM_LEFT"] ==  true:
-		$Carrack.frame = lerp($Carrack.frame, ship_frames["BOTTOM_LEFT"], 0.1)
-		
-	if direction["BOTTOM_RIGHT"] == true:
-		$Carrack.frame = lerp($Carrack.frame, ship_frames["BOTTOM_RIGHT"], 0.1)
 
 ############
 #

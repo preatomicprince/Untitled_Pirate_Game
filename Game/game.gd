@@ -49,7 +49,7 @@ func choose_scene(cur : int):
 			return
 			
 		scenes.Town_builder:
-			camera.snap_to(town_screen.position)
+			#camera.snap_to(town_screen.position)
 			town_screen.visible = true
 			return
 			

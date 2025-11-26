@@ -36,7 +36,8 @@ func _input(event: InputEvent) -> void:
 		zoom_out()
 	
 func _process(delta: float) -> void:
-	move_cam(delta)
+	pass
+	#move_cam(delta)
 
 func move_cam(delta):
 	var direction = Vector2.ZERO
