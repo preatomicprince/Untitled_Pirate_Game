@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq5tly48tavdm"]
+
+[ext_resource type="Script" uid="uid://d3kqhbo0wa0fj" path="res://Levels/wave.gd" id="1_qeobs"]
+[ext_resource type="Texture2D" uid="uid://oe1dtcqh7g5j" path="res://Res/characters and towns/waves.png" id="2_k2bsw"]
+
+[node name="wave" type="CharacterBody2D"]
+script = ExtResource("1_qeobs")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-6, -49, 90, -140, 143, -117, 78, -93, 64, -35, -36, 1, -65, 84, -101, 104, -117, 138, -160, 113, -128, 63, -81, -26)
+
+[node name="Waves" type="Sprite2D" parent="."]
+position = Vector2(-1, 1)
+texture = ExtResource("2_k2bsw")
+hframes = 5

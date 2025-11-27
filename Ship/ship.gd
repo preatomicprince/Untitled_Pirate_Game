@@ -1,9 +1,18 @@
 class_name Ship extends CharacterBody2D
 
+#for ship images
+@onready var carrack_ims : Sprite2D = $Carrack
+@onready var man_o_war_ims : Sprite2D = $ManOWar
+#assign the right sprite sheet depending on what ship the ship is
+var current_ims : Sprite2D
+
 @onready var ship_ims : Sprite2D = $Ships
 @onready var ship_flag : Sprite2D = $Flags
 @onready var ship_collisions : CollisionShape2D = $CollisionShape2D
 @onready var interact_area : CollisionShape2D = $Area2D/CollisionShape2D
+
+#ship timers
+@onready var knock_back_timer : Timer = $Knock_back_Timer
 
 # Navigation
 @onready var target_pos: Vector2 = position
@@ -13,6 +22,9 @@ class_name Ship extends CharacterBody2D
 var forward = false
 var left = false
 var right = false
+var knock_back = false
+#source of a knockback
+var source_pos : Vector2 
 
 enum Ship_Type {
 	Clipper = 0,
@@ -402,10 +414,15 @@ func player_movement(delta):
 			var angle_rad = deg_to_rad(angle_deg)
 			
 			var forwar = Vector2(cos(angle_rad), sin(angle_rad))
-
+			
+			
 			velocity = forwar * 100
-		
 			move_and_slide()
+		
+		if knock_back == true:
+			velocity = -global_position.direction_to(source_pos) * 1000
+			move_and_slide()
+		
 		
 func get_direction_flags(angle: float) -> Dictionary:
 	# Convert radians to degrees for easier reasoning
@@ -462,6 +479,14 @@ func decide_animation(direction : Dictionary)->void:
 	else:
 		ship_flag.modulate = enemy_colour
 
+func knock_back_func(dir):
+	"""
+	a knockback function, could be used if being hit by a cannon or a wave
+	"""
+	knock_back = true
+	source_pos = dir
+	knock_back_timer.start()
+
 ############
 #
 #   Signal Functions
@@ -484,7 +509,9 @@ func _on_combat_timer_timeout() -> void:
 func _on_flee_timer_timeout() -> void:
 	fleeing = false
 
-
+func _on_knock_back_timer_timeout() -> void:
+	knock_back = false
+	
 func _on_boarding_timer_timeout() -> void:
 	if state != State.Boarding:
 		return
@@ -500,3 +527,13 @@ func _on_fire_timer_timeout() -> void:
 	if fire_time > 0:
 		take_damage(Ability_Values.Fire_Dam, null)
 		$Fire_Timer.start()
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	#work out if the player hits a wave
+	if area.get_parent().has_method("is_wave"):
+		knock_back_func(area.get_parent().global_position)
+
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	pass # Replace with function body.

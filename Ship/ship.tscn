@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://byo0wsmut2awi"]
+[gd_scene load_steps=11 format=3 uid="uid://byo0wsmut2awi"]
 
 [ext_resource type="Script" uid="uid://cpkkr2dlf0oww" path="res://Ship/ship.gd" id="1_q4ev1"]
 [ext_resource type="Texture2D" uid="uid://sl3fmbeudpmo" path="res://Res/characters and towns/arrow.png" id="2_bpstu"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://e71cg1xkaxja" path="res://Res/characters and towns/carrack.png" id="5_d6neq"]
 [ext_resource type="Texture2D" uid="uid://djvsc17b4gqhx" path="res://Res/characters and towns/shot_radius.png" id="5_eti42"]
 [ext_resource type="Texture2D" uid="uid://cmy7je7xgtoo5" path="res://Res/characters and towns/man o war.png" id="7_bpstu"]
+[ext_resource type="Script" uid="uid://ckvfethajtyyt" path="res://Ship/cannons_left.gd" id="8_4ahkv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4ev1"]
 size = Vector2(181, 129)
@@ -29,19 +30,6 @@ shape = SubResource("RectangleShape2D_q4ev1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_edrfk")
 disabled = true
-
-[node name="Combat_Timer" type="Timer" parent="."]
-one_shot = true
-
-[node name="Flee_Timer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
-[node name="Boarding_Timer" type="Timer" parent="."]
-one_shot = true
-
-[node name="Fire_Timer" type="Timer" parent="."]
-one_shot = true
 
 [node name="Highlight" type="Sprite2D" parent="."]
 position = Vector2(-1, -31)
@@ -75,9 +63,37 @@ texture = ExtResource("7_bpstu")
 hframes = 20
 vframes = 4
 
+[node name="cannons left" type="Node2D" parent="."]
+script = ExtResource("8_4ahkv")
+side = "left"
+
+[node name="cannons right" type="Node2D" parent="."]
+script = ExtResource("8_4ahkv")
+side = "right"
+
+[node name="Combat_Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Flee_Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Boarding_Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Fire_Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Knock_back_Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
 [connection signal="timeout" from="Combat_Timer" to="." method="_on_combat_timer_timeout"]
 [connection signal="timeout" from="Flee_Timer" to="." method="_on_flee_timer_timeout"]
 [connection signal="timeout" from="Boarding_Timer" to="." method="_on_boarding_timer_timeout"]
 [connection signal="timeout" from="Fire_Timer" to="." method="_on_fire_timer_timeout"]
+[connection signal="timeout" from="Knock_back_Timer" to="." method="_on_knock_back_timer_timeout"]

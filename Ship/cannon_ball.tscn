@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cer7jk55wmmog"]
+
+[ext_resource type="Script" uid="uid://c808blm0jbdcu" path="res://Ship/cannon_ball.gd" id="1_iwehl"]
+[ext_resource type="Texture2D" uid="uid://cyakvjba05wj1" path="res://Res/characters and towns/cannon.png" id="1_yfrxt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iwehl"]
+
+[node name="cannon ball" type="CharacterBody2D"]
+script = ExtResource("1_iwehl")
+
+[node name="Cannon" type="Sprite2D" parent="."]
+position = Vector2(1, -7)
+texture = ExtResource("1_yfrxt")
+
+[node name="cannon area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cannon area"]
+shape = SubResource("CircleShape2D_iwehl")
+
+[connection signal="area_entered" from="cannon area" to="." method="_on_cannon_area_area_entered"]
