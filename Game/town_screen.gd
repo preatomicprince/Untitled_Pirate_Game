@@ -50,6 +50,10 @@ func _ready():
 	
 	function_list = [map_maker, sextanter, fishmonger, rum_distiler, harbour, fencer, tavern]
 
+func _process(delta: float) -> void:
+	###keep the town over the players unit
+	self.position = game.player.ships[0].position
+
 	
 func new_map():
 	"""
@@ -65,7 +69,7 @@ func new_map():
 		if f != null:
 			f.call()
 	
-	game.timer.start(game.time_left)
+	#game.timer.start(game.time_left)
 	
 ############
 #
@@ -119,7 +123,7 @@ func tavern():
 	"""
 	adds gold to the player each time they boot up a level
 	"""
-	game.player.gold += GOLD_ADD
+	costs.gold += GOLD_ADD
 
 
 ###########

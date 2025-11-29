@@ -24,7 +24,6 @@ visible = false
 
 [node name="game timer" type="Timer" parent="."]
 wait_time = 10.0
-one_shot = true
 
 [node name="Player" parent="." instance=ExtResource("2_1r4le")]
 

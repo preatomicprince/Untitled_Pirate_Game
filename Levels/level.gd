@@ -4,6 +4,7 @@ class_name Level extends Node2D
 @onready var player = $"../Player"
 @onready var map_layers : Node2D = $"map layers"
 @onready var town_layer : Node2D =$"map layers/town layer"
+@onready var ship_layer : Node2D = $"ship layer"
 #set current level with an enum
 enum levels {
 	none = 0,

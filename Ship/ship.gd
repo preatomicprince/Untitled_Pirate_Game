@@ -1,13 +1,18 @@
 class_name Ship extends CharacterBody2D
 
+@onready var game : Node2D = self.get_parent().get_parent().get_parent()
+#pre loads
+@onready var treasure = preload("res://Ship/treasure.tscn")
+
 #for ship images
 @onready var carrack_ims : Sprite2D = $Carrack
 @onready var man_o_war_ims : Sprite2D = $ManOWar
+var ship_ims : Sprite2D
 @onready var shot_radius : Sprite2D = $ShotRadius
 #assign the right sprite sheet depending on what ship the ship is
 var current_ims : Sprite2D
 
-@onready var ship_ims : Sprite2D = $Ships
+
 @onready var ship_flag : Sprite2D = $Flags
 @onready var ship_collisions : CollisionShape2D = $CollisionShape2D
 @onready var interact_area : CollisionShape2D = $Area2D/CollisionShape2D
@@ -63,6 +68,7 @@ var rewards = { # [Gold drop, ability drop chance, max item drop]
 var state: State = State.Moving
 
 @export var patrolling: bool = false
+@export var hunting : bool = false
 
 # Stats for each ship type
 # Strength is 1-5, and speed is 1-3
@@ -87,6 +93,24 @@ const CRIT_MULT: float = 2.0
 
 const MOVE_SPEED = 50 # Const to change speed of all ships moving
 
+func _ready() -> void:
+	if ship_type == Ship_Type.Clipper:
+		carrack_ims.visible = true
+		ship_ims = carrack_ims
+	if ship_type == Ship_Type.Frigate:
+		pass
+	if ship_type == Ship_Type.Man_Of_War:
+		man_o_war_ims.visible = true
+		ship_ims = man_o_war_ims
+	set_core_stats()
+	set_attack_mult()
+	
+
+	# Navigation
+	nav_agent.path_desired_distance = 4.0
+	nav_agent.target_desired_distance = 4.0
+	actor_setup.call_deferred()
+	
 func set_core_stats() -> void:
 	self.strength = stats[ship_type][0]
 	self.speed = stats[ship_type][1]
@@ -194,7 +218,7 @@ func take_damage(damage: int, attacker: Ship) -> void:
 		if attacker != null:
 			if Ability_Types.Charismatic_Captain in attacker.abilities:
 				attacker.health += Ability_Values.Charismatic_HP
-		imobilise()
+		destroy_ship()
 		
 	if attacker == null:
 		return
@@ -266,16 +290,15 @@ func delete()-> void:
 	queue_free()
 	
 	
-func _ready() -> void:
-	
-	set_core_stats()
-	set_attack_mult()
-	
-
-	# Navigation
-	nav_agent.path_desired_distance = 4.0
-	nav_agent.target_desired_distance = 4.0
-	actor_setup.call_deferred()
+func destroy_ship():
+	"""
+	destroy the ship and drop some treasure
+	"""
+	var tre = treasure.instantiate()
+	tre.position = self.position
+	self.get_parent().get_parent().add_child(tre)
+	level.enemy_ships.erase(self)
+	self.queue_free()
 
 func _process(delta: float) -> void:
 	decide_animation({})
@@ -290,8 +313,6 @@ func _process(delta: float) -> void:
 		var angle_deg = $Highlight.rotation_degrees
 		if angle_deg < 0:
 			angle_deg += 360
-
-		#$ManOWar.frame = lerp($ManOWar.frame, int(round(angle_deg / 360.0 * 80)) % 80, 0.1)
 
 
 
@@ -310,7 +331,11 @@ func _input(event: InputEvent) -> void:
 			right = false
 		if event.is_action_released("left"):
 			left = false
+
 func _physics_process(delta):
+	
+	if game.current_scene != game.scenes.Battle_field:
+		return
 	player_movement(delta)
 	if player != null:
 		if self in player.selected_units:
@@ -346,6 +371,9 @@ func _physics_process(delta):
 			# If no combat, move to set target
 			if nav_agent.is_navigation_finished():
 				
+				if hunting:
+					set_random_destination()
+				
 				# Patrolling behaviour
 				if patrolling and len(path_points) > 0:
 					if current_point >= len(path_points)-1:
@@ -373,8 +401,6 @@ func _physics_process(delta):
 				angle_deg += 360
 
 			$Carrack.frame = lerp($Carrack.frame, int(round(angle_deg / 360.0 * 80)) % 80, 0.1)
-
-
 				#var dirs = get_direction_flags(angle)
 				#decide_animation(dirs)
 					
@@ -401,6 +427,28 @@ func _physics_process(delta):
 				stop_boarding()
 				
 
+################
+#
+#
+#
+#################
+
+func set_random_destination() -> void:
+	"""
+	sets a random location on the map to go to,
+	want something a bit more in depth where on higher infamy levels theyll know your general direction
+	"""
+	var nav_map = nav_agent.get_navigation_map()
+	var random_point = Vector2(
+		randi_range(-4500, 4500),  
+		randi_range(0, 3500)    
+	)
+	
+	var target = NavigationServer2D.map_get_closest_point(nav_map, random_point)
+	nav_agent.set_target_position(target)
+
+
+
 func player_movement(delta):
 	"""
 	move the player based on inputs
@@ -408,24 +456,23 @@ func player_movement(delta):
 	if self.team == Team.Player:
 		if right == true:
 			$ShotRadius.rotation_degrees += 4.5
-			if $ManOWar.frame == 79:
-				$ManOWar.frame = 0
+			if ship_ims.frame == 79:
+				ship_ims.frame = 0
 
 			else:
-				$ManOWar.frame += 1
+				ship_ims.frame += 1
 				
 		if left == true:
 			$ShotRadius.rotation_degrees -= 4.5
-			if $ManOWar.frame == 0:
-				$ManOWar.frame = 79
+			if ship_ims.frame == 0:
+				ship_ims.frame = 79
 			else:
-				$ManOWar.frame -= 1
+				ship_ims.frame -= 1
 		if forward == true:
-			var angle_deg = float($ManOWar.frame) * 4.5
+			var angle_deg = float(ship_ims.frame) * 4.5
 			var angle_rad = deg_to_rad(angle_deg)
 			
 			var forwar = Vector2(cos(angle_rad), sin(angle_rad))
-			
 			
 			velocity = forwar * 100
 			move_and_slide()
@@ -434,72 +481,31 @@ func player_movement(delta):
 			velocity = -global_position.direction_to(source_pos) * 1000
 			move_and_slide()
 		
-		
-func get_direction_flags(angle: float) -> Dictionary:
-	# Convert radians to degrees for easier reasoning
-	var deg = rad_to_deg(angle)
 
-	# Normalize to -180..180
-	if deg > 180:
-		deg -= 360
-	elif deg < -180:
-		deg += 360
-
-	# Initialize flags
-	var flags = {
-		"LEFT": false,
-		"RIGHT": false,
-		"UP": false,
-		"DOWN": false,
-		"TOP_LEFT": false,
-		"TOP_RIGHT": false,
-		"BOTTOM_LEFT": false,
-		"BOTTOM_RIGHT": false
-	}
-
-	# Each slice is 45° wide
-	if deg >= -22.5 and deg < 22.5:
-		flags["RIGHT"] = true
-	elif deg >= 22.5 and deg < 67.5:
-		flags["BOTTOM_RIGHT"] = true
-	elif deg >= 67.5 and deg < 112.5:
-		flags["DOWN"] = true
-	elif deg >= 112.5 and deg < 157.5:
-		flags["BOTTOM_LEFT"] = true
-	elif deg >= 157.5 or deg < -157.5:
-		flags["LEFT"] = true
-	elif deg >= -157.5 and deg < -112.5:
-		flags["TOP_LEFT"] = true
-	elif deg >= -112.5 and deg < -67.5:
-		flags["UP"] = true
-	elif deg >= -67.5 and deg < -22.5:
-		flags["TOP_RIGHT"] = true
-
-	return flags
 func decide_animation(direction : Dictionary)->void:
 	"""
 	right now this just decides what colour the ship flag is, and what image the 
 	ship is. Later on ill use this to trigger the animation player
 	"""
 	#decide the image
-	ship_ims.frame = ship_type
+
 	#decide the ships flags and sails
 	
 	#to allow for swaying
-	if round($ManOWar.rotation_degrees) == sway_strength:
+	if round(ship_ims.rotation_degrees) == sway_strength:
 		right_sway = false
 		left_sway = true
 		
-	if round($ManOWar.rotation_degrees) == -sway_strength:
+	if round(ship_ims.rotation_degrees) == -sway_strength:
 		right_sway = true
 		left_sway = false
 		
 	if right_sway == true:
-		$ManOWar.rotation_degrees = lerp($ManOWar.rotation_degrees, sway_strength, sway_speed)
+		ship_ims.rotation_degrees = lerp(ship_ims.rotation_degrees, sway_strength, sway_speed)
 
 	
 	if left_sway == true:
-		$ManOWar.rotation_degrees = lerp($ManOWar.rotation_degrees, -sway_strength, sway_speed)
+		ship_ims.rotation_degrees = lerp(ship_ims.rotation_degrees, -sway_strength, sway_speed)
 	
 	
 	#colour of flags

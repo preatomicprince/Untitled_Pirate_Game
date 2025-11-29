@@ -18,7 +18,7 @@ enum buildings {
 var current_slot : TextureButton
 
 func _process(delta: float) -> void:
-	gold_text.text = "Current gold: {amount}".format({"amount": ui.game.player.gold})
+	gold_text.text = "Current gold: {amount}".format({"amount": costs.gold})
 
 func _on_button_pressed() -> void:
 	ui.game.reset_loop()

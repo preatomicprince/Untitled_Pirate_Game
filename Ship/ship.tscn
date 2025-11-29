@@ -88,11 +88,14 @@ position = Vector2(-52, 40)
 
 [node name="Carrack" type="Sprite2D" parent="."]
 visible = false
+z_index = 2
 texture = ExtResource("5_d6neq")
 hframes = 20
 vframes = 4
 
 [node name="ManOWar" type="Sprite2D" parent="."]
+visible = false
+z_index = 2
 texture = ExtResource("7_bpstu")
 hframes = 20
 vframes = 4

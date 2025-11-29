@@ -30,8 +30,8 @@ func top_level_changes():
 	on the center well have ya gold and ya infamy
 	on the right well have time left
 	"""
-	$"top_grid/control for center/text container/game text".text = "Treasure: {current}/{goal}".format({"current": ui.game.player.gold, "goal": ui.game.gold_target})
-	infamy_bar.value = ui.game.player.infamy
+	$"top_grid/control for center/text container/game text".text = "Treasure: {current}/{goal}".format({"current": costs.gold, "goal": costs.GOLD_TO_WIN})
+	infamy_bar.value = costs.infamy
 
 func _on_UI_entered():
 	self.get_parent().game.player.over_UI = true

@@ -56,7 +56,7 @@ func workout_visible():
 		self.visible = false
 
 
-func hit_target(attacker: Ship, defender: Ship):
+func hit_target(attacker, defender):
 	"""
 	
 	"""
@@ -81,10 +81,16 @@ func destroy():
 
 
 func _on_cannon_area_area_entered(area: Area2D) -> void:
-	if area.get_parent().has_method("boarding"):
-		#workout if cannon hits own ships
-		if area.get_parent().team == self.get_parent().team:
-			return
-		else:
-			hit_target(self.get_parent().ship, area.get_parent())
-			
+	if area.get_parent() != null:
+		if area.get_parent().has_method("boarding"):
+			#workout if cannon hits own ships
+			if area.get_parent().team == self.get_parent().team:
+				return
+			else:
+				hit_target(self.get_parent().ship, area.get_parent())
+				
+		if area.get_parent().has_method("is_town"):
+			if area.get_parent().team == self.get_parent().team:
+				return
+			else:
+				hit_target(self.get_parent().ship, area.get_parent())

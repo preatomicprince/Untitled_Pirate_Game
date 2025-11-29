@@ -32,6 +32,24 @@ var current_scene : int = scenes.Battle_field
 func _ready() -> void:
 	choose_scene(current_scene)
 
+func _process(delta: float) -> void:
+	if costs.gold >= costs.GOLD_TO_WIN:
+		victory()
+	
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("switch"):
+		if current_scene == scenes.Battle_field:
+			current_scene = scenes.Town_builder
+			choose_scene(current_scene)
+			print("here")
+			return
+			
+		if current_scene == scenes.Town_builder:
+			current_scene = scenes.Battle_field
+			choose_scene(current_scene)
+			return
+
 func choose_scene(cur : int):
 	town_screen.visible = false
 	progress.visible = false
@@ -74,3 +92,14 @@ func _on_game_timer_timeout() -> void:
 		choose_scene(current_scene)
 	else:
 		player.defeated = true
+
+func victory():
+	"""
+	show a victory screen when reached a certain amount of gold
+	"""
+	print("winner winner")
+	
+func defeat():
+	"""
+	show a loss screen when player ship dies
+	"""

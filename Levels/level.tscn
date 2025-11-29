@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dy0ycajp5q7kp"]
+[gd_scene load_steps=16 format=4 uid="uid://dy0ycajp5q7kp"]
 
 [ext_resource type="PackedScene" uid="uid://byo0wsmut2awi" path="res://Ship/ship.tscn" id="1_s41d2"]
 [ext_resource type="Script" uid="uid://bhr6fj6dq1r63" path="res://Levels/level.gd" id="1_wav5q"]
@@ -11,12 +11,19 @@
 [ext_resource type="NavigationPolygon" uid="uid://dhu6nf00bnve5" path="res://Levels/virginia_nav.tres" id="6_ecu0b"]
 [ext_resource type="PackedScene" uid="uid://b6imsf7nyhmwx" path="res://UI/game_camera.tscn" id="10_vx8ih"]
 [ext_resource type="PackedScene" uid="uid://cq5tly48tavdm" path="res://Levels/wave.tscn" id="11_ugh17"]
+[ext_resource type="PackedScene" uid="uid://bvcn2f7g4d5qr" path="res://Levels/spawn_point.tscn" id="12_eabcg"]
 
 [sub_resource type="Curve2D" id="Curve2D_wav5q"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 2, -3, 0, 0, 0, 0, -337, 295, 0, 0, 0, 0, -246, 496, 0, 0, 0, 0, 143, 471, 0, 0, 0, 0, 222, 263)
 }
 point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_ugh17"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -273, -157, 0, 0, 0, 0, 17, 173, 0, 0, 0, 0, 591, 299, 0, 0, 0, 0, 1183, 363)
+}
+point_count = 4
 
 [sub_resource type="Environment" id="Environment_vx8ih"]
 background_mode = 3
@@ -87,6 +94,7 @@ tile_set = ExtResource("4_ecu0b")
 tile_set = ExtResource("4_ecu0b")
 
 [node name="fog layer" type="TileMapLayer" parent="map layers"]
+visible = false
 z_index = 100
 z_as_relative = false
 tile_set = ExtResource("3_uhyyw")
@@ -102,7 +110,7 @@ script = ExtResource("6_8a2b0")
 [node name="Ship" parent="ship layer" instance=ExtResource("1_s41d2")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(721, 122)
-ship_type = 1
+ship_type = 2
 team = 1
 patrolling = true
 
@@ -110,13 +118,31 @@ patrolling = true
 curve = SubResource("Curve2D_wav5q")
 
 [node name="Ship2" parent="ship layer" instance=ExtResource("1_s41d2")]
-position = Vector2(154, 191)
+position = Vector2(634, 2079)
+ship_type = 2
 
 [node name="game camera" parent="ship layer/Ship2" instance=ExtResource("10_vx8ih")]
 position = Vector2(-6, 13)
+
+[node name="Ship3" parent="ship layer" instance=ExtResource("1_s41d2")]
+position = Vector2(-583, 1498)
+team = 1
+patrolling = true
+
+[node name="Path2D" type="Path2D" parent="ship layer/Ship3"]
+curve = SubResource("Curve2D_ugh17")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vx8ih")
 
 [node name="wave" parent="." instance=ExtResource("11_ugh17")]
 position = Vector2(-634, 463)
+
+[node name="spawn point" parent="." instance=ExtResource("12_eabcg")]
+position = Vector2(338, 2030)
+
+[node name="spawn point2" parent="." instance=ExtResource("12_eabcg")]
+position = Vector2(-3469, 1469)
+
+[node name="spawn point3" parent="." instance=ExtResource("12_eabcg")]
+position = Vector2(2803, 1136)
