@@ -9,7 +9,8 @@
 script = ExtResource("1_iwehl")
 
 [node name="Cannon" type="Sprite2D" parent="."]
-position = Vector2(1, -7)
+position = Vector2(-1, 5)
+rotation = 3.1415927
 texture = ExtResource("1_yfrxt")
 
 [node name="cannon area" type="Area2D" parent="."]

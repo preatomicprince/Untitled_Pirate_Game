@@ -3,6 +3,7 @@ class_name Ship extends CharacterBody2D
 #for ship images
 @onready var carrack_ims : Sprite2D = $Carrack
 @onready var man_o_war_ims : Sprite2D = $ManOWar
+@onready var shot_radius : Sprite2D = $ShotRadius
 #assign the right sprite sheet depending on what ship the ship is
 var current_ims : Sprite2D
 
@@ -25,6 +26,13 @@ var right = false
 var knock_back = false
 #source of a knockback
 var source_pos : Vector2 
+
+#for swaying in the sea
+var left_sway : bool = false
+var right_sway : bool = true
+var sway_speed : float = 0.01
+var sway_strength : float = 5.0
+
 
 enum Ship_Type {
 	Clipper = 0,
@@ -270,6 +278,7 @@ func _ready() -> void:
 	actor_setup.call_deferred()
 
 func _process(delta: float) -> void:
+	decide_animation({})
 	if team == Team.Player:
 		#lets just see about getting the angle
 		var node_pos = self.global_position
@@ -283,7 +292,7 @@ func _process(delta: float) -> void:
 			angle_deg += 360
 
 		#$ManOWar.frame = lerp($ManOWar.frame, int(round(angle_deg / 360.0 * 80)) % 80, 0.1)
-		$ShotRadius.rotation_degrees = angle_deg + 90
+
 
 
 func _input(event: InputEvent) -> void:
@@ -398,13 +407,15 @@ func player_movement(delta):
 	"""
 	if self.team == Team.Player:
 		if right == true:
-			#$Highlight.rotation_degrees += 5
+			$ShotRadius.rotation_degrees += 4.5
 			if $ManOWar.frame == 79:
 				$ManOWar.frame = 0
+
 			else:
 				$ManOWar.frame += 1
+				
 		if left == true:
-			#$Highlight.rotation_degrees -= 5
+			$ShotRadius.rotation_degrees -= 4.5
 			if $ManOWar.frame == 0:
 				$ManOWar.frame = 79
 			else:
@@ -474,6 +485,24 @@ func decide_animation(direction : Dictionary)->void:
 	ship_ims.frame = ship_type
 	#decide the ships flags and sails
 	
+	#to allow for swaying
+	if round($ManOWar.rotation_degrees) == sway_strength:
+		right_sway = false
+		left_sway = true
+		
+	if round($ManOWar.rotation_degrees) == -sway_strength:
+		right_sway = true
+		left_sway = false
+		
+	if right_sway == true:
+		$ManOWar.rotation_degrees = lerp($ManOWar.rotation_degrees, sway_strength, sway_speed)
+
+	
+	if left_sway == true:
+		$ManOWar.rotation_degrees = lerp($ManOWar.rotation_degrees, -sway_strength, sway_speed)
+	
+	
+	#colour of flags
 	if self.team == Team.Player:
 		ship_flag.modulate = team_colour
 	else:
@@ -492,10 +521,6 @@ func knock_back_func(dir):
 #   Signal Functions
 #
 ############
-
-func _on_area_2d_mouse_entered() -> void:
-	self.player.over_units.append(self)
-
 
 func _on_area_2d_mouse_exited() -> void:
 	if self in player.over_units:

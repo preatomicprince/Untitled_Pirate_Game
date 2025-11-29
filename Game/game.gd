@@ -27,7 +27,7 @@ enum scenes {
 	Progress
 }
 
-var current_scene : int = scenes.Town_builder
+var current_scene : int = scenes.Battle_field
 
 func _ready() -> void:
 	choose_scene(current_scene)
