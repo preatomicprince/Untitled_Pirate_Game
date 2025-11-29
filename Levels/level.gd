@@ -23,6 +23,14 @@ var current_level : int = levels.tortuga
 
 var enemy_ships: Array = []
 
+enum wind_dirs {
+	NORTH_EAST,
+	SOUTH_EAST,
+	SOUTH_WEST,
+	NORTH_WEST
+}
+var wind_dir : int 
+
 func reload_map():
 	map_layers.reload_map()
 	game.gold_target = gold_rec_per_level[current_level]
@@ -45,5 +53,12 @@ func send_waves():
 	self.add_child(new_wave)
 
 
+func change_wind_dir():
+	pass
+
 func _on_wave_timer_timeout() -> void:
 	send_waves()
+
+
+func _on_wind_timer_timeout() -> void:
+	pass # Replace with function body.

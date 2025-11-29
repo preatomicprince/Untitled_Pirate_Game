@@ -157,4 +157,9 @@ position = Vector2(2803, 1136)
 wait_time = 2.0
 autostart = true
 
+[node name="wind timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
 [connection signal="timeout" from="wave timer" to="." method="_on_wave_timer_timeout"]
+[connection signal="timeout" from="wind timer" to="." method="_on_wind_timer_timeout"]
