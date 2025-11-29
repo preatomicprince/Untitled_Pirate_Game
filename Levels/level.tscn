@@ -113,21 +113,27 @@ position = Vector2(721, 122)
 ship_type = 2
 team = 1
 patrolling = true
+hunting = false
 
 [node name="Path2D" type="Path2D" parent="ship layer/Ship"]
 curve = SubResource("Curve2D_wav5q")
 
 [node name="Ship2" parent="ship layer" instance=ExtResource("1_s41d2")]
-position = Vector2(634, 2079)
-ship_type = 2
+position = Vector2(217, 500)
+ship_type = 0
+team = 0
+patrolling = false
+hunting = false
 
 [node name="game camera" parent="ship layer/Ship2" instance=ExtResource("10_vx8ih")]
 position = Vector2(-6, 13)
 
 [node name="Ship3" parent="ship layer" instance=ExtResource("1_s41d2")]
 position = Vector2(-583, 1498)
+ship_type = 0
 team = 1
 patrolling = true
+hunting = false
 
 [node name="Path2D" type="Path2D" parent="ship layer/Ship3"]
 curve = SubResource("Curve2D_ugh17")
@@ -146,3 +152,9 @@ position = Vector2(-3469, 1469)
 
 [node name="spawn point3" parent="." instance=ExtResource("12_eabcg")]
 position = Vector2(2803, 1136)
+
+[node name="wave timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="wave timer" to="." method="_on_wave_timer_timeout"]

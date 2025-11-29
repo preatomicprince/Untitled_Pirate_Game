@@ -52,7 +52,8 @@ func _ready():
 
 func _process(delta: float) -> void:
 	###keep the town over the players unit
-	self.position = game.player.ships[0].position
+	if game.player.ships[0] != null:
+		self.position = game.player.ships[0].position
 
 	
 func new_map():

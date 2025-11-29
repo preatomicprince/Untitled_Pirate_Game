@@ -18,6 +18,10 @@ radius = 79.24645
 
 [node name="Ship" type="CharacterBody2D"]
 script = ExtResource("1_q4ev1")
+ship_type = null
+team = null
+patrolling = null
+hunting = null
 
 [node name="nav_agent" type="NavigationAgent2D" parent="."]
 simplify_path = true

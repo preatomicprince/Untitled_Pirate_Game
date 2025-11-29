@@ -20,8 +20,8 @@ enum Team {
 }
 
 var spawn_quick : float = 10.0
-var spawn_medium : float = 20.0
-var spawn_slow : float = 30.0
+var spawn_medium : float = 15.0
+var spawn_slow : float = 20.0
 
 
 ##############
@@ -36,10 +36,16 @@ func spawn_ship():
 	"""
 	var new_ship = ship.instantiate()
 	new_ship.position = self.position
-	new_ship.ship_type = Ship_Type.Clipper
+	if costs.infamy < 30:
+		new_ship.ship_type = Ship_Type.Clipper
+	if costs.infamy >= 30 and costs.infamy < 70:
+		new_ship.ship_type = Ship_Type.Man_Of_War
+	if costs.infamy >= 70:
+		timer.wait_time = spawn_quick
 	new_ship.team = Team.Enemy
 	new_ship.hunting = true
 	self.get_parent().ship_layer.add_child(new_ship)
+	decided_ship_spawn_rate()
 
 func decided_ship_spawn_rate():
 	"""

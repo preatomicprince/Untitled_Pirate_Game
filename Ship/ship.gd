@@ -213,7 +213,7 @@ func attack(ship: Ship) -> void:
 		
 func take_damage(damage: int, attacker: Ship) -> void:
 	health -= damage
-	
+	knock_back_func(attacker.position)
 	if health <= 0:
 		if attacker != null:
 			if Ability_Types.Charismatic_Captain in attacker.abilities:
@@ -297,7 +297,11 @@ func destroy_ship():
 	var tre = treasure.instantiate()
 	tre.position = self.position
 	self.get_parent().get_parent().add_child(tre)
-	level.enemy_ships.erase(self)
+	if team == Team.Enemy:
+		level.enemy_ships.erase(self)
+		costs.infamy += costs.infamy_attacking_ship
+	else:
+		costs.ship_destroyed = true
 	self.queue_free()
 
 func _process(delta: float) -> void:
@@ -356,17 +360,18 @@ func _physics_process(delta):
 			#Check if we should move to combat
 			if enemies != null:
 				for i in enemies:
-					if position.distance_to(i.position) < COMBAT_DISTANCE:
-						if i.state != State.Imobilised:
-							if not fleeing or i == enemy_target:
-								state = State.Combat
-								set_target_pos(position)
-								enemy_target = i
-								attack(enemy_target)
-								return
-						if i.state == State.Imobilised && i == enemy_target:
-							state = State.Boarding
-							boarding()
+					if i != null:
+						if position.distance_to(i.position) < COMBAT_DISTANCE:
+							if i.state != State.Imobilised:
+								if not fleeing or i == enemy_target:
+									state = State.Combat
+									set_target_pos(position)
+									enemy_target = i
+									attack(enemy_target)
+									return
+							if i.state == State.Imobilised && i == enemy_target:
+								state = State.Boarding
+								boarding()
 					
 			# If no combat, move to set target
 			if nav_agent.is_navigation_finished():
@@ -393,7 +398,10 @@ func _physics_process(delta):
 			var current_agent_position: Vector2 = global_position
 			var next_path_position: Vector2 = nav_agent.get_next_path_position()
 			
-			velocity = current_agent_position.direction_to(next_path_position) * speed * MOVE_SPEED
+			if knock_back == false:
+				velocity = current_agent_position.direction_to(next_path_position) * speed * MOVE_SPEED
+			else:
+				velocity = -current_agent_position.direction_to(next_path_position) * speed * MOVE_SPEED
 			var angle = velocity.angle()
 			
 			var angle_deg = rad_to_deg(velocity.angle())
@@ -439,15 +447,27 @@ func set_random_destination() -> void:
 	want something a bit more in depth where on higher infamy levels theyll know your general direction
 	"""
 	var nav_map = nav_agent.get_navigation_map()
-	var random_point = Vector2(
+	var random_point
+	var player_ship = game.player.ships[0]
+	if costs.infamy < 30:
+		random_point = Vector2(
 		randi_range(-4500, 4500),  
 		randi_range(0, 3500)    
-	)
+		)
+	if costs.infamy >= 30 and costs.infamy < 70:
+		random_point = Vector2(
+		randi_range(player_ship.position[0]-2000, player_ship.position[0]+2000),  
+		randi_range(player_ship.position[1]-2000, player_ship.position[1]+2000)    
+		)
+	if costs.infamy >= 70:
+		random_point = Vector2(
+		randi_range(player_ship.position[0]-1000, player_ship.position[0]+1000),  
+		randi_range(player_ship.position[1]-1000, player_ship.position[1]+1000)   
+		)
+	
 	
 	var target = NavigationServer2D.map_get_closest_point(nav_map, random_point)
 	nav_agent.set_target_position(target)
-
-
 
 func player_movement(delta):
 	"""
@@ -487,10 +507,7 @@ func decide_animation(direction : Dictionary)->void:
 	right now this just decides what colour the ship flag is, and what image the 
 	ship is. Later on ill use this to trigger the animation player
 	"""
-	#decide the image
 
-	#decide the ships flags and sails
-	
 	#to allow for swaying
 	if round(ship_ims.rotation_degrees) == sway_strength:
 		right_sway = false

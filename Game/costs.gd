@@ -4,6 +4,8 @@ extends Node
 var gold : int = 0
 var infamy : int = 0
 
+var ship_destroyed : bool = false
+
 var MAX_INFAMY : int = 100
 #gold stuff
 var GOLD_TO_WIN : int = 1000000

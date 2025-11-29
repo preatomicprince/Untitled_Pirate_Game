@@ -35,7 +35,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if costs.gold >= costs.GOLD_TO_WIN:
 		victory()
-	
+	if costs.ship_destroyed == true:
+		defeat()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("switch"):
@@ -103,3 +104,4 @@ func defeat():
 	"""
 	show a loss screen when player ship dies
 	"""
+	print("defeat")

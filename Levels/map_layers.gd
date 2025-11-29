@@ -62,15 +62,16 @@ func update_fog():
 	var saved_tiles : Array = []
 	var second_saved_tiles : Array = []
 	for s in player_ships:
-		#get the tile surrounding
-		for t in fog_layer.get_surrounding_cells(fog_layer.local_to_map(s.position)):
-			saved_tiles.append(t)
-		
-		#get the tiles surrounding the ones above for another layer
-		for t in saved_tiles:
-			for tt in fog_layer.get_surrounding_cells(t):
-				if tt not in saved_tiles:
-					second_saved_tiles.append(tt)
+		if s != null:
+			#get the tile surrounding
+			for t in fog_layer.get_surrounding_cells(fog_layer.local_to_map(s.position)):
+				saved_tiles.append(t)
+			
+			#get the tiles surrounding the ones above for another layer
+			for t in saved_tiles:
+				for tt in fog_layer.get_surrounding_cells(t):
+					if tt not in saved_tiles:
+						second_saved_tiles.append(tt)
 	
 	#iterate through saved tile to reveal them
 	for t in saved_tiles+second_saved_tiles:
