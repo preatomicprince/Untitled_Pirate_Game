@@ -7,7 +7,6 @@ class_name Game extends Node2D
 @onready var player = $Player
 @onready var town_screen = $"Town screen"
 @onready var level = $Level
-@onready var progress = $"Progress screen"
 @onready var timer = $"game timer"
 @onready var ui = $"ui main"
 @onready var camera = $"game camera"
@@ -57,7 +56,7 @@ func _input(event: InputEvent) -> void:
 
 func choose_scene(cur : int):
 	town_screen.visible = false
-	progress.visible = false
+
 	level.visible = false
 	timer.stop()
 	ui.decide_ui(current_scene)
@@ -67,9 +66,7 @@ func choose_scene(cur : int):
 			town_screen.new_map()
 			return
 			
-		scenes.Progress:
-			progress.visible = true
-			return
+
 			
 		scenes.Town_builder:
 			#camera.snap_to(town_screen.position)

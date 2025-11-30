@@ -2,7 +2,6 @@ extends CanvasLayer
 
 @onready var game : Game = self.get_parent()
 @onready var battle_ui : Control = $"war ui"
-@onready var progress_ui : Control = $"progress ui"
 @onready var town_ui : Control = $town_ui
 
 var all_ui_nodes : Array
@@ -21,14 +20,11 @@ func decide_ui(cur_scene : int) -> void:
 	used to show different control nodes depending on the current scene
 	"""
 	battle_ui.visible = false
-	progress_ui.visible = false
 	town_ui.visible = false
 	match cur_scene:
 		game.scenes.Battle_field:
 			battle_ui.visible = true
 		
-		game.scenes.Progress:
-			progress_ui.visible = true
 			
 		game.scenes.Town_builder:
 			town_ui.visible = true

@@ -21,6 +21,7 @@ var WATER_VECS : Array[Vector2i] = [Vector2i(2, 1), Vector2i(2, 0)]
 var GROUND_TILE : Array[Vector2i] = [Vector2i(1, 1), Vector2i(1, 2), Vector2i(1, 3), Vector2i(1, 4)]
 var TREE_TILE : Vector2i = Vector2i(3, 0)
 #town layer
+var TOWN_VECS : Array = [Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, 2)]
 @onready var town_layer : Node2D = $"town layer"
 
 #preloads for maps and its accociated map layer

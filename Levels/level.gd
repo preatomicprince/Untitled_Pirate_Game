@@ -59,6 +59,16 @@ func change_wind_dir():
 func _on_wave_timer_timeout() -> void:
 	send_waves()
 
+func reveal_towns():
+	"""
+	reveals all the towns, called when placing a map 
+	"""
+	print("reveal map")
+	for b in map_layers.tortuga_layer.get_used_cells():
+		if map_layers.tortuga_layer.get_cell_atlas_coords(b) in map_layers.TOWN_VECS:
+			map_layers.fog_layer.set_cell(b, 0, Vector2i(-1, -1))
+
+
 
 func _on_wind_timer_timeout() -> void:
 	pass # Replace with function body.

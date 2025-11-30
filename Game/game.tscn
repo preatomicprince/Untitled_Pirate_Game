@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bp7j3le3latsc"]
+[gd_scene load_steps=6 format=3 uid="uid://bp7j3le3latsc"]
 
 [ext_resource type="PackedScene" uid="uid://dy0ycajp5q7kp" path="res://Levels/level.tscn" id="1_1r4le"]
 [ext_resource type="Script" uid="uid://riii0velajsp" path="res://Game/game.gd" id="1_fwxkx"]
 [ext_resource type="PackedScene" uid="uid://ccxcsvry36gf7" path="res://Player/player.tscn" id="2_1r4le"]
 [ext_resource type="PackedScene" uid="uid://cvftrdskh0kj7" path="res://UI/ui_main.tscn" id="4_jcm6v"]
-[ext_resource type="PackedScene" uid="uid://yk3nu8jks74c" path="res://Game/progress_screen.tscn" id="4_oomkl"]
 [ext_resource type="PackedScene" uid="uid://iv4ooe5vhjh4" path="res://Game/town_screen.tscn" id="6_qmv3x"]
 
 [node name="Game" type="Node2D"]
@@ -16,9 +15,6 @@ visible = false
 [node name="Town screen" parent="." instance=ExtResource("6_qmv3x")]
 visible = false
 position = Vector2(-192, 149)
-
-[node name="Progress screen" parent="." instance=ExtResource("4_oomkl")]
-visible = false
 
 [node name="ui main" parent="." instance=ExtResource("4_jcm6v")]
 

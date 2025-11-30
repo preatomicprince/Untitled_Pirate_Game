@@ -1,5 +1,8 @@
 extends Node2D
 
+var trader : Vector2i = Vector2i(0, 7)
+var governers_mansion : Vector2i = Vector2i(0, 8)
+
 enum town_types {
 	settlement = 0,
 	fort = 1,
@@ -50,7 +53,23 @@ func destroyed():
 	"""
 	alive = false
 	print("town destroyed")
-	costs.gold += costs.gold_from_town
+	
+	var gold_mult : int = 1
+	var has_gov : bool = false
+	var cur_gold : int = costs.gold_from_town
+	
+	for b in costs.current_buildings:
+		if b == trader:
+			gold_mult += 1
+		if b == governers_mansion:
+			has_gov = true
+	
+	cur_gold = cur_gold*gold_mult
+	if has_gov == true:
+		cur_gold = cur_gold * 2
+	
+	costs.gold += cur_gold
+
 
 func is_town():
 	pass

@@ -83,7 +83,7 @@ func check_ables():
 	costs.gold += to_add_gold
 	#TODO PUT A MAX HEALTH ON
 	game.player.ships[0].health
-	print(game.player.ships[0].health)
+	print(game.player.ships[0].health, "player health")
 
 func set_building(type):
 	match type:

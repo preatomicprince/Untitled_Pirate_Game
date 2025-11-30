@@ -81,17 +81,16 @@ func decide_whats_available():
 func _on_map_maker_pressed() -> void:
 	print("map maker")
 	ui.game.town_screen.set_building(costs.buildings.cartog)
+	ui.game.level.reveal_towns()
 	costs.CART_BUILT = true
 	costs.gold -= costs.map_cost
 	
-
 
 
 func _on_fishmonger_pressed() -> void:
 	print("fish monger")
 	ui.game.town_screen.set_building(costs.buildings.fish_monger)
 	costs.gold -= costs.fish_cost
-
 
 
 func _on_fencer_pressed() -> void:
