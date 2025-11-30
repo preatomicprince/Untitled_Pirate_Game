@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsdqtlmxiesih"]
+
+[ext_resource type="Script" uid="uid://um33bo58sqvl" path="res://Res/music and sound/sound_control.gd" id="1_t2mqg"]
+[ext_resource type="Script" uid="uid://ctjnq0r728qbs" path="res://Res/music and sound/song_player.gd" id="2_twv3m"]
+[ext_resource type="Script" uid="uid://cdrdsbr23e6m" path="res://Res/music and sound/town_player.gd" id="3_x4vkg"]
+
+[node name="sound control" type="Node"]
+script = ExtResource("1_t2mqg")
+
+[node name="battle player" type="AudioStreamPlayer" parent="."]
+script = ExtResource("2_twv3m")
+
+[node name="town player" type="AudioStreamPlayer" parent="."]
+script = ExtResource("3_x4vkg")

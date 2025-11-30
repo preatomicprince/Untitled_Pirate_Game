@@ -37,7 +37,7 @@ func reload_map():
 
 func send_waves():
 	"""
-	THIS DOESNT WORK; NEED JUST A 
+	
 	"""
 	var random_point = Vector2(
 		randi_range(game.player.ships[0].position[0]-100, game.player.ships[0].position[0]+100),  

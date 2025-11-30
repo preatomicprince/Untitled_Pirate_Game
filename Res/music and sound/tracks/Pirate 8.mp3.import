@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cp70iui8ki1ft"
+path="res://.godot/imported/Pirate 8.mp3-724a5866a16e0f22ea9e0e4411874f94.mp3str"
+
+[deps]
+
+source_file="res://Res/music and sound/tracks/Pirate 8.mp3"
+dest_files=["res://.godot/imported/Pirate 8.mp3-724a5866a16e0f22ea9e0e4411874f94.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

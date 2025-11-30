@@ -39,7 +39,7 @@ func spawn_ship():
 	if costs.infamy < 30:
 		new_ship.ship_type = Ship_Type.Clipper
 	if costs.infamy >= 30 and costs.infamy < 70:
-		new_ship.ship_type = Ship_Type.Man_Of_War
+		new_ship.ship_type = Ship_Type.Frigate
 	if costs.infamy >= 70:
 		timer.wait_time = spawn_quick
 	new_ship.team = Team.Enemy

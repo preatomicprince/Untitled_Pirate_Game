@@ -58,7 +58,6 @@ func _process(delta: float) -> void:
 		defeated = false
 
 
-
 func _physics_process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
 	

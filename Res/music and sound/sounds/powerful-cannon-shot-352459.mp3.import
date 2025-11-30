@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b60odadw58jh8"
+path="res://.godot/imported/powerful-cannon-shot-352459.mp3-bcd3d3c3611bdc604e1d7d42a99308b0.mp3str"
+
+[deps]
+
+source_file="res://Res/music and sound/sounds/powerful-cannon-shot-352459.mp3"
+dest_files=["res://.godot/imported/powerful-cannon-shot-352459.mp3-bcd3d3c3611bdc604e1d7d42a99308b0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

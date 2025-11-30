@@ -4,6 +4,8 @@ class_name Ship extends CharacterBody2D
 #pre loads
 @onready var treasure = preload("res://Ship/treasure.tscn")
 
+#sounds
+@onready var cannon_sound = $"cannon sound"
 #for ship images
 @onready var carrack_ims : Sprite2D = $Carrack
 @onready var man_o_war_ims : Sprite2D = $ManOWar

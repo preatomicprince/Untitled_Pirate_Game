@@ -89,6 +89,7 @@ func check_ables():
 	print(game.player.ships[0].health, "player health")
 
 func set_building(type):
+	print(costs.available_land)
 	match type:
 		costs.buildings.tavern:
 			var rand_loc = costs.available_land[randi_range(0, len(costs.available_land)-1)]

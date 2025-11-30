@@ -9,7 +9,7 @@ class_name Game extends Node2D
 @onready var level = $Level
 @onready var timer = $"game timer"
 @onready var ui = $"ui main"
-@onready var camera = $"game camera"
+@onready var sound_board = $"sound control"
 
 #using to decide how long you have in a level
  
@@ -30,6 +30,7 @@ var current_scene : int = scenes.Battle_field
 
 func _ready() -> void:
 	choose_scene(current_scene)
+	sound_board.on_first_load()
 
 func _process(delta: float) -> void:
 	if costs.gold >= costs.GOLD_TO_WIN:
@@ -44,6 +45,7 @@ func _input(event: InputEvent) -> void:
 			choose_scene(current_scene)
 			ui.decide_ui(current_scene)
 			town_screen.tick_timer.set_paused(true)
+			sound_board.switch()
 			return
 			
 		if current_scene == scenes.Town_builder:
@@ -51,8 +53,9 @@ func _input(event: InputEvent) -> void:
 			choose_scene(current_scene)
 			ui.decide_ui(current_scene)
 			town_screen.tick_timer.set_paused(false)
+			sound_board.switch()
 			return
-			
+		
 
 func choose_scene(cur : int):
 	town_screen.visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://byo0wsmut2awi"]
+[gd_scene load_steps=14 format=3 uid="uid://byo0wsmut2awi"]
 
 [ext_resource type="Script" uid="uid://cpkkr2dlf0oww" path="res://Ship/ship.gd" id="1_q4ev1"]
 [ext_resource type="Texture2D" uid="uid://sl3fmbeudpmo" path="res://Res/characters and towns/arrow.png" id="2_bpstu"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://ckvfethajtyyt" path="res://Ship/cannons_left.gd" id="8_4ahkv"]
 [ext_resource type="Texture2D" uid="uid://dc0xngrjitu06" path="res://Res/characters and towns/frigate.png" id="9_2mf0n"]
 [ext_resource type="PackedScene" uid="uid://cer7jk55wmmog" path="res://Ship/cannon_ball.tscn" id="9_vy28l"]
+[ext_resource type="AudioStream" uid="uid://b60odadw58jh8" path="res://Res/music and sound/sounds/powerful-cannon-shot-352459.mp3" id="11_f5jbu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4ev1"]
 size = Vector2(181, 129)
@@ -123,6 +124,9 @@ one_shot = true
 [node name="Knock_back_Timer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="cannon sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_f5jbu")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
