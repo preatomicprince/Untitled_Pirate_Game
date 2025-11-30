@@ -143,3 +143,4 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="build container/GridContainer/harbour" to="." method="_on_harbour_pressed"]
 [connection signal="pressed" from="build container/GridContainer/fencer" to="." method="_on_fencer_pressed"]
 [connection signal="pressed" from="build container/GridContainer/tavern" to="." method="_on_tavern_pressed"]
+[connection signal="pressed" from="build container/GridContainer/gov man" to="." method="_on_gov_man_pressed"]

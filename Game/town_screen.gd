@@ -84,6 +84,7 @@ func check_ables():
 	#TODO PUT A MAX HEALTH ON
 	game.player.ships[0].health
 	print(game.player.ships[0].health)
+
 func set_building(type):
 	match type:
 		costs.buildings.tavern:

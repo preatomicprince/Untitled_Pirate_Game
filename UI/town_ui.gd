@@ -1,14 +1,5 @@
 extends Control
 
-enum buildings {
-	map_maker = 0,
-	sextant = 1,
-	fishmonger,
-	rum_dist,
-	harbour,
-	fencer,
-	tavern,
-}
 
 @onready var ui : CanvasLayer = self.get_parent()
 @onready var player_town 
@@ -43,32 +34,41 @@ func decide_whats_available():
 	"""
 	disables certain buttons if conditions arnt met
 	"""
-	if costs.gold >= costs.tav_cost:
+	var has_land_tiles : bool = false
+	var has_water_tiles : bool = false
+	
+	if len(costs.available_land) > 0:
+		has_land_tiles = true
+		
+	if len(costs.available_sea) > 0:
+		has_water_tiles = true
+	
+	if costs.gold >= costs.tav_cost and has_land_tiles == true:
 		tavern.disabled = false
 	else:
 		tavern.disabled = true
 		
-	if costs.gold >= costs.fish_cost:
+	if costs.gold >= costs.fish_cost and has_land_tiles == true:
 		fish_monger.disabled = false
 	else:
 		fish_monger.disabled = true
 		
-	if costs.gold >= costs.pier_cost:
+	if costs.gold >= costs.pier_cost and has_water_tiles == true:
 		pier.disabled = false
 	else:
 		pier.disabled = true
 		
-	if costs.gold >= costs.trader_cost:
+	if costs.gold >= costs.trader_cost and has_land_tiles == true:
 		trader.disabled = false
 	else:
 		trader.disabled = true
 		
-	if costs.gold >= costs.gov_cost:
+	if costs.gold >= costs.gov_cost and has_land_tiles == true and costs.GOV_BUILT == false:
 		gov_man.disabled = false
 	else:
 		gov_man.disabled = true
 		
-	if costs.gold >= costs.map_cost:
+	if costs.gold >= costs.map_cost and costs.CART_BUILT == false and has_land_tiles == true:
 		map_maker.disabled = false
 	else:
 		map_maker.disabled = true
@@ -79,37 +79,40 @@ func decide_whats_available():
 #######
 #related to building stuff
 func _on_map_maker_pressed() -> void:
-	current_slot.create_building(buildings.map_maker)
-	build_options_container.visible = false
+	print("map maker")
+	ui.game.town_screen.set_building(costs.buildings.cartog)
+	costs.CART_BUILT = true
+	costs.gold -= costs.map_cost
+	
 
-
-func _on_sextant_pressed() -> void:
-	current_slot.create_building(buildings.sextant)
-	build_options_container.visible = false
 
 
 func _on_fishmonger_pressed() -> void:
-	current_slot.create_building(buildings.fishmonger)
-	build_options_container.visible = false
+	print("fish monger")
+	ui.game.town_screen.set_building(costs.buildings.fish_monger)
+	costs.gold -= costs.fish_cost
 
-
-func _on_rum_distilery_pressed() -> void:
-	current_slot.create_building(buildings.rum_dist)
-	build_options_container.visible = false
 
 
 func _on_fencer_pressed() -> void:
-	current_slot.create_building(buildings.fencer)
-	build_options_container.visible = false
+	print("market pressed")
+	ui.game.town_screen.set_building(costs.buildings.trader)
+	costs.gold -= costs.trader_cost
 
 
 func _on_tavern_pressed() -> void:
-	current_slot.create_building(buildings.tavern)
-	build_options_container.visible = false
+	print("tavern pressed")
+	ui.game.town_screen.set_building(costs.buildings.tavern)
+	costs.gold -= costs.tav_cost
 
 func _on_harbour_pressed() -> void:
-	current_slot.create_building(buildings.harbour)
-	build_options_container.visible = false
+	print("pier pressed")
+	ui.game.town_screen.set_building(costs.buildings.pier)
+	costs.gold -= costs.pier_cost
 	
-func _on_close_pressed() -> void:
-	build_options_container.visible = false
+
+func _on_gov_man_pressed() -> void:
+	print("gov pressed")
+	ui.game.town_screen.set_building(costs.buildings.governer)
+	costs.gold -= costs.gov_cost
+	costs.GOV_BUILT = true
