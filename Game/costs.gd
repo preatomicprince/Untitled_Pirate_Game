@@ -3,6 +3,7 @@ extends Node
 #current vars
 var gold : int = 10000
 var infamy : int = 0
+var infamy_decay : int = 2
 
 var ship_destroyed : bool = false
 

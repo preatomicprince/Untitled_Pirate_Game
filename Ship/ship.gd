@@ -7,6 +7,7 @@ class_name Ship extends CharacterBody2D
 #for ship images
 @onready var carrack_ims : Sprite2D = $Carrack
 @onready var man_o_war_ims : Sprite2D = $ManOWar
+@onready var frigate_ims : Sprite2D = $Frigate
 var ship_ims : Sprite2D
 @onready var shot_radius : Sprite2D = $ShotRadius
 #assign the right sprite sheet depending on what ship the ship is
@@ -98,7 +99,8 @@ func _ready() -> void:
 		carrack_ims.visible = true
 		ship_ims = carrack_ims
 	if ship_type == Ship_Type.Frigate:
-		pass
+		frigate_ims.visible = true
+		ship_ims = frigate_ims
 	if ship_type == Ship_Type.Man_Of_War:
 		man_o_war_ims.visible = true
 		ship_ims = man_o_war_ims

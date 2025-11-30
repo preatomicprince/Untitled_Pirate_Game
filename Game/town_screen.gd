@@ -60,10 +60,13 @@ func check_ables():
 	"""
 	goes through your buildings that have passive bonuses and adds them on the timer
 	"""
+	if costs.infamy > 0:
+		costs.infamy -= costs.infamy_decay
+		
 	if len(costs.current_buildings) == 0:
 		print("no buildings")
 		return
-		
+	print("is it getting here")
 	var to_add_gold : int = 0
 	var gov_man : bool = false
 	var num_heal : int = 0
@@ -82,7 +85,7 @@ func check_ables():
 	
 	costs.gold += to_add_gold
 	#TODO PUT A MAX HEALTH ON
-	game.player.ships[0].health
+	game.player.ships[0].health += num_heal
 	print(game.player.ships[0].health, "player health")
 
 func set_building(type):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://byo0wsmut2awi"]
+[gd_scene load_steps=13 format=3 uid="uid://byo0wsmut2awi"]
 
 [ext_resource type="Script" uid="uid://cpkkr2dlf0oww" path="res://Ship/ship.gd" id="1_q4ev1"]
 [ext_resource type="Texture2D" uid="uid://sl3fmbeudpmo" path="res://Res/characters and towns/arrow.png" id="2_bpstu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://djvsc17b4gqhx" path="res://Res/characters and towns/shot_radius.png" id="5_eti42"]
 [ext_resource type="Texture2D" uid="uid://cmy7je7xgtoo5" path="res://Res/characters and towns/man o war.png" id="7_bpstu"]
 [ext_resource type="Script" uid="uid://ckvfethajtyyt" path="res://Ship/cannons_left.gd" id="8_4ahkv"]
+[ext_resource type="Texture2D" uid="uid://dc0xngrjitu06" path="res://Res/characters and towns/frigate.png" id="9_2mf0n"]
 [ext_resource type="PackedScene" uid="uid://cer7jk55wmmog" path="res://Ship/cannon_ball.tscn" id="9_vy28l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4ev1"]
@@ -18,10 +19,6 @@ radius = 79.24645
 
 [node name="Ship" type="CharacterBody2D"]
 script = ExtResource("1_q4ev1")
-ship_type = null
-team = null
-patrolling = null
-hunting = null
 
 [node name="nav_agent" type="NavigationAgent2D" parent="."]
 simplify_path = true
@@ -94,6 +91,12 @@ position = Vector2(-52, 40)
 visible = false
 z_index = 2
 texture = ExtResource("5_d6neq")
+hframes = 20
+vframes = 4
+
+[node name="Frigate" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("9_2mf0n")
 hframes = 20
 vframes = 4
 
