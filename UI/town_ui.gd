@@ -15,11 +15,19 @@ enum buildings {
 @onready var build_options_container : Control = $"build container"
 @onready var gold_text : RichTextLabel = $"gold text"
 
+@onready var map_maker = $"build container/GridContainer/map maker"
+@onready var fish_monger = $"build container/GridContainer/fishmonger"
+@onready var pier = $"build container/GridContainer/harbour"
+@onready var trader = $"build container/GridContainer/fencer"
+@onready var tavern = $"build container/GridContainer/tavern"
+@onready var gov_man = $"build container/GridContainer/gov man"
+
 var current_slot : TextureButton
 
 func _process(delta: float) -> void:
 	gold_text.text = "Current gold: {amount}".format({"amount": costs.gold})
-
+	decide_whats_available()
+	
 func _on_button_pressed() -> void:
 	ui.game.reset_loop()
 
@@ -31,6 +39,44 @@ func build_options(cur_slot : TextureButton):
 	build_options_container.visible = true
 	
 
+func decide_whats_available():
+	"""
+	disables certain buttons if conditions arnt met
+	"""
+	if costs.gold >= costs.tav_cost:
+		tavern.disabled = false
+	else:
+		tavern.disabled = true
+		
+	if costs.gold >= costs.fish_cost:
+		fish_monger.disabled = false
+	else:
+		fish_monger.disabled = true
+		
+	if costs.gold >= costs.pier_cost:
+		pier.disabled = false
+	else:
+		pier.disabled = true
+		
+	if costs.gold >= costs.trader_cost:
+		trader.disabled = false
+	else:
+		trader.disabled = true
+		
+	if costs.gold >= costs.gov_cost:
+		gov_man.disabled = false
+	else:
+		gov_man.disabled = true
+		
+	if costs.gold >= costs.map_cost:
+		map_maker.disabled = false
+	else:
+		map_maker.disabled = true
+#########
+#
+#	PROCESS FUNCTIONS
+#
+#######
 #related to building stuff
 func _on_map_maker_pressed() -> void:
 	current_slot.create_building(buildings.map_maker)

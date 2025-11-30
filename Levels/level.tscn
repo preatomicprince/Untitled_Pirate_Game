@@ -50,7 +50,7 @@ fog_light_energy = 4.78
 fog_sun_scatter = 0.12
 volumetric_fog_density = 0.0
 adjustment_enabled = true
-adjustment_saturation = 0.5
+adjustment_saturation = 1.08
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_wav5q")

@@ -1,9 +1,24 @@
 extends Node2D
 
 @onready var game : Node2D = self.get_parent()
-@onready var slot_container : Node2D = $"slot container"
+@onready var tick_timer : Timer = $"tick timer"
 @onready var building_container : Node2D = $"building container"
-#TODO proper land
+@onready var town_tiles : TileMapLayer = $"town tiles"
+@onready var building_layer : TileMapLayer = $"building layer"
+@onready var sea_layer : TileMapLayer = $"sea layer"
+
+#BUILDING VECS
+var tavern : Vector2i = Vector2i(0, 3)
+var pier : Vector2i = Vector2i(0, 4)
+var fish_monger : Vector2i = Vector2i(0, 5)
+var cartographer : Vector2i = Vector2i(0, 6)
+var trader : Vector2i = Vector2i(0, 7)
+var governers_mansion : Vector2i = Vector2i(0, 8)
+var shallows : Vector2i = Vector2i(2, 0)
+var deep_water : Vector2i = Vector2i(2, 1)
+var forest_tiles : Vector2i = Vector2i(3, 0)
+
+
 
 #each section of this que represents a building slot,
 #when that slot is filled it will have a function that then gets called 
@@ -13,25 +28,8 @@ var building_que : Array = []
 var build_slots : Array = []
 var function_list : Array = []
 
-enum buildings {
-	map_maker = 0,
-	sextant = 1,
-	fishmonger,
-	rum_dist,
-	harbour,
-	fencer,
-	tavern,
-}
 
-var building_costs : Dictionary = {
-	buildings.map_maker : 10,
-	buildings.sextant : 10,
-	buildings.fishmonger : 10,
-	buildings.rum_dist : 10,
-	buildings.harbour : 10, 
-	buildings.fencer : 10,
-	buildings.tavern : 10
-	}
+
 
 #values related to buildings
 var TIME_ADD : float = 5.0
@@ -41,36 +39,110 @@ var MULTIPLIER_ADD : float = 0.5
 var SHIPS_ADD : int = 3
 
 func _ready():
-	#set up the order que based on how many building slots
-	#and build slots
-	for c in range(0, len(slot_container.get_children())):
-		building_que.append(null)
-	#set up the build slots
-	build_slots = slot_container.get_children()
-	
-	function_list = [map_maker, sextanter, fishmonger, rum_distiler, harbour, fencer, tavern]
+	pass
+
 
 func _process(delta: float) -> void:
 	###keep the town over the players unit
 	if game.player.ships[0] != null:
 		self.position = game.player.ships[0].position
+##############
+#
+#	FOR SETTIN TILES
+#
+#############
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("motherload"):
+		set_building(costs.buildings.tavern)
+
+func check_ables():
+	"""
+	goes through your buildings that have passive bonuses and adds them on the timer
+	"""
+	if len(costs.current_buildings) == 0:
+		print("no buildings")
+		return
+		
+	var to_add_gold : int = 0
+	var gov_man : bool = false
+	var num_heal : int = 0
+	
+	for b in costs.current_buildings:
+		if b == tavern:
+			to_add_gold += costs.tavern_add 
+		if b == governers_mansion:
+			gov_man = true
+		if b == fish_monger:
+			num_heal += 1
+			
+	
+	if gov_man == true:
+		to_add_gold = to_add_gold * 2
+	
+	costs.gold += to_add_gold
+	#TODO PUT A MAX HEALTH ON
+	game.player.ships[0].health
+	print(game.player.ships[0].health)
+func set_building(type):
+	match type:
+		costs.buildings.tavern:
+			var rand_loc = costs.available_land[randi_range(0, len(costs.available_land)-1)]
+			building_layer.set_cell(rand_loc, 0, tavern)
+			costs.available_land.pop_at(costs.available_land.find(rand_loc))
+			costs.current_buildings.append(tavern)
+			
+		costs.buildings.pier:
+			var rand_loc = costs.available_sea[randi_range(0, len(costs.available_sea)-1)]
+			building_layer.set_cell(rand_loc, 0, pier)
+			costs.available_sea.pop_at(costs.available_sea.find(rand_loc))
+			costs.current_buildings.append(pier)
+			
+		costs.buildings.fish_monger:
+			var rand_loc = costs.available_land[randi_range(0, len(costs.available_land)-1)]
+			building_layer.set_cell(rand_loc, 0, fish_monger)
+			costs.available_land.pop_at(costs.available_land.find(rand_loc))
+			costs.current_buildings.append(fish_monger)
+			
+		costs.buildings.cartog:
+			var rand_loc = costs.available_land[randi_range(0, len(costs.available_land)-1)]
+			building_layer.set_cell(rand_loc, 0, cartographer)
+			costs.available_land.pop_at(costs.available_land.find(rand_loc))
+			costs.current_buildings.append(cartographer)
+			
+		costs.buildings.trader:
+			var rand_loc = costs.available_land[randi_range(0, len(costs.available_land)-1)]
+			building_layer.set_cell(rand_loc, 0, trader)
+			costs.available_land.pop_at(costs.available_land.find(rand_loc))
+			costs.current_buildings.append(trader)
+			
+		costs.buildings.governer:
+			var rand_loc = costs.available_land[randi_range(0, len(costs.available_land)-1)]
+			building_layer.set_cell(rand_loc, 0, governers_mansion)
+			costs.available_land.pop_at(costs.available_land.find(rand_loc))
+			costs.current_buildings.append(governers_mansion)
 	
 func new_map():
 	"""
-	this function will be called when the map resets during a run,
+	this function will be called at the begining to work out what tiles are available to 
+	build on
 	"""
-	#for ship
-	game.player.maximum_number_of_ships = game.player.STARTING_NUM_SHIPS
-	#this is for the bootlegger buildins, so we dont have compounding bonuses
-	game.player.sell_item_multiplier = game.player.STARTING_MULTIPLIER
-	#set a base time in case the people have a map maker
-	game.time_left = game.STARTING_TIME_LEFT
-	for f in building_que:
-		if f != null:
-			f.call()
+	#Arrays for available tiles
+	for t in town_tiles.get_used_cells():
+		if town_tiles.get_cell_atlas_coords(t) != Vector2i(-1, -1):
+			if town_tiles.get_cell_atlas_coords(t) != deep_water:
+				if town_tiles.get_cell_atlas_coords(t) == shallows:
+					costs.available_sea.append(t)
+				else:
+					costs.available_land.append(t)
 	
-	#game.timer.start(game.time_left)
+	for t in town_tiles.get_used_cells():
+		if town_tiles.get_cell_atlas_coords(t) == deep_water:
+			sea_layer.set_cell(t, 0,deep_water)
+		if town_tiles.get_cell_atlas_coords(t) == shallows:
+			sea_layer.set_cell(t, 0,shallows)
+	#for t in costs.available_sea:
+		#building_layer.set_cell(t, 0, Vector2i(1, 7))
 	
 ############
 #
@@ -78,104 +150,12 @@ func new_map():
 #
 ##############
 
-func map_maker():
-	"""
-	goes through the tile maps used and reveals relevant tiles
-	"""
-	for t in game.level.map_layers.map_layer.get_used_cells():
-		if game.level.map_layers.map_layer.get_cell_atlas_coords(t) in game.level.map_layers.town_layer.town_cells:
-			game.level.map_layers.fog_layer.set_cell(t, 0, Vector2i(-1, -1))
-	print("map maker")
-	
-func sextanter():
-	"""
-	adds time to the timer
-	"""
-	game.time_left += TIME_ADD
-	print("sextanter")
-	
-func fishmonger():
-	"""
-	loops over the players ships and adds health
-	"""
-	for s in game.player.ships:
-		s.health += HEALTH_ADD
-	print("fishmonger")
-	
-func rum_distiler():
-	"""
-	
-	"""
-	print("rum baybe")
-	
-func harbour():
-	"""
-	adds more ships to maximum ships
-	"""
-	game.player.maximum_number_of_ships += SHIPS_ADD
-	
-func fencer():
-	"""
-	more gold on selling shit, cant implement until the other stuff is in place
-	"""
-	game.player.sell_item_multiplier += MULTIPLIER_ADD
-	
-func tavern():
-	"""
-	adds gold to the player each time they boot up a level
-	"""
-	costs.gold += GOLD_ADD
-
-
 ###########
 #
 #	SIGNAL FUNCTIONS RELATED TO BUILD SLOTS
 #
 ##########
 
-func _on_build_slot_pressed() -> void:
-	game.ui.town_ui.build_options(build_slots[0])
-	for c in build_slots:
-		c.slot_selected = false
-	
-	build_slots[0].slot_selected = true
 
-
-func _on_build_slot_2_pressed() -> void:
-	game.ui.town_ui.build_options(build_slots[1])
-	for c in build_slots:
-		c.slot_selected = false
-	
-	build_slots[1].slot_selected = true
-
-
-func _on_build_slot_3_pressed() -> void:
-	game.ui.town_ui.build_options(build_slots[2])
-	for c in build_slots:
-		c.slot_selected = false
-	
-	build_slots[2].slot_selected = true
-
-
-func _on_build_slot_4_pressed() -> void:
-	game.ui.town_ui.build_options(build_slots[3])
-	for c in build_slots:
-		c.slot_selected = false
-	
-	build_slots[3].slot_selected = true
-
-
-func _on_build_slot_5_pressed() -> void:
-	game.ui.town_ui.build_options(build_slots[4])
-	for c in build_slots:
-		c.slot_selected = false
-	
-	build_slots[4].slot_selected = true
-
-
-func _on_build_slot_6_pressed() -> void:
-	game.ui.town_ui.build_options(build_slots[5])
-	for c in build_slots:
-		c.slot_selected = false
-	
-	build_slots[5].slot_selected = true
+func _on_tick_timer_timeout() -> void:
+	check_ables()

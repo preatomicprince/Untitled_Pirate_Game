@@ -27,7 +27,6 @@ offset_bottom = 38.22399
 text = "temp go to game button"
 
 [node name="build container" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchor_left = 0.049000002
 anchor_top = 1.0
@@ -83,7 +82,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-columns = 8
+columns = 6
 
 [node name="map maker" type="Button" parent="build container/GridContainer"]
 layout_mode = 2
@@ -92,24 +91,12 @@ size_flags_vertical = 3
 text = "map maker
 "
 
-[node name="sextant" type="Button" parent="build container/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Sextant"
-
 [node name="fishmonger" type="Button" parent="build container/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Fishmonger
 "
-
-[node name="rum distilery" type="Button" parent="build container/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Rum distilery"
 
 [node name="harbour" type="Button" parent="build container/GridContainer"]
 layout_mode = 2
@@ -121,7 +108,7 @@ text = "harbour"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Fencer"
+text = "Trader"
 
 [node name="tavern" type="Button" parent="build container/GridContainer"]
 layout_mode = 2
@@ -130,10 +117,13 @@ size_flags_vertical = 3
 text = "Tavern
 "
 
-[node name="close" type="Button" parent="build container/GridContainer"]
+[node name="gov man" type="Button" parent="build container/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "close"
+size_flags_vertical = 3
+text = "Governers
+Mansion
+"
 
 [node name="gold text" parent="." instance=ExtResource("2_n54da")]
 layout_mode = 1
@@ -149,10 +139,7 @@ metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="build container/GridContainer/map maker" to="." method="_on_map_maker_pressed"]
-[connection signal="pressed" from="build container/GridContainer/sextant" to="." method="_on_sextant_pressed"]
 [connection signal="pressed" from="build container/GridContainer/fishmonger" to="." method="_on_fishmonger_pressed"]
-[connection signal="pressed" from="build container/GridContainer/rum distilery" to="." method="_on_rum_distilery_pressed"]
 [connection signal="pressed" from="build container/GridContainer/harbour" to="." method="_on_harbour_pressed"]
 [connection signal="pressed" from="build container/GridContainer/fencer" to="." method="_on_fencer_pressed"]
 [connection signal="pressed" from="build container/GridContainer/tavern" to="." method="_on_tavern_pressed"]
-[connection signal="pressed" from="build container/GridContainer/close" to="." method="_on_close_pressed"]

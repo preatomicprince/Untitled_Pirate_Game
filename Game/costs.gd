@@ -20,4 +20,33 @@ var infamy_attacking_ship : int = 10
 #BUILDING STUFF
 var fencer_add = 2
 var harbour_add = 2 #a multiplier for sunk ships
-var tavern_add = 10
+var tavern_add = 100
+
+#BUILDING COSTS
+var tav_cost : int = 20
+var fish_cost : int = 10
+var pier_cost : int = 30
+var trader_cost : int = 30
+var gov_cost : int = 500
+var map_cost : int = 100
+
+#TOWN TILES
+var town_tiles : Array = []
+
+enum buildings {
+	tavern,
+	pier,
+	fish_monger,
+	cartog,
+	trader,
+	governer
+}
+
+#max number for buildings
+var CART_MAX : int = 1
+var GOV_MAX : int = 1
+
+#Arrays for available tiles
+var available_land : Array = []
+var available_sea : Array = []
+var current_buildings : Array = []

@@ -43,13 +43,17 @@ func _input(event: InputEvent) -> void:
 		if current_scene == scenes.Battle_field:
 			current_scene = scenes.Town_builder
 			choose_scene(current_scene)
-			print("here")
+			ui.decide_ui(current_scene)
+			town_screen.tick_timer.set_paused(true)
 			return
 			
 		if current_scene == scenes.Town_builder:
 			current_scene = scenes.Battle_field
 			choose_scene(current_scene)
+			ui.decide_ui(current_scene)
+			town_screen.tick_timer.set_paused(false)
 			return
+			
 
 func choose_scene(cur : int):
 	town_screen.visible = false

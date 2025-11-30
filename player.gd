@@ -57,9 +57,7 @@ func _process(delta: float) -> void:
 		game.choose_scene(game.current_scene)
 		defeated = false
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("motherload"):
-		self.gold += 10
+
 
 func _physics_process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
