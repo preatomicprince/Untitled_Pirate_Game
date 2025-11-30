@@ -6,6 +6,8 @@ extends Control
 @onready var build_options_container : Control = $"build container"
 @onready var gold_text : RichTextLabel = $"gold text"
 
+@onready var build_sound = $"build sound"
+
 @onready var map_maker = $"build container/GridContainer/map maker"
 @onready var fish_monger = $"build container/GridContainer/fishmonger"
 @onready var pier = $"build container/GridContainer/harbour"
@@ -79,6 +81,7 @@ func decide_whats_available():
 #######
 #related to building stuff
 func _on_map_maker_pressed() -> void:
+	build_sound.play()
 	print("map maker")
 	ui.game.town_screen.set_building(costs.buildings.cartog)
 	ui.game.level.reveal_towns()
@@ -88,29 +91,34 @@ func _on_map_maker_pressed() -> void:
 
 
 func _on_fishmonger_pressed() -> void:
+	build_sound.play()
 	print("fish monger")
 	ui.game.town_screen.set_building(costs.buildings.fish_monger)
 	costs.gold -= costs.fish_cost
 
 
 func _on_fencer_pressed() -> void:
+	build_sound.play()
 	print("market pressed")
 	ui.game.town_screen.set_building(costs.buildings.trader)
 	costs.gold -= costs.trader_cost
 
 
 func _on_tavern_pressed() -> void:
+	build_sound.play()
 	print("tavern pressed")
 	ui.game.town_screen.set_building(costs.buildings.tavern)
 	costs.gold -= costs.tav_cost
 
 func _on_harbour_pressed() -> void:
+	build_sound.play()
 	print("pier pressed")
 	ui.game.town_screen.set_building(costs.buildings.pier)
 	costs.gold -= costs.pier_cost
 	
 
 func _on_gov_man_pressed() -> void:
+	build_sound.play()
 	print("gov pressed")
 	ui.game.town_screen.set_building(costs.buildings.governer)
 	costs.gold -= costs.gov_cost

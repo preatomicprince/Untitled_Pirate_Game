@@ -19,13 +19,18 @@ func _ready() -> void:
 #################
 
 func _input(event: InputEvent) -> void:
+	
 	if self.side == "left" and is_player == true:
 		if event.is_action_pressed("fire_left"):
-			fire_cannon()
+			if ship.level.game.current_scene == ship.level.game.scenes.Battle_field:
+				ship.cannon_sound.play()
+				fire_cannon()
 	
 	if self.side == "right" and is_player == true:
 		if event.is_action_pressed("fire_right"):
-			fire_cannon()
+			if ship.level.game.current_scene == ship.level.game.scenes.Battle_field:
+				ship.cannon_sound.play()
+				fire_cannon()
 
 func fire_cannon():
 	for c in cannons:

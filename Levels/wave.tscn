@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cq5tly48tavdm"]
+[gd_scene load_steps=4 format=3 uid="uid://cq5tly48tavdm"]
 
 [ext_resource type="Script" uid="uid://d3kqhbo0wa0fj" path="res://Levels/wave.gd" id="1_qeobs"]
 [ext_resource type="Texture2D" uid="uid://oe1dtcqh7g5j" path="res://Res/characters and towns/waves.png" id="2_k2bsw"]
+[ext_resource type="AudioStream" uid="uid://cbkaklan7md38" path="res://Res/music and sound/sounds/waves-crashing-397977.mp3" id="3_k2bsw"]
 
 [node name="wave" type="CharacterBody2D"]
 script = ExtResource("1_qeobs")
@@ -15,3 +16,7 @@ polygon = PackedVector2Array(-6, -49, 90, -140, 143, -117, 78, -93, 64, -35, -36
 position = Vector2(-1, 1)
 texture = ExtResource("2_k2bsw")
 hframes = 5
+
+[node name="wave sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_k2bsw")
+max_distance = 1500.0

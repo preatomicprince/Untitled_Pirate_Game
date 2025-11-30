@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bvwabkq10wv3b"
+path="res://.godot/imported/drowning-34415.wav-7f645386d216ca79f0e66a51f3bf68e7.sample"
+
+[deps]
+
+source_file="res://Res/music and sound/sounds/drowning-34415.wav"
+dest_files=["res://.godot/imported/drowning-34415.wav-7f645386d216ca79f0e66a51f3bf68e7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

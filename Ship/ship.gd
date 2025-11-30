@@ -3,9 +3,12 @@ class_name Ship extends CharacterBody2D
 @onready var game : Node2D = self.get_parent().get_parent().get_parent()
 #pre loads
 @onready var treasure = preload("res://Ship/treasure.tscn")
-
+@onready var coin_sound = $"collection sound"
+@onready var sailing_sound = $"sailing sound"
 #sounds
 @onready var cannon_sound = $"cannon sound"
+@onready var ship_hit_sound = $"ship hit sound"
+@onready var ship_sunk_sound = $"ship sunk sound"
 #for ship images
 @onready var carrack_ims : Sprite2D = $Carrack
 @onready var man_o_war_ims : Sprite2D = $ManOWar
@@ -215,14 +218,18 @@ func attack(ship: Ship) -> void:
 			damage = self.CRIT_MULT
 		ship.take_damage(damage, self)
 		
+		
 func take_damage(damage: int, attacker: Ship) -> void:
 	health -= damage
 	knock_back_func(attacker.position)
+	if ship_hit_sound.playing == false:
+		ship_hit_sound.play()
 	if health <= 0:
 		if attacker != null:
 			if Ability_Types.Charismatic_Captain in attacker.abilities:
 				attacker.health += Ability_Values.Charismatic_HP
 		destroy_ship()
+		attacker.ship_sunk_sound.play()
 		
 	if attacker == null:
 		return
@@ -306,7 +313,10 @@ func destroy_ship():
 		costs.infamy += costs.infamy_attacking_ship
 	else:
 		costs.ship_destroyed = true
+	ship_sunk_sound.play()
+
 	self.queue_free()
+
 
 func _process(delta: float) -> void:
 	decide_animation({})
@@ -327,10 +337,13 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if team == Team.Player:
 		if event.is_action_pressed("up"):
+			sailing_sound.play()
 			forward = true
 		if event.is_action_pressed("right"):
+			sailing_sound.play()
 			right = true
 		if event.is_action_pressed("left"):
+			sailing_sound.play()
 			left = true
 			
 		if event.is_action_released("up"):
@@ -341,7 +354,10 @@ func _input(event: InputEvent) -> void:
 			left = false
 
 func _physics_process(delta):
-	
+	if sailing_sound.playing == true:
+		sailing_sound.volume_db -= 0.4
+	else:
+		sailing_sound.volume_db = 6.0
 	if game.current_scene != game.scenes.Battle_field:
 		return
 	player_movement(delta)
@@ -585,7 +601,4 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	#work out if the player hits a wave
 	if area.get_parent().has_method("is_wave"):
 		knock_back_func(area.get_parent().global_position)
-
-
-func _on_area_2d_area_exited(area: Area2D) -> void:
-	pass # Replace with function body.
+		ship_hit_sound.play()

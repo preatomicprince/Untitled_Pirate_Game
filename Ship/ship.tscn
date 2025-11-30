@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://byo0wsmut2awi"]
+[gd_scene load_steps=18 format=3 uid="uid://byo0wsmut2awi"]
 
 [ext_resource type="Script" uid="uid://cpkkr2dlf0oww" path="res://Ship/ship.gd" id="1_q4ev1"]
 [ext_resource type="Texture2D" uid="uid://sl3fmbeudpmo" path="res://Res/characters and towns/arrow.png" id="2_bpstu"]
@@ -11,6 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://dc0xngrjitu06" path="res://Res/characters and towns/frigate.png" id="9_2mf0n"]
 [ext_resource type="PackedScene" uid="uid://cer7jk55wmmog" path="res://Ship/cannon_ball.tscn" id="9_vy28l"]
 [ext_resource type="AudioStream" uid="uid://b60odadw58jh8" path="res://Res/music and sound/sounds/powerful-cannon-shot-352459.mp3" id="11_f5jbu"]
+[ext_resource type="AudioStream" uid="uid://drltgnsjplrja" path="res://Res/music and sound/sounds/cannon-explosion-39434.mp3" id="12_oy6rr"]
+[ext_resource type="AudioStream" uid="uid://bvwabkq10wv3b" path="res://Res/music and sound/sounds/drowning-34415.wav" id="13_yum6n"]
+[ext_resource type="AudioStream" uid="uid://cy0tmjj3hx8lw" path="res://Res/music and sound/sounds/coin-drop-229314.wav" id="14_308st"]
+[ext_resource type="AudioStream" uid="uid://ctfj3sfw6nphr" path="res://Res/music and sound/sounds/sail.wav" id="15_u0im0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4ev1"]
 size = Vector2(181, 129)
@@ -127,6 +131,23 @@ one_shot = true
 
 [node name="cannon sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_f5jbu")
+volume_db = -5.266
+pitch_scale = 0.6
+
+[node name="ship hit sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_oy6rr")
+volume_db = -20.312
+pitch_scale = 1.61
+
+[node name="ship sunk sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_yum6n")
+
+[node name="collection sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_308st")
+
+[node name="sailing sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_u0im0")
+volume_db = -13.165
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

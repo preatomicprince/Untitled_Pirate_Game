@@ -8,7 +8,9 @@
 script = ExtResource("1_t2mqg")
 
 [node name="battle player" type="AudioStreamPlayer" parent="."]
+volume_db = -8.894
 script = ExtResource("2_twv3m")
 
 [node name="town player" type="AudioStreamPlayer" parent="."]
+volume_db = -4.0
 script = ExtResource("3_x4vkg")

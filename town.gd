@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var town_hit = $"town hit"
+
 var trader : Vector2i = Vector2i(0, 7)
 var governers_mansion : Vector2i = Vector2i(0, 8)
 
@@ -16,7 +18,7 @@ var team = Team.Enemy
 
 var town_name : String = "Kingston"
 var strength: float = 1.0
-var health : float = 100.0
+var health : float = 20.0
 #TODO set a proper system for this
 var gold : int = 10
 
@@ -40,11 +42,14 @@ func take_damage(damage : int, attacker : Ship):
 	"""
 	if alive == false:
 		return
-		
+	
+	town_hit.play()
+	
 	health -= damage
 	print("town health", health)
 	if health <= 0:
 		destroyed()
+		attacker.coin_sound.play()
 	
 func destroyed():
 	"""
@@ -67,6 +72,8 @@ func destroyed():
 	cur_gold = cur_gold*gold_mult
 	if has_gov == true:
 		cur_gold = cur_gold * 2
+	
+	self.get_parent().destroy_town(self.position)
 	
 	costs.gold += cur_gold
 

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cy0tmjj3hx8lw"
+path="res://.godot/imported/coin-drop-229314.wav-d7db9a3a3bd357355128736315e35bc6.sample"
+
+[deps]
+
+source_file="res://Res/music and sound/sounds/coin-drop-229314.wav"
+dest_files=["res://.godot/imported/coin-drop-229314.wav-d7db9a3a3bd357355128736315e35bc6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

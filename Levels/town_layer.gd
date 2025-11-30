@@ -25,3 +25,11 @@ func spawn_towns(tile_layer : TileMapLayer):
 			var world_pos = tile_layer.map_to_local(t)
 			town_instance.position = world_pos
 			self.add_child(town_instance)
+
+func destroy_town(pos):
+	var town_loc = self.get_parent().map_layer.local_to_map(pos)
+	if self.get_parent().map_layer.get_cell_atlas_coords(town_loc) == town_cells[1]:
+		self.get_parent().map_layer.set_cell(town_loc, 0, Vector2i(3, 1))
+		
+	if self.get_parent().map_layer.get_cell_atlas_coords(town_loc) == town_cells[2]:
+		self.get_parent().map_layer.set_cell(town_loc, 0, Vector2i(3, 2))

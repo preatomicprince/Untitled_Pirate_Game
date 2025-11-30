@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dgbhn8m84puia"
+path="res://.godot/imported/waves-crashing-397977.wav-d977e83119573900f1e12e80335a0931.sample"
+
+[deps]
+
+source_file="res://Res/music and sound/sounds/waves-crashing-397977.wav"
+dest_files=["res://.godot/imported/waves-crashing-397977.wav-d977e83119573900f1e12e80335a0931.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

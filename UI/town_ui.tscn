@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://si6480vywl32"]
+[gd_scene load_steps=4 format=3 uid="uid://si6480vywl32"]
 
 [ext_resource type="Script" uid="uid://bevmywlewuwg3" path="res://UI/town_ui.gd" id="1_t4npv"]
 [ext_resource type="PackedScene" uid="uid://dlqb34m81iits" path="res://UI/game_text.tscn" id="2_n54da"]
+[ext_resource type="AudioStream" uid="uid://cdjstiksfykue" path="res://Res/music and sound/sounds/Construction sound.wav" id="3_f8iim"]
 
 [node name="town_ui" type="Control"]
 layout_mode = 3
@@ -136,6 +137,9 @@ grow_horizontal = 1
 grow_vertical = 1
 text = "[center]Current gold: 0"
 metadata/_edit_use_anchors_ = true
+
+[node name="build sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_f8iim")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="build container/GridContainer/map maker" to="." method="_on_map_maker_pressed"]

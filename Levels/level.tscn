@@ -94,7 +94,6 @@ tile_set = ExtResource("4_ecu0b")
 tile_set = ExtResource("4_ecu0b")
 
 [node name="fog layer" type="TileMapLayer" parent="map layers"]
-visible = false
 z_index = 100
 z_as_relative = false
 tile_set = ExtResource("3_uhyyw")

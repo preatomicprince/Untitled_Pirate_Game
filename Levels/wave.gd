@@ -1,8 +1,13 @@
 extends CharacterBody2D
 
+@onready var wave_sound = $"wave sound"
 var distance_traveled : int = 0
 var speed : int = 200
 var disap : bool = false
+
+func _ready() -> void:
+	wave_sound.play()
+	
 func _process(delta: float) -> void:
 
 	is_wave(delta)

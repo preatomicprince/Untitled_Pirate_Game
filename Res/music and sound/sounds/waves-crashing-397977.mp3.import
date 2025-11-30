@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cbkaklan7md38"
+path="res://.godot/imported/waves-crashing-397977.mp3-b734333ee2e9f8d1df014d532d009036.mp3str"
+
+[deps]
+
+source_file="res://Res/music and sound/sounds/waves-crashing-397977.mp3"
+dest_files=["res://.godot/imported/waves-crashing-397977.mp3-b734333ee2e9f8d1df014d532d009036.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dn7yyki7ga3fx"
+path="res://.godot/imported/a-ship-sailing-in-the-red-sea-145666.wav-219f308675ccc0e4644199e205cf622b.sample"
+
+[deps]
+
+source_file="res://Res/music and sound/sounds/a-ship-sailing-in-the-red-sea-145666.wav"
+dest_files=["res://.godot/imported/a-ship-sailing-in-the-red-sea-145666.wav-219f308675ccc0e4644199e205cf622b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

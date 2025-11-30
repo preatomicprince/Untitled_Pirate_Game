@@ -1,5 +1,7 @@
 extends Sprite2D
 
+@onready var coin_sound = $"collection sound"
+
 var pier : Vector2i = Vector2i(0, 4)
 var governers_mansion : Vector2i = Vector2i(0, 8)
 # Called when the node enters the scene tree for the first time.
@@ -37,6 +39,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent().has_method("boarding"):
 		#workout if cannon hits own ships
 		if area.get_parent().team == area.get_parent().Team.Player:
-			
+			area.get_parent().coin_sound.play()
 			collect(area)
 			
