@@ -332,6 +332,8 @@ func _process(delta: float) -> void:
 		var angle_deg = $Highlight.rotation_degrees
 		if angle_deg < 0:
 			angle_deg += 360
+			
+	
 
 
 
@@ -375,7 +377,9 @@ func _physics_process(delta):
 			enemies = level.enemy_ships
 		elif team == Team.Enemy:
 			enemies = player.ships
-		
+	
+
+	
 	match state:
 		State.Moving:
 			#Check if we should move to combat
@@ -424,15 +428,23 @@ func _physics_process(delta):
 			else:
 				velocity = -current_agent_position.direction_to(next_path_position) * speed * MOVE_SPEED
 			var angle = velocity.angle()
-			
+			"""
 			var angle_deg = rad_to_deg(velocity.angle())
+			if angle_deg < 0:
+				angle_deg += 360"""
+			
+			
+			var angle_deg = rad_to_deg(velocity.angle())  # example angle
+			# Normalize to 0..360
 			if angle_deg < 0:
 				angle_deg += 360
 
-			$Carrack.frame = lerp($Carrack.frame, int(round(angle_deg / 360.0 * 80)) % 80, 0.1)
-				#var dirs = get_direction_flags(angle)
-				#decide_animation(dirs)
-					
+			var frame = int(round(angle_deg / 4.5)) % 80
+			if ship_type == 0:
+				prints(velocity, frame)
+			
+			#TODO, COME BACK IF YOU HAVE TIME TO DO FRAMES PROPERLY
+			ship_ims.frame = frame
 			move_and_slide()
 			
 		State.Combat:

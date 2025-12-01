@@ -94,6 +94,7 @@ tile_set = ExtResource("4_ecu0b")
 tile_set = ExtResource("4_ecu0b")
 
 [node name="fog layer" type="TileMapLayer" parent="map layers"]
+visible = false
 z_index = 100
 z_as_relative = false
 tile_set = ExtResource("3_uhyyw")
@@ -117,7 +118,7 @@ patrolling = true
 curve = SubResource("Curve2D_wav5q")
 
 [node name="Ship2" parent="ship layer" instance=ExtResource("1_s41d2")]
-position = Vector2(217, 500)
+position = Vector2(-238, 1920)
 
 [node name="game camera" parent="ship layer/Ship2" instance=ExtResource("10_vx8ih")]
 position = Vector2(-6, 13)

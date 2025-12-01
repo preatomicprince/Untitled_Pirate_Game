@@ -6,7 +6,7 @@
 script = ExtResource("1_lc0e7")
 
 [node name="spawn timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 14.308
 one_shot = true
 autostart = true
 
