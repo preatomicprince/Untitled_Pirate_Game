@@ -40,5 +40,10 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		#workout if cannon hits own ships
 		if area.get_parent().team == area.get_parent().Team.Player:
 			area.get_parent().coin_sound.play()
+			for i in range(0, len(area.get_parent().level.game.player.inventory)):
+				if area.get_parent().level.game.player.inventory[i] == 0:
+					area.get_parent().level.game.player.inventory[i] = randi_range(Ability_Types.None, Ability_Types.MAX)
+					break
+			area.get_parent().level.game.player.update_inventory()
 			collect(area)
 			

@@ -6,6 +6,7 @@ var dist_traveled : int = 0
 var range_travel : int = 300
 var cannon_speed : int = 500
 var cur_rot 
+var dir
 
 var firing : bool = false
 var hit : bool = false
@@ -32,14 +33,16 @@ func _process(delta: float) -> void:
 #
 ################
 func fired():
+	
+	if self.get_parent().side == "left":
+		dir = Vector2.RIGHT.rotated(self.get_parent().get_parent().rotation)
+		
+	else:
+		dir = Vector2.LEFT.rotated(self.get_parent().get_parent().rotation)
+		
 	if firing == true:
-		if self.get_parent().side == "left":
-			var dir = Vector2.RIGHT.rotated(self.get_parent().get_parent().rotation)
-			velocity = dir * cannon_speed
-		else:
-			var dir = Vector2.LEFT.rotated(self.get_parent().get_parent().rotation)
-			velocity = dir * cannon_speed
-		self.global_rotation = self.global_rotation
+		velocity = dir * cannon_speed
+		
 		dist_traveled += 5
 		move_and_slide()
 

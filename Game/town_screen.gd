@@ -85,8 +85,11 @@ func check_ables():
 	
 	costs.gold += to_add_gold
 	#TODO PUT A MAX HEALTH ON
-	game.player.ships[0].health += num_heal
-	print(game.player.ships[0].health, "player health")
+	if game.player.ships[0].health + num_heal > game.player.ships[0].max_health:
+		game.player.ships[0].health = game.player.ships[0].max_health
+	else:
+		game.player.ships[0].health += num_heal
+
 
 func set_building(type):
 	print(costs.available_land)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2hhyltkknfyn"]
+[gd_scene load_steps=10 format=3 uid="uid://c2hhyltkknfyn"]
 
 [ext_resource type="Script" uid="uid://du8qcmpxxymv" path="res://UI/control_for_center.gd" id="1_pma6j"]
 [ext_resource type="Texture2D" uid="uid://7b6s0lw57fk2" path="res://Res/ui/back bar.png" id="2_4uqye"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dsia34sd3fi1" path="res://Res/ui/button base.png" id="5_70amk"]
 [ext_resource type="PackedScene" uid="uid://jraafnv2rfcb" path="res://UI/Ability_UI.tscn" id="6_3yusg"]
 [ext_resource type="Texture2D" uid="uid://ca80tt5hbulv2" path="res://Res/ui/Item_Holder_hud.png" id="6_70amk"]
+[ext_resource type="Texture2D" uid="uid://bnqje6ijlqcdp" path="res://Res/ui/town but up.png" id="8_mc4y4"]
+[ext_resource type="Texture2D" uid="uid://cup3xq5lohrqb" path="res://Res/ui/town but down.png" id="9_r72km"]
 
 [node name="war ui" type="Control"]
 layout_mode = 3
@@ -86,7 +88,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="game text" parent="." instance=ExtResource("5_3yusg")]
+[node name="cargo text" parent="." instance=ExtResource("5_3yusg")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -99,7 +101,7 @@ offset_right = 86.0
 offset_bottom = -87.74402
 text = "[center] Current Cargo"
 
-[node name="TextureRect" type="TextureRect" parent="game text"]
+[node name="TextureRect" type="TextureRect" parent="cargo text"]
 z_index = -1
 layout_mode = 1
 anchors_preset = -1
@@ -168,6 +170,46 @@ offset_right = 385.0
 offset_bottom = 351.0
 columns = 3
 
+[node name="switch but" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.98600006
+anchor_bottom = 0.98600006
+offset_left = 10.0
+offset_top = -127.92804
+offset_right = 138.0
+offset_bottom = 0.07196045
+texture_normal = ExtResource("8_mc4y4")
+texture_pressed = ExtResource("9_r72km")
+
+[node name="tooltip" parent="." instance=ExtResource("5_3yusg")]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_left = -332.0
+offset_top = -219.0
+offset_right = 344.0
+offset_bottom = -111.0
+
+[node name="TextureRect" type="TextureRect" parent="tooltip"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.50100005
+anchor_bottom = 1.0
+offset_left = -376.0
+offset_top = -108.0
+offset_right = 377.32397
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_70amk")
+
 [connection signal="mouse_entered" from="bottom_grid/centre/AbilityUi" to="." method="_on_UI_entered"]
 [connection signal="mouse_exited" from="bottom_grid/centre/AbilityUi" to="." method="_on_UI_exited"]
 [connection signal="mouse_entered" from="bottom_grid/centre/AbilityUi2" to="." method="_on_UI_entered"]
@@ -178,3 +220,4 @@ columns = 3
 [connection signal="mouse_exited" from="bottom_grid/centre/AbilityUi4" to="." method="_on_UI_exited"]
 [connection signal="mouse_entered" from="bottom_grid/centre/AbilityUi5" to="." method="_on_UI_entered"]
 [connection signal="mouse_exited" from="bottom_grid/centre/AbilityUi5" to="." method="_on_UI_exited"]
+[connection signal="pressed" from="switch but" to="." method="_on_switch_but_pressed"]

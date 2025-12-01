@@ -92,6 +92,7 @@ var player: Player = null
 var strength: float = 1.0
 var speed: float  = 1.0
 var health: float = 100.0
+var max_health : float = 100.0
 var firing_speed: float = 1.0
 var boarding_speed: float = 6.0
 var accuracy: float = 0.8
@@ -126,7 +127,7 @@ func set_core_stats() -> void:
 	self.strength = stats[ship_type][0]
 	self.speed = stats[ship_type][1]
 	self.health = stats[ship_type][2]	
-	
+	self.max_health = stats[ship_type][2]
 	for i in self.abilities:
 		match i:
 			Ability_Types.Ornate_Cannons:
@@ -215,6 +216,8 @@ func attack(ship: Ship) -> void:
 	$Combat_Timer.start()
 	can_attack = false
 	if  fired == false:
+		#TODO make it only fire on one side if have enough time
+		ship.cannon_sound.play()
 		var to_target = (ship.global_position - self.global_position).normalized()
 		var angle_deg = rad_to_deg(to_target.angle())  # example angle
 		# Normalize to 0..360
@@ -244,7 +247,8 @@ func attack(ship: Ship) -> void:
 		
 func take_damage(damage: int, attacker: Ship) -> void:
 	health -= damage
-	knock_back_func(attacker.position)
+	if attacker != null:
+		knock_back_func(attacker.position)
 	if ship_hit_sound.playing == false:
 		ship_hit_sound.play()
 	if health <= 0:
@@ -343,19 +347,7 @@ func destroy_ship():
 
 func _process(delta: float) -> void:
 	decide_animation({})
-	if team == Team.Player:
-		#lets just see about getting the angle
-		var node_pos = self.global_position
-		var mouse_pos = get_global_mouse_position()
-		var to_mouse = mouse_pos - node_pos
-		
-		var angle_rad = atan2(to_mouse.y, to_mouse.x)
-		
-		var angle_deg = $Highlight.rotation_degrees
-		if angle_deg < 0:
-			angle_deg += 360
-			
-	
+
 
 
 
@@ -386,11 +378,7 @@ func _physics_process(delta):
 	if game.current_scene != game.scenes.Battle_field:
 		return
 	player_movement(delta)
-	if player != null:
-		if self in player.selected_units:
-			$Highlight.visible = true
-		else:
-			$Highlight.visible = false
+	
 	
 	# Get the correct list of enemies
 	var enemies

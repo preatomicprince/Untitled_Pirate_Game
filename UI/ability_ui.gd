@@ -1,8 +1,12 @@
 class_name AbilityUI extends Control
 
+@onready var war_ui = self.get_parent().get_parent().get_parent()
 @export var ability_type: int = 0
 	
 func _ready() -> void:
+	update_texture()
+
+func _process(delta: float) -> void:
 	update_texture()
 
 func set_ability_type(ability: int, _ind: int) -> int:
@@ -12,11 +16,11 @@ func set_ability_type(ability: int, _ind: int) -> int:
 	$"../../../".abilities_bar[ind] = ability_type
 	update_texture()
 	return prev_type
-	
+
 func update_texture():
 	$Texture.frame_coords = Vector2i(ability_type, 0)
 	if ability_type == Ability_Types.None:
-		$Texture.visible = false
+		$Texture.frame = 0
 	else:
 		$Texture.visible = true
 		
@@ -26,7 +30,7 @@ func make_data(ability: int, prev_box, index: int):
 	return data
 
 func _get_drag_data(at_position: Vector2) -> Variant:
-	$Texture.visible = false
+
 	if ability_type == Ability_Types.None:
 		return null
 		
@@ -56,3 +60,11 @@ func _notification(what:int) -> void:
 	if what == NOTIFICATION_DRAG_END and not is_drag_successful():
 		update_texture()
 	
+
+
+func _on_mouse_entered() -> void:
+	war_ui.open_tool_tip(ability_type)
+
+
+func _on_mouse_exited() -> void:
+	war_ui.close_tool_tip()

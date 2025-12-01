@@ -1,11 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://byo0wsmut2awi"]
+[gd_scene load_steps=17 format=3 uid="uid://byo0wsmut2awi"]
 
 [ext_resource type="Script" uid="uid://cpkkr2dlf0oww" path="res://Ship/ship.gd" id="1_q4ev1"]
-[ext_resource type="Texture2D" uid="uid://sl3fmbeudpmo" path="res://Res/characters and towns/arrow.png" id="2_bpstu"]
 [ext_resource type="Texture2D" uid="uid://dta8x6s13djgd" path="res://Res/characters and towns/ships.png" id="3_1w8ol"]
 [ext_resource type="Texture2D" uid="uid://dq614idwdgse5" path="res://Res/characters and towns/flags.png" id="4_d6neq"]
 [ext_resource type="Texture2D" uid="uid://e71cg1xkaxja" path="res://Res/characters and towns/carrack.png" id="5_d6neq"]
-[ext_resource type="Texture2D" uid="uid://djvsc17b4gqhx" path="res://Res/characters and towns/shot_radius.png" id="5_eti42"]
 [ext_resource type="Texture2D" uid="uid://cmy7je7xgtoo5" path="res://Res/characters and towns/man o war.png" id="7_bpstu"]
 [ext_resource type="Script" uid="uid://ckvfethajtyyt" path="res://Ship/cannons_left.gd" id="8_4ahkv"]
 [ext_resource type="Texture2D" uid="uid://dc0xngrjitu06" path="res://Res/characters and towns/frigate.png" id="9_2mf0n"]
@@ -14,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://drltgnsjplrja" path="res://Res/music and sound/sounds/cannon-explosion-39434.mp3" id="12_oy6rr"]
 [ext_resource type="AudioStream" uid="uid://bvwabkq10wv3b" path="res://Res/music and sound/sounds/drowning-34415.wav" id="13_yum6n"]
 [ext_resource type="AudioStream" uid="uid://cy0tmjj3hx8lw" path="res://Res/music and sound/sounds/coin-drop-229314.wav" id="14_308st"]
+[ext_resource type="PackedScene" uid="uid://c7l2l6vkyxxmj" path="res://UI/health_bar.tscn" id="14_u0im0"]
 [ext_resource type="AudioStream" uid="uid://ctfj3sfw6nphr" path="res://Res/music and sound/sounds/sail.wav" id="15_u0im0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4ev1"]
@@ -38,10 +37,6 @@ shape = SubResource("RectangleShape2D_q4ev1")
 shape = SubResource("CircleShape2D_edrfk")
 disabled = true
 
-[node name="Highlight" type="Sprite2D" parent="."]
-position = Vector2(-1, -31)
-texture = ExtResource("2_bpstu")
-
 [node name="Ships" type="Sprite2D" parent="."]
 visible = false
 y_sort_enabled = true
@@ -57,7 +52,6 @@ texture = ExtResource("4_d6neq")
 [node name="ShotRadius" type="Sprite2D" parent="."]
 position = Vector2(-2, 0)
 rotation = 1.5707964
-texture = ExtResource("5_eti42")
 
 [node name="cannons left" type="Node2D" parent="ShotRadius"]
 position = Vector2(-8.742278e-08, -2)
@@ -148,6 +142,12 @@ stream = ExtResource("14_308st")
 [node name="sailing sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_u0im0")
 volume_db = -13.165
+
+[node name="health bar" parent="." instance=ExtResource("14_u0im0")]
+offset_left = -79.0
+offset_top = 41.0
+offset_right = 72.0
+offset_bottom = 68.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

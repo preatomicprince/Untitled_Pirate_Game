@@ -118,7 +118,7 @@ patrolling = true
 curve = SubResource("Curve2D_wav5q")
 
 [node name="Ship2" parent="ship layer" instance=ExtResource("1_s41d2")]
-position = Vector2(-238, 1920)
+position = Vector2(179, 2922)
 
 [node name="game camera" parent="ship layer/Ship2" instance=ExtResource("10_vx8ih")]
 position = Vector2(-6, 13)

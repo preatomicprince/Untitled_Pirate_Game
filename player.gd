@@ -30,7 +30,7 @@ var booty: Array = [0, 0, 0]
 #2 Jewels, Misc.
 
 # Stores abilities
-var inventory: Array[int] = [1, 4, 3, 2, 5]
+var inventory: Array[int] = [0, 0, 0, 0, 0]
 var max_abilities: int = 5
 
 func get_ability(ability) -> void:
