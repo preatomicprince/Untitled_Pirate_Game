@@ -5,6 +5,7 @@ var reset_postion : Vector2
 var dist_traveled : int = 0
 var range_travel : int = 300
 var cannon_speed : int = 500
+var cur_rot 
 
 var firing : bool = false
 var hit : bool = false
@@ -38,6 +39,7 @@ func fired():
 		else:
 			var dir = Vector2.LEFT.rotated(self.get_parent().get_parent().rotation)
 			velocity = dir * cannon_speed
+		self.global_rotation = self.global_rotation
 		dist_traveled += 5
 		move_and_slide()
 
@@ -82,15 +84,16 @@ func destroy():
 
 func _on_cannon_area_area_entered(area: Area2D) -> void:
 	if area.get_parent() != null:
-		if area.get_parent().has_method("boarding"):
-			#workout if cannon hits own ships
-			if area.get_parent().team == self.get_parent().team:
-				return
-			else:
-				hit_target(self.get_parent().ship, area.get_parent())
-				
-		if area.get_parent().has_method("is_town"):
-			if area.get_parent().team == self.get_parent().team:
-				return
-			else:
-				hit_target(self.get_parent().ship, area.get_parent())
+		if firing == true:
+			if area.get_parent().has_method("boarding"):
+				#workout if cannon hits own ships
+				if area.get_parent().team == self.get_parent().team:
+					return
+				else:
+					hit_target(self.get_parent().ship, area.get_parent())
+					
+			if area.get_parent().has_method("is_town"):
+				if area.get_parent().team == self.get_parent().team:
+					return
+				else:
+					hit_target(self.get_parent().ship, area.get_parent())

@@ -9,6 +9,9 @@ class_name Ship extends CharacterBody2D
 @onready var cannon_sound = $"cannon sound"
 @onready var ship_hit_sound = $"ship hit sound"
 @onready var ship_sunk_sound = $"ship sunk sound"
+#for cannons
+@onready var can_left = $"ShotRadius/cannons left"
+@onready var can_right = $"ShotRadius/cannons right"
 #for ship images
 @onready var carrack_ims : Sprite2D = $Carrack
 @onready var man_o_war_ims : Sprite2D = $ManOWar
@@ -37,7 +40,7 @@ var right = false
 var knock_back = false
 #source of a knockback
 var source_pos : Vector2 
-
+var fired : bool = false
 #for swaying in the sea
 var left_sway : bool = false
 var right_sway : bool = true
@@ -79,9 +82,9 @@ var state: State = State.Moving
 # Stats for each ship type
 # Strength is 1-5, and speed is 1-3
 var stats = { # [Strength, Speed, health]
-	Ship_Type.Clipper : [1, 3, 15],
-	Ship_Type.Frigate : [3, 2, 20],
-	Ship_Type.Man_Of_War : [5, 1, 25]
+	Ship_Type.Clipper : [2, 4, 15],
+	Ship_Type.Frigate : [4, 3, 20],
+	Ship_Type.Man_Of_War : [6, 2, 25]
 }
 var level: Level = null
 var player: Player = null
@@ -191,7 +194,7 @@ func set_target_pos(target_pos: Vector2):
 	
 # Combat
 var enemy_target: Ship = null
-const COMBAT_DISTANCE = 100
+const COMBAT_DISTANCE = 400
 var can_attack: bool = true
 var on_fire: bool = false
 var fire_time: int = 0
@@ -211,14 +214,33 @@ func attack(ship: Ship) -> void:
 		return
 	$Combat_Timer.start()
 	can_attack = false
-	var hit_chance = randfn(0.0, 1.0)
+	if  fired == false:
+		var to_target = (ship.global_position - self.global_position).normalized()
+		var angle_deg = rad_to_deg(to_target.angle())  # example angle
+		# Normalize to 0..360
+		if angle_deg < 0:
+			angle_deg += 360
+
+		var frame = int(round(angle_deg / 4.5)) % 80
+					
+		#TODO, COME BACK IF YOU HAVE TIME TO DO FRAMES PROPERLY
+		if ship_ims.frame - 20 <0:
+			ship_ims.frame = frame + 20
+		else:
+			ship_ims.frame = frame - 20
+		$ShotRadius.rotation_degrees = frame*4.5
+		
+		can_left.fire_cannon()
+		can_right.fire_cannon()
+	fired = true
+	"var hit_chance = randfn(0.0, 1.0)
 	var crit_chance = randf()
 	if hit_chance < accuracy:
 		var damage = self.strength
 		if crit_chance < crit_odds:
 			damage = self.CRIT_MULT
 		ship.take_damage(damage, self)
-		
+		"
 		
 func take_damage(damage: int, attacker: Ship) -> void:
 	health -= damage
@@ -379,94 +401,89 @@ func _physics_process(delta):
 			enemies = player.ships
 	
 
-	
-	match state:
-		State.Moving:
-			#Check if we should move to combat
-			if enemies != null:
-				for i in enemies:
-					if i != null:
-						if position.distance_to(i.position) < COMBAT_DISTANCE:
-							if i.state != State.Imobilised:
-								if not fleeing or i == enemy_target:
-									state = State.Combat
-									set_target_pos(position)
-									enemy_target = i
-									attack(enemy_target)
-									return
-							if i.state == State.Imobilised && i == enemy_target:
-								state = State.Boarding
-								boarding()
-					
-			# If no combat, move to set target
-			if nav_agent.is_navigation_finished():
-				
-				if hunting:
-					set_random_destination()
-				
-				# Patrolling behaviour
-				if patrolling and len(path_points) > 0:
-					if current_point >= len(path_points)-1:
-						patrol_back = true
-					if patrol_back and current_point == 0:
-						patrol_back = false
-					if patrol_back:
-						current_point -= 1
-					else:
-						current_point += 1
-					
-					set_target_pos(path_points[current_point])
+	if team != Team.Player:
+		match state:
+			State.Moving:
+				#Check if we should move to combat
+				if enemies != null:
+					for i in enemies:
+						if i != null:
+							if position.distance_to(i.position) < COMBAT_DISTANCE:
+								if i.state != State.Imobilised:
+									if not fleeing or i == enemy_target:
+										state = State.Combat
+										set_target_pos(position)
+										enemy_target = i
+										attack(enemy_target)
+										return
+								if i.state == State.Imobilised && i == enemy_target:
+									state = State.Boarding
+									boarding()
 						
-				return
-			if enemy_target != null:
-				set_target_pos(enemy_target.position)
-			var current_agent_position: Vector2 = global_position
-			var next_path_position: Vector2 = nav_agent.get_next_path_position()
-			
-			if knock_back == false:
-				velocity = current_agent_position.direction_to(next_path_position) * speed * MOVE_SPEED
-			else:
-				velocity = -current_agent_position.direction_to(next_path_position) * speed * MOVE_SPEED
-			var angle = velocity.angle()
-			"""
-			var angle_deg = rad_to_deg(velocity.angle())
-			if angle_deg < 0:
-				angle_deg += 360"""
-			
-			
-			var angle_deg = rad_to_deg(velocity.angle())  # example angle
-			# Normalize to 0..360
-			if angle_deg < 0:
-				angle_deg += 360
-
-			var frame = int(round(angle_deg / 4.5)) % 80
-			if ship_type == 0:
-				prints(velocity, frame)
-			
-			#TODO, COME BACK IF YOU HAVE TIME TO DO FRAMES PROPERLY
-			ship_ims.frame = frame
-			move_and_slide()
-			
-		State.Combat:
-			# Stop attacking if enemy imobilised or too far
-			if enemy_target == null:
-					state = State.Moving
-					fleeing = true
-					$Flee_Timer.start() # Won't automatically start combat until timer ends
+				# If no combat, move to set target
+				if nav_agent.is_navigation_finished():
+					
+					if hunting:
+						set_random_destination()
+					
+					# Patrolling behaviour
+					if patrolling and len(path_points) > 0:
+						if current_point >= len(path_points)-1:
+							patrol_back = true
+						if patrol_back and current_point == 0:
+							patrol_back = false
+						if patrol_back:
+							current_point -= 1
+						else:
+							current_point += 1
+						
+						set_target_pos(path_points[current_point])
+							
 					return
-			if enemy_target.state == State.Imobilised or position.distance_to(enemy_target.position) > COMBAT_DISTANCE:
-				enemy_target == null
-				$Combat_Timer.start()
-				can_attack = false
-				state = State.Moving
-				return
-			if can_attack:
-				attack(enemy_target)
-		
-		State.Boarding:
-			if enemy_target == null or enemy_target.state != State.Imobilised:
-				stop_boarding()
+				if enemy_target != null:
+					set_target_pos(enemy_target.position)
+				var current_agent_position: Vector2 = global_position
+				var next_path_position: Vector2 = nav_agent.get_next_path_position()
 				
+				if knock_back == false:
+					velocity = current_agent_position.direction_to(next_path_position) * speed * MOVE_SPEED
+				else:
+					velocity = -current_agent_position.direction_to(next_path_position) * speed * MOVE_SPEED
+				var angle = velocity.angle()
+
+				var angle_deg = rad_to_deg(velocity.angle())  # example angle
+				# Normalize to 0..360
+				if angle_deg < 0:
+					angle_deg += 360
+
+				var frame = int(round(angle_deg / 4.5)) % 80
+				
+				#TODO, COME BACK IF YOU HAVE TIME TO DO FRAMES PROPERLY
+				ship_ims.frame = frame
+				$ShotRadius.rotation_degrees = frame*4.5-90
+				move_and_slide()
+				
+			State.Combat:
+				# Stop attacking if enemy imobilised or too far
+				if enemy_target == null:
+						state = State.Moving
+						fleeing = true
+						$Flee_Timer.start() # Won't automatically start combat until timer ends
+						return
+				if enemy_target.state == State.Imobilised or position.distance_to(enemy_target.position) > COMBAT_DISTANCE:
+					enemy_target == null
+					$Combat_Timer.start()
+					can_attack = false
+					state = State.Moving
+					return
+				if can_attack:
+					print("can attack")
+					attack(enemy_target)
+			
+			State.Boarding:
+				if enemy_target == null or enemy_target.state != State.Imobilised:
+					stop_boarding()
+					
 
 ################
 #
@@ -527,7 +544,7 @@ func player_movement(delta):
 			
 			var forwar = Vector2(cos(angle_rad), sin(angle_rad))
 			
-			velocity = forwar * 100
+			velocity = forwar * speed * MOVE_SPEED
 			move_and_slide()
 		
 		if knock_back == true:
@@ -558,11 +575,7 @@ func decide_animation(direction : Dictionary)->void:
 		ship_ims.rotation_degrees = lerp(ship_ims.rotation_degrees, -sway_strength, sway_speed)
 	
 	
-	#colour of flags
-	if self.team == Team.Player:
-		ship_flag.modulate = team_colour
-	else:
-		ship_flag.modulate = enemy_colour
+	
 
 func knock_back_func(dir):
 	"""
@@ -585,6 +598,7 @@ func _on_area_2d_mouse_exited() -> void:
 
 func _on_combat_timer_timeout() -> void:
 	can_attack = true
+	fired = false
 
 
 func _on_flee_timer_timeout() -> void:

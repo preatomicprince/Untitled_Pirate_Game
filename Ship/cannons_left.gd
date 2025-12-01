@@ -7,6 +7,10 @@ var team
 var fireing : bool = false
 var is_player : bool = false
 var cannons : Array
+
+var rotation_when_fired : float
+var current_rotation : float
+
 func _ready() -> void:
 	team = ship.team
 	if team == ship.Team.Player:
@@ -34,6 +38,7 @@ func _input(event: InputEvent) -> void:
 
 func fire_cannon():
 	for c in cannons:
+
 		c.firing = true
 
 func sort_z():
