@@ -1,15 +1,22 @@
 extends Node
 
+var tutorial_selected : bool = false
+#totals
+
+var tot_gold = 0
+var tot_dest_ship = 0
+var tot_towns_dest = 0
+var tot_build_built = 0
 #current vars
-var gold : int = 10000
+var gold : int = 0
 var infamy : int = 0
 var infamy_decay : int = 2
-
+var defeated = false
 var ship_destroyed : bool = false
 
 var MAX_INFAMY : int = 100
 #gold stuff
-var GOLD_TO_WIN : int = 1000000
+var GOLD_TO_WIN : int = 100000
 
 var gold_from_treasure : int = 50
 var gold_from_town : int = 200
@@ -24,11 +31,11 @@ var harbour_add = 2 #a multiplier for sunk ships
 var tavern_add = 100
 
 #BUILDING COSTS
-var tav_cost : int = 20
-var fish_cost : int = 10
+var tav_cost : int = 100
+var fish_cost : int = 30
 var pier_cost : int = 30
 var trader_cost : int = 30
-var gov_cost : int = 500
+var gov_cost : int = 1000
 var map_cost : int = 100
 
 #TOWN TILES
@@ -51,3 +58,19 @@ var GOV_BUILT : bool = false
 var available_land : Array = []
 var available_sea : Array = []
 var current_buildings : Array = []
+
+func reset():
+	tot_gold = 0
+	tot_dest_ship = 0
+	tot_towns_dest = 0
+	tot_build_built = 0
+	gold  = 0
+	infamy  = 0
+	defeated = false
+	ship_destroyed = false
+	town_tiles = []
+	CART_BUILT = false
+	GOV_BUILT = false
+	available_land = []
+	available_sea = []
+	current_buildings = []

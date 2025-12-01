@@ -256,7 +256,8 @@ func take_damage(damage: int, attacker: Ship) -> void:
 			if Ability_Types.Charismatic_Captain in attacker.abilities:
 				attacker.health += Ability_Values.Charismatic_HP
 		destroy_ship()
-		attacker.ship_sunk_sound.play()
+		if attacker != null:
+			attacker.ship_sunk_sound.play()
 		
 	if attacker == null:
 		return
@@ -341,7 +342,7 @@ func destroy_ship():
 	else:
 		costs.ship_destroyed = true
 	ship_sunk_sound.play()
-
+	costs.tot_dest_ship += 1
 	self.queue_free()
 
 
@@ -388,7 +389,8 @@ func _physics_process(delta):
 		elif team == Team.Enemy:
 			enemies = player.ships
 	
-
+	if costs.defeated == true:
+		return
 	if team != Team.Player:
 		match state:
 			State.Moving:
@@ -489,8 +491,8 @@ func set_random_destination() -> void:
 	var player_ship = game.player.ships[0]
 	if costs.infamy < 30:
 		random_point = Vector2(
-		randi_range(-4500, 4500),  
-		randi_range(0, 3500)    
+		randi_range(-7000, 7000),  
+		randi_range(0, 4500)    
 		)
 	if costs.infamy >= 30 and costs.infamy < 70:
 		random_point = Vector2(

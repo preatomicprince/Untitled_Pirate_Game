@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://wsshvp33a8sv"]
+[gd_scene load_steps=5 format=3 uid="uid://wsshvp33a8sv"]
 
 [ext_resource type="Script" uid="uid://bqedlb04yewvt" path="res://town.gd" id="1_yp304"]
 [ext_resource type="AudioStream" uid="uid://ds7e75qibak1c" path="res://Res/music and sound/sounds/explosion-fx-343683.mp3" id="2_7fig3"]
+[ext_resource type="PackedScene" uid="uid://c7l2l6vkyxxmj" path="res://UI/health_bar.tscn" id="3_v0aj4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7fig3"]
 radius = 85.84288
@@ -17,3 +18,9 @@ debug_color = Color(0.7431185, 0.4649496, 0, 0.41960785)
 
 [node name="town hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_7fig3")
+
+[node name="health bar" parent="." instance=ExtResource("3_v0aj4")]
+offset_left = -73.0
+offset_top = 70.0
+offset_right = 78.0
+offset_bottom = 97.0

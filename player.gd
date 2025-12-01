@@ -3,7 +3,7 @@ class_name Player extends Node2D
 @onready var game : Node2D = self.get_parent()
 @onready var war_ui : WarUI = $"../ui main/war ui"
 
-var defeated : bool = false
+
 
 var ships: Array[Ship] = []
 
@@ -62,7 +62,4 @@ func _process(delta: float) -> void:
 			war_ui.ship_info.add_child(new_ship_ui)
 			war_ui.ship_bar.append(new_ship_ui)
 			new_ship_ui.set_ship(i)
-	if defeated == true:
-		game.current_scene = game.scenes.Town_builder
-		game.choose_scene(game.current_scene)
-		defeated = false
+	

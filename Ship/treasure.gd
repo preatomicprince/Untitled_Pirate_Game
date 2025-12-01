@@ -31,7 +31,7 @@ func collect(area):
 	cur_gold = cur_gold*gold_mult
 	if has_gov == true:
 		cur_gold = cur_gold * 2
-	
+	costs.tot_gold+= cur_gold
 	costs.gold += cur_gold
 	self.queue_free()
 

@@ -39,6 +39,8 @@ func send_waves():
 	"""
 	
 	"""
+	if costs.defeated == true:
+		return
 	var random_point = Vector2(
 		randi_range(game.player.ships[0].position[0]-100, game.player.ships[0].position[0]+100),  
 		randi_range(game.player.ships[0].position[1]-100, game.player.ships[0].position[1]+100)    

@@ -19,6 +19,7 @@ var team = Team.Enemy
 var town_name : String = "Kingston"
 var strength: float = 1.0
 var health : float = 20.0
+var max_health : float = 20.0
 #TODO set a proper system for this
 var gold : int = 10
 
@@ -74,8 +75,9 @@ func destroyed():
 		cur_gold = cur_gold * 2
 	
 	self.get_parent().destroy_town(self.position)
-	
+	costs.tot_gold += cur_gold
 	costs.gold += cur_gold
+	costs.tot_towns_dest += 1
 
 
 func is_town():

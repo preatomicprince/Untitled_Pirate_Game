@@ -3,7 +3,8 @@ extends CanvasLayer
 @onready var game : Game = self.get_parent()
 @onready var battle_ui : Control = $"war ui"
 @onready var town_ui : Control = $town_ui
-
+@onready var def_vict_ui : Control = $"win def"
+@onready var tutorial_ui : Control = $tutorial_ui
 var all_ui_nodes : Array
 
 func _ready() -> void:
@@ -13,6 +14,8 @@ func _ready() -> void:
 	
 	decide_ui(game.current_scene)
 	
+	if costs.tutorial_selected == true:
+		tutorial_ui.visible = true
 
 
 func decide_ui(cur_scene : int) -> void:

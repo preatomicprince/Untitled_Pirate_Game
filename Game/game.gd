@@ -15,7 +15,7 @@ class_name Game extends Node2D
  
 var STARTING_TIME_LEFT : float = 100.00
 var time_left : float = STARTING_TIME_LEFT
-var gold_target : int = 100
+
 
 enum scenes {
 	Main_menu = 0,
@@ -36,6 +36,7 @@ func _process(delta: float) -> void:
 	if costs.gold >= costs.GOLD_TO_WIN:
 		victory()
 	if costs.ship_destroyed == true:
+		costs.defeated = true
 		defeat()
 
 func _input(event: InputEvent) -> void:
@@ -88,24 +89,19 @@ func reset_loop():
 	choose_scene(current_scene)
 	
 
-func _on_game_timer_timeout() -> void:
-	#TODO this should only kill you if you didnt reach the gold threshold
-	if player.gold >= self.gold_target:
-		current_scene = scenes.Progress
-		level.current_level += 1
-		level.reload_map()
-		choose_scene(current_scene)
-	else:
-		player.defeated = true
+
 
 func victory():
 	"""
 	show a victory screen when reached a certain amount of gold
 	"""
-	print("winner winner")
+	ui.def_vict_ui.visible = true
+	ui.def_vict_ui.show_vict()
+
 	
 func defeat():
 	"""
 	show a loss screen when player ship dies
 	"""
-	print("defeat")
+	ui.def_vict_ui.visible = true
+	ui.def_vict_ui.show_deft()

@@ -35,7 +35,6 @@ shape = SubResource("RectangleShape2D_q4ev1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_edrfk")
-disabled = true
 
 [node name="Ships" type="Sprite2D" parent="."]
 visible = false

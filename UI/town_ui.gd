@@ -119,6 +119,7 @@ func decide_whats_available():
 #######
 #related to building stuff
 func _on_map_maker_pressed() -> void:
+	costs.tot_build_built += 1
 	build_sound.play()
 	print("map maker")
 	ui.game.town_screen.set_building(costs.buildings.cartog)
@@ -129,6 +130,7 @@ func _on_map_maker_pressed() -> void:
 
 
 func _on_fishmonger_pressed() -> void:
+	costs.tot_build_built += 1
 	build_sound.play()
 	print("fish monger")
 	ui.game.town_screen.set_building(costs.buildings.fish_monger)
@@ -136,6 +138,7 @@ func _on_fishmonger_pressed() -> void:
 
 
 func _on_fencer_pressed() -> void:
+	costs.tot_build_built += 1
 	build_sound.play()
 	print("market pressed")
 	ui.game.town_screen.set_building(costs.buildings.trader)
@@ -143,12 +146,14 @@ func _on_fencer_pressed() -> void:
 
 
 func _on_tavern_pressed() -> void:
+	costs.tot_build_built += 1
 	build_sound.play()
 	print("tavern pressed")
 	ui.game.town_screen.set_building(costs.buildings.tavern)
 	costs.gold -= costs.tav_cost
 
 func _on_harbour_pressed() -> void:
+	costs.tot_build_built += 1
 	build_sound.play()
 	print("pier pressed")
 	ui.game.town_screen.set_building(costs.buildings.pier)
@@ -156,6 +161,7 @@ func _on_harbour_pressed() -> void:
 	
 
 func _on_gov_man_pressed() -> void:
+	costs.tot_build_built += 1
 	build_sound.play()
 	print("gov pressed")
 	ui.game.town_screen.set_building(costs.buildings.governer)

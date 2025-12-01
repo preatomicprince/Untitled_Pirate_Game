@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bds484tgdjcw6"]
+[gd_scene load_steps=11 format=3 uid="uid://bds484tgdjcw6"]
 
 [ext_resource type="Script" uid="uid://brkab3seb5a0q" path="res://UI/main_menu.gd" id="1_p8ccj"]
 [ext_resource type="Texture2D" uid="uid://b0hn8n0k5j1ls" path="res://Res/ui/backdrop.png" id="2_2mudq"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bgpvg1084oepp" path="res://Res/ui/credits button down.png" id="5_f40uw"]
 [ext_resource type="Texture2D" uid="uid://be6nd37u3ktmq" path="res://Res/ui/tutorial down.png" id="5_k0a0m"]
 [ext_resource type="PackedScene" uid="uid://dlqb34m81iits" path="res://UI/game_text.tscn" id="8_k0a0m"]
+[ext_resource type="Texture2D" uid="uid://c458ytwmj8b88" path="res://Res/ui/Scalable Paper.png" id="10_cafmx"]
 
 [node name="main menu" type="Control"]
 layout_mode = 3
@@ -72,33 +73,46 @@ texture_pressed = ExtResource("5_f40uw")
 
 [node name="credits text" parent="." instance=ExtResource("8_k0a0m")]
 visible = false
+z_index = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.90400004
+anchor_left = 0.984
 anchor_top = 0.035
-anchor_right = 0.90400004
-offset_left = -150.40808
+anchor_right = 0.984
+offset_left = -341.568
 offset_top = 0.3199997
-offset_right = 92.59192
+offset_right = 0.43200684
 offset_bottom = -31.0
-text = "[left] Coding -
-	Pre atomic prince
-	Jam bone
+text = "[center]  Coding -
+Pre atomic prince
+Jam bone
 
 Art - 
-	Jam bone
+Jam bone
 
 Music - 
 tracks -
-	free pirate music by Alkakrad
+free pirate music by Alkakrad
 sounds -
-	pixabay
+pixabay
 
 Textures - 
-	High seas textures by Strideth
+High seas textures by Strideth
 
-
+UI - 
+Medieval GUI Asset by Finnmercury
 "
+
+[node name="back parchment" type="TextureRect" parent="credits text"]
+modulate = Color(0.50928617, 0.50928617, 0.50928617, 1)
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_cafmx")
 
 [connection signal="button_up" from="GridContainer/play button" to="." method="_on_play_button_button_up"]
 [connection signal="button_up" from="GridContainer/tutorial button" to="." method="_on_tutorial_button_button_up"]

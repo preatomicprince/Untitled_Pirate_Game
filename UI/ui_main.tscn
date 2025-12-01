@@ -1,14 +1,128 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvftrdskh0kj7"]
+[gd_scene load_steps=12 format=3 uid="uid://cvftrdskh0kj7"]
 
 [ext_resource type="Script" uid="uid://cgeycmew53tfv" path="res://UI/ui_main.gd" id="1_6s3vw"]
 [ext_resource type="PackedScene" uid="uid://c2hhyltkknfyn" path="res://UI/war_ui.tscn" id="2_psx24"]
+[ext_resource type="PackedScene" uid="uid://4apbutbfltj3" path="res://UI/win_def.tscn" id="2_rqtoc"]
 [ext_resource type="PackedScene" uid="uid://si6480vywl32" path="res://UI/town_ui.tscn" id="4_rqtoc"]
+[ext_resource type="Script" uid="uid://120tg5pus13c" path="res://UI/tutorial_ui.gd" id="5_ae6v5"]
+[ext_resource type="Texture2D" uid="uid://dwiod8f7riwu6" path="res://Res/ui/tutorials/up tut.png" id="6_t4kna"]
+[ext_resource type="Texture2D" uid="uid://m3gb2fn5ndlc" path="res://Res/ui/tutorials/left tut.png" id="7_0pkv2"]
+[ext_resource type="Texture2D" uid="uid://bfklddj1c42c8" path="res://Res/ui/tutorials/right tut.png" id="8_musnb"]
+[ext_resource type="Texture2D" uid="uid://cngv58e3va2cd" path="res://Res/ui/tutorials/fire left tut.png" id="9_xupgg"]
+[ext_resource type="Texture2D" uid="uid://cvyhadcp6kbyv" path="res://Res/ui/tutorials/fire right tut.png" id="10_jypjj"]
+[ext_resource type="Texture2D" uid="uid://dqhx83wxyjma" path="res://Res/ui/tutorials/space.png" id="11_5w3cy"]
 
 [node name="ui main" type="CanvasLayer"]
 script = ExtResource("1_6s3vw")
+
+[node name="win def" parent="." instance=ExtResource("2_rqtoc")]
+visible = false
 
 [node name="war ui" parent="." instance=ExtResource("2_psx24")]
 mouse_filter = 2
 
 [node name="town_ui" parent="." instance=ExtResource("4_rqtoc")]
 visible = false
+
+[node name="tutorial_ui" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("5_ae6v5")
+
+[node name="forward" type="TextureRect" parent="tutorial_ui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -259.0
+offset_right = 96.0
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_t4kna")
+
+[node name="left" type="TextureRect" parent="tutorial_ui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -322.0
+offset_top = -51.0
+offset_right = -130.0
+offset_bottom = 141.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_0pkv2")
+
+[node name="right" type="TextureRect" parent="tutorial_ui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 128.0
+offset_top = -48.0
+offset_right = 320.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_musnb")
+
+[node name="left cannon" type="TextureRect" parent="tutorial_ui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -261.0
+offset_right = -128.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_xupgg")
+
+[node name="right cannon" type="TextureRect" parent="tutorial_ui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 128.0
+offset_top = -256.0
+offset_right = 320.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_jypjj")
+
+[node name="town" type="TextureRect" parent="tutorial_ui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -187.0
+offset_top = 141.0
+offset_right = 197.0
+offset_bottom = 333.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_5w3cy")
