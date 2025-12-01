@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Untitled Pirate Game"
-run/main_scene="uid://bp7j3le3latsc"
+config/name="Wave Piracy"
+run/main_scene="uid://i1ckqwjuqo5f"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

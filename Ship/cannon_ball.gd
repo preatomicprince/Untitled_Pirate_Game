@@ -66,7 +66,7 @@ func hit_target(attacker, defender):
 	
 	"""
 	hit_something = true
-	print("hit a ship", defender.health)
+
 	defender.take_damage(attacker.strength, attacker)
 	
 func destroy():

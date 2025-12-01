@@ -27,5 +27,4 @@ func disapate():
 		if disap == false:
 			self.modulate.a = lerp(self.modulate.a, 0.00, 0.1)
 			disap = true
-			print("here")
 		self.queue_free()

@@ -31,6 +31,10 @@ enum wind_dirs {
 }
 var wind_dir : int 
 
+func _ready() -> void:
+	if costs.tutorial_selected == true:
+		$"tut text".visible = true
+
 func reload_map():
 	map_layers.reload_map()
 	game.gold_target = gold_rec_per_level[current_level]
@@ -51,7 +55,7 @@ func send_waves():
 	var target = NavigationServer2D.map_get_closest_point(map_layers.nav_region, map_layers.water_layer.map_to_local(random_tile))
 	var new_wave = wave.instantiate()
 	new_wave.position = map_layers.water_layer.map_to_local(random_tile)
-	print(target, game.player.ships[0].position, map_layers.water_layer.map_to_local(random_tile))
+
 	self.add_child(new_wave)
 
 
@@ -65,7 +69,7 @@ func reveal_towns():
 	"""
 	reveals all the towns, called when placing a map 
 	"""
-	print("reveal map")
+
 	for b in map_layers.tortuga_layer.get_used_cells():
 		if map_layers.tortuga_layer.get_cell_atlas_coords(b) in map_layers.TOWN_VECS:
 			map_layers.fog_layer.set_cell(b, 0, Vector2i(-1, -1))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://dy0ycajp5q7kp"]
+[gd_scene load_steps=20 format=4 uid="uid://dy0ycajp5q7kp"]
 
 [ext_resource type="PackedScene" uid="uid://byo0wsmut2awi" path="res://Ship/ship.tscn" id="1_s41d2"]
 [ext_resource type="Script" uid="uid://bhr6fj6dq1r63" path="res://Levels/level.gd" id="1_wav5q"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cq5tly48tavdm" path="res://Levels/wave.tscn" id="11_ugh17"]
 [ext_resource type="PackedScene" uid="uid://bvcn2f7g4d5qr" path="res://Levels/spawn_point.tscn" id="12_eabcg"]
 [ext_resource type="PackedScene" uid="uid://5kj4nkemiobk" path="res://Ship/treasure.tscn" id="13_dvejp"]
+[ext_resource type="Texture2D" uid="uid://bdmm821ip0qmy" path="res://Res/ui/tutorials/destroy tut.png" id="14_3hgmi"]
 
 [sub_resource type="Curve2D" id="Curve2D_wav5q"]
 _data = {
@@ -234,6 +235,17 @@ position = Vector2(1803, 2980)
 
 [node name="Treasure6" parent="." instance=ExtResource("13_dvejp")]
 position = Vector2(5409, 2191)
+
+[node name="tut text" type="TextureRect" parent="."]
+visible = false
+z_index = 100
+offset_left = 47.0
+offset_top = 2470.0
+offset_right = 239.0
+offset_bottom = 2602.0
+size_flags_vertical = 4
+texture = ExtResource("14_3hgmi")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="timeout" from="wave timer" to="." method="_on_wave_timer_timeout"]
 [connection signal="timeout" from="wind timer" to="." method="_on_wind_timer_timeout"]

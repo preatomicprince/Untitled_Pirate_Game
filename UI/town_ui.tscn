@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://si6480vywl32"]
+[gd_scene load_steps=27 format=3 uid="uid://si6480vywl32"]
 
 [ext_resource type="Script" uid="uid://bevmywlewuwg3" path="res://UI/town_ui.gd" id="1_t4npv"]
 [ext_resource type="Texture2D" uid="uid://cv807y5eywh7k" path="res://Res/ui/sea but  up.png" id="2_154m3"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://dsia34sd3fi1" path="res://Res/ui/button base.png" id="17_3f334"]
 [ext_resource type="Texture2D" uid="uid://3voh3p0b6m4p" path="res://Res/ui/tavern down.png" id="17_65ul2"]
 [ext_resource type="Texture2D" uid="uid://cg1raxcpckywy" path="res://Res/ui/gov man down.png" id="20_8e4uj"]
+[ext_resource type="Texture2D" uid="uid://pnljwev76v4h" path="res://Res/ui/tutorials/building tutorial.png" id="26_0ytki"]
 
 [node name="town_ui" type="Control"]
 layout_mode = 3
@@ -211,6 +212,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("17_3f334")
+
+[node name="BuildingTutorial" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 37.0
+offset_top = 29.0
+offset_right = 421.0
+offset_bottom = 161.0
+texture = ExtResource("26_0ytki")
 
 [connection signal="button_up" from="switch but" to="." method="_on_switch_but_button_up"]
 [connection signal="mouse_entered" from="build container/GridContainer/map maker" to="." method="_on_map_maker_mouse_entered"]

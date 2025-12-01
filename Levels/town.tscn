@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://wsshvp33a8sv"]
+[gd_scene load_steps=6 format=3 uid="uid://wsshvp33a8sv"]
 
 [ext_resource type="Script" uid="uid://bqedlb04yewvt" path="res://town.gd" id="1_yp304"]
 [ext_resource type="AudioStream" uid="uid://ds7e75qibak1c" path="res://Res/music and sound/sounds/explosion-fx-343683.mp3" id="2_7fig3"]
 [ext_resource type="PackedScene" uid="uid://c7l2l6vkyxxmj" path="res://UI/health_bar.tscn" id="3_v0aj4"]
+[ext_resource type="PackedScene" uid="uid://ck5yfaiutlhr4" path="res://Res/affects and shaders/smoke.tscn" id="4_nw7pa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7fig3"]
 radius = 85.84288
@@ -24,3 +25,7 @@ offset_left = -73.0
 offset_top = 70.0
 offset_right = 78.0
 offset_bottom = 97.0
+
+[node name="smoke" parent="." instance=ExtResource("4_nw7pa")]
+position = Vector2(0, -44)
+emitting = false

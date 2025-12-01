@@ -127,7 +127,13 @@ func set_core_stats() -> void:
 	self.strength = stats[ship_type][0]
 	self.speed = stats[ship_type][1]
 	self.health = stats[ship_type][2]	
+	
 	self.max_health = stats[ship_type][2]
+	if team == Team.Player:
+		self.health = 30
+		self.max_health = 30
+	
+	
 	for i in self.abilities:
 		match i:
 			Ability_Types.Ornate_Cannons:
@@ -144,7 +150,7 @@ func set_core_stats() -> void:
 				self.damage_over_time = true
 			Ability_Types.Chainshot:
 				self.strength += self.strength*Ability_Values.Chainshot_Dam
-				self.crit_chance += Ability_Values.Chainshot_Crit
+
 				
 func set_abilities():
 	set_core_stats()
@@ -467,7 +473,7 @@ func _physics_process(delta):
 					state = State.Moving
 					return
 				if can_attack:
-					print("can attack")
+
 					attack(enemy_target)
 			
 			State.Boarding:
@@ -619,3 +625,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent().has_method("is_wave"):
 		knock_back_func(area.get_parent().global_position)
 		ship_hit_sound.play()
+		self.health -= 2
+		if self.health <= 0:
+			destroy_ship()

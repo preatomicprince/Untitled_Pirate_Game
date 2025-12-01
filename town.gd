@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var town_hit = $"town hit"
-
+@onready var smoke =$smoke
 var trader : Vector2i = Vector2i(0, 7)
 var governers_mansion : Vector2i = Vector2i(0, 8)
 
@@ -47,7 +47,7 @@ func take_damage(damage : int, attacker : Ship):
 	town_hit.play()
 	
 	health -= damage
-	print("town health", health)
+
 	if health <= 0:
 		destroyed()
 		attacker.coin_sound.play()
@@ -58,7 +58,7 @@ func destroyed():
 	will get it to spawn treasure
 	"""
 	alive = false
-	print("town destroyed")
+
 	
 	var gold_mult : int = 1
 	var has_gov : bool = false
@@ -78,6 +78,7 @@ func destroyed():
 	costs.tot_gold += cur_gold
 	costs.gold += cur_gold
 	costs.tot_towns_dest += 1
+	self.smoke.emitting = true
 
 
 func is_town():

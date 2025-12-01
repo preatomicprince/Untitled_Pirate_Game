@@ -52,9 +52,7 @@ func _process(delta: float) -> void:
 #
 #############
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("motherload"):
-		set_building(costs.buildings.tavern)
+
 
 func check_ables():
 	"""
@@ -66,9 +64,9 @@ func check_ables():
 		costs.infamy -= costs.infamy_decay
 		
 	if len(costs.current_buildings) == 0:
-		print("no buildings")
+
 		return
-	print("is it getting here")
+
 	var to_add_gold : int = 0
 	var gov_man : bool = false
 	var num_heal : int = 0
@@ -95,7 +93,7 @@ func check_ables():
 
 
 func set_building(type):
-	print(costs.available_land)
+
 	match type:
 		costs.buildings.tavern:
 			var rand_loc = costs.available_land[randi_range(0, len(costs.available_land)-1)]

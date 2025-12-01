@@ -16,7 +16,7 @@ var ship_destroyed : bool = false
 
 var MAX_INFAMY : int = 100
 #gold stuff
-var GOLD_TO_WIN : int = 100000
+var GOLD_TO_WIN : int = 50000
 
 var gold_from_treasure : int = 50
 var gold_from_town : int = 200
@@ -31,10 +31,10 @@ var harbour_add = 2 #a multiplier for sunk ships
 var tavern_add = 100
 
 #BUILDING COSTS
-var tav_cost : int = 100
-var fish_cost : int = 30
-var pier_cost : int = 30
-var trader_cost : int = 30
+var tav_cost : int = 200
+var fish_cost : int = 80
+var pier_cost : int = 80
+var trader_cost : int = 80
 var gov_cost : int = 1000
 var map_cost : int = 100
 
