@@ -4,7 +4,7 @@ extends Control
 @onready var ui : CanvasLayer = self.get_parent()
 @onready var player_town 
 @onready var build_options_container : Control = $"build container"
-@onready var gold_text : RichTextLabel = $"gold text"
+@onready var gold_text : RichTextLabel = $"text container/game text"
 
 @onready var build_sound = $"build sound"
 
@@ -18,7 +18,7 @@ extends Control
 var current_slot : TextureButton
 
 func _process(delta: float) -> void:
-	gold_text.text = "Current gold: {amount}".format({"amount": costs.gold})
+	gold_text.text = "[center]Treasure: {amount}".format({"amount": costs.gold})
 	decide_whats_available()
 	
 func _on_button_pressed() -> void:

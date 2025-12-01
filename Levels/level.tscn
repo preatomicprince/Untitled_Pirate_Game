@@ -64,7 +64,7 @@ offset_top = -3259.0
 offset_right = 12721.0
 offset_bottom = 16741.0
 mouse_filter = 2
-color = Color(0, 0.20392157, 0.2627451, 1)
+color = Color(0.5529412, 0.4745098, 0.38431373, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="tortuga layer" type="TileMapLayer" parent="map layers"]

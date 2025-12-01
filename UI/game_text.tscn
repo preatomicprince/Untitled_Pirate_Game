@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlqb34m81iits"]
+[gd_scene load_steps=3 format=3 uid="uid://dlqb34m81iits"]
 
 [ext_resource type="Script" uid="uid://y82san22nvyp" path="res://UI/game_text.gd" id="1_irbpj"]
+[ext_resource type="FontFile" uid="uid://bjgkb1inqkoob" path="res://Res/fonts/Aardvark Sk8.otf" id="1_j8p20"]
 
 [node name="game text" type="RichTextLabel"]
 anchors_preset = 15
@@ -10,6 +11,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("1_j8p20")
+theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "[center] booty"
 script = ExtResource("1_irbpj")

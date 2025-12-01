@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2hhyltkknfyn"]
+[gd_scene load_steps=8 format=3 uid="uid://c2hhyltkknfyn"]
 
 [ext_resource type="Script" uid="uid://du8qcmpxxymv" path="res://UI/control_for_center.gd" id="1_pma6j"]
 [ext_resource type="Texture2D" uid="uid://7b6s0lw57fk2" path="res://Res/ui/back bar.png" id="2_4uqye"]
-[ext_resource type="Texture2D" uid="uid://b62ti5xl3ufrj" path="res://Res/ui/chest.png" id="2_xla0e"]
 [ext_resource type="Texture2D" uid="uid://cfcdeoxlcsmel" path="res://Res/ui/infamy bar.png" id="3_40vmw"]
 [ext_resource type="PackedScene" uid="uid://dlqb34m81iits" path="res://UI/game_text.tscn" id="5_3yusg"]
+[ext_resource type="Texture2D" uid="uid://dsia34sd3fi1" path="res://Res/ui/button base.png" id="5_70amk"]
 [ext_resource type="PackedScene" uid="uid://jraafnv2rfcb" path="res://UI/Ability_UI.tscn" id="6_3yusg"]
+[ext_resource type="Texture2D" uid="uid://ca80tt5hbulv2" path="res://Res/ui/Item_Holder_hud.png" id="6_70amk"]
 
 [node name="war ui" type="Control"]
 layout_mode = 3
@@ -36,36 +37,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="top_grid/control for center"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.44725388, 0.34791005, 0.27069116, 1)
-
-[node name="chest" type="TextureRect" parent="top_grid/control for center"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.1110001
-anchor_right = 1.1110001
-offset_left = -115.291016
-offset_top = -17.0
-offset_right = 12.708984
-offset_bottom = 111.0
-texture = ExtResource("2_xla0e")
-
 [node name="infamy progress" type="TextureProgressBar" parent="top_grid/control for center"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -200.0
-offset_top = -50.0
-offset_right = 200.0
+anchors_preset = -1
+anchor_left = 1.9950001
+anchor_top = 0.063
+anchor_right = 1.9950001
+anchor_bottom = 0.063
+offset_left = -400.09503
+offset_top = 0.022999763
+offset_right = -0.09503174
+offset_bottom = 50.023
 grow_horizontal = 2
 grow_vertical = 0
 value = 10.0
@@ -76,30 +58,73 @@ texture_progress = ExtResource("3_40vmw")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.499
-anchor_right = 0.499
-offset_left = -190.119
-offset_right = 189.881
-offset_bottom = 40.0
+anchor_top = 0.25300002
+anchor_right = 0.5
+anchor_bottom = 0.25300002
+offset_left = -126.119
+offset_top = -19.987001
+offset_right = 122.5
+offset_bottom = 20.012999
 
 [node name="game text" parent="top_grid/control for center/text container" instance=ExtResource("5_3yusg")]
 layout_mode = 2
 text = "[center] Treasure: 0/100"
+fit_content = true
+
+[node name="TextureRect" type="TextureRect" parent="top_grid/control for center/text container/game text"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_70amk")
 
 [node name="control for right" type="Control" parent="top_grid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="game text" parent="." instance=ExtResource("5_3yusg")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.97800004
+anchor_right = 0.5
+anchor_bottom = 0.97800004
+offset_left = -104.0
+offset_top = -143.74402
+offset_right = 86.0
+offset_bottom = -87.74402
+text = "[center] Current Cargo"
+
+[node name="TextureRect" type="TextureRect" parent="game text"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 2.3960001
+anchor_right = 0.503
+anchor_bottom = 2.3960001
+offset_left = -93.0
+offset_top = -134.17601
+offset_right = 93.42999
+offset_bottom = -94.17601
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_70amk")
+
 [node name="bottom_grid" type="GridContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.012
-anchor_top = 0.82100004
-anchor_right = 0.99000007
+anchor_left = 0.507
+anchor_top = 0.989
+anchor_right = 0.507
 anchor_bottom = 0.989
-offset_left = 0.17599964
-offset_top = -0.0079956055
-offset_right = 14.519897
+offset_left = -570.064
+offset_top = -108.87201
+offset_right = 570.936
 offset_bottom = 0.12799072
 grow_vertical = 0
 mouse_filter = 0

@@ -1,8 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://si6480vywl32"]
+[gd_scene load_steps=24 format=3 uid="uid://si6480vywl32"]
 
 [ext_resource type="Script" uid="uid://bevmywlewuwg3" path="res://UI/town_ui.gd" id="1_t4npv"]
 [ext_resource type="PackedScene" uid="uid://dlqb34m81iits" path="res://UI/game_text.tscn" id="2_n54da"]
+[ext_resource type="Texture2D" uid="uid://ca80tt5hbulv2" path="res://Res/ui/Item_Holder_hud.png" id="3_aawiv"]
 [ext_resource type="AudioStream" uid="uid://cdjstiksfykue" path="res://Res/music and sound/sounds/Construction sound.wav" id="3_f8iim"]
+[ext_resource type="Texture2D" uid="uid://dir5w7cvmtrx3" path="res://Res/ui/map maker up.png" id="3_qgc3d"]
+[ext_resource type="Texture2D" uid="uid://b0weehe8po0fv" path="res://Res/ui/map maker disabled.png" id="4_0xf0u"]
+[ext_resource type="Texture2D" uid="uid://bfkr1eucq6y0w" path="res://Res/ui/fishmonger up.png" id="5_ey1uc"]
+[ext_resource type="Texture2D" uid="uid://gj7vc500drvo" path="res://Res/ui/map maker down.png" id="5_wu01w"]
+[ext_resource type="Texture2D" uid="uid://bq1yiy0wf808i" path="res://Res/ui/fishmonger disabled.png" id="6_lh14r"]
+[ext_resource type="Texture2D" uid="uid://bb0n4uobggjvb" path="res://Res/ui/pier up.png" id="7_lh14r"]
+[ext_resource type="Texture2D" uid="uid://cu6u5o3der2f2" path="res://Res/ui/fishmonger down.png" id="8_in3is"]
+[ext_resource type="Texture2D" uid="uid://cbak86fo4sd47" path="res://Res/ui/pier disabled.png" id="8_x7r7f"]
+[ext_resource type="Texture2D" uid="uid://bu0jo378mc3lg" path="res://Res/ui/trader up.png" id="9_ddlpn"]
+[ext_resource type="Texture2D" uid="uid://3syaqf0t0b3e" path="res://Res/ui/trader disabled.png" id="10_g26dx"]
+[ext_resource type="Texture2D" uid="uid://quogv84qugf4" path="res://Res/ui/pier down.png" id="11_154m3"]
+[ext_resource type="Texture2D" uid="uid://vdnchtai70ih" path="res://Res/ui/tavern up.png" id="11_q2hpr"]
+[ext_resource type="Texture2D" uid="uid://b0ooejjjxotwd" path="res://Res/ui/tavern disabled.png" id="12_aawiv"]
+[ext_resource type="Texture2D" uid="uid://d3a0fokikd3bk" path="res://Res/ui/gov man.png" id="13_3f334"]
+[ext_resource type="Texture2D" uid="uid://c1qo8oscv71m4" path="res://Res/ui/trader down.png" id="14_0ytki"]
+[ext_resource type="Texture2D" uid="uid://bmmw545rhagty" path="res://Res/ui/gov man dis.png" id="14_x7m0t"]
+[ext_resource type="Texture2D" uid="uid://dsia34sd3fi1" path="res://Res/ui/button base.png" id="17_3f334"]
+[ext_resource type="Texture2D" uid="uid://3voh3p0b6m4p" path="res://Res/ui/tavern down.png" id="17_65ul2"]
+[ext_resource type="Texture2D" uid="uid://cg1raxcpckywy" path="res://Res/ui/gov man down.png" id="20_8e4uj"]
 
 [node name="town_ui" type="Control"]
 layout_mode = 3
@@ -44,17 +64,117 @@ mouse_filter = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
+anchor_top = -0.19000001
 anchor_right = 0.5
-anchor_bottom = 0.0
-offset_left = -74.0
-offset_top = -50.0
-offset_right = 74.0
-offset_bottom = 6.0
+anchor_bottom = -0.19000001
+offset_left = -94.0
+offset_top = -27.96
+offset_right = 103.0
+offset_bottom = 28.04
 grow_horizontal = 1
 grow_vertical = 1
 text = "[center] Build options"
 
-[node name="ColorRect" type="ColorRect" parent="build container/game text"]
+[node name="TextureRect" type="TextureRect" parent="build container/game text"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -88.5
+offset_right = 89.5
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_aawiv")
+
+[node name="GridContainer" type="GridContainer" parent="build container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.44000003
+anchor_right = 0.5
+anchor_bottom = 0.44000003
+offset_left = -394.0
+offset_top = -71.04001
+offset_right = 394.0
+offset_bottom = 61.959995
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+columns = 6
+
+[node name="map maker" type="TextureButton" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+texture_normal = ExtResource("3_qgc3d")
+texture_pressed = ExtResource("5_wu01w")
+texture_disabled = ExtResource("4_0xf0u")
+
+[node name="fishmonger" type="TextureButton" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+texture_normal = ExtResource("5_ey1uc")
+texture_pressed = ExtResource("8_in3is")
+texture_disabled = ExtResource("6_lh14r")
+
+[node name="harbour" type="TextureButton" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+texture_normal = ExtResource("7_lh14r")
+texture_pressed = ExtResource("11_154m3")
+texture_disabled = ExtResource("8_x7r7f")
+
+[node name="fencer" type="TextureButton" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+texture_normal = ExtResource("9_ddlpn")
+texture_pressed = ExtResource("14_0ytki")
+texture_disabled = ExtResource("10_g26dx")
+
+[node name="tavern" type="TextureButton" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+texture_normal = ExtResource("11_q2hpr")
+texture_pressed = ExtResource("17_65ul2")
+texture_disabled = ExtResource("12_aawiv")
+
+[node name="gov man" type="TextureButton" parent="build container/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("13_3f334")
+texture_pressed = ExtResource("20_8e4uj")
+texture_disabled = ExtResource("14_x7m0t")
+
+[node name="build sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_f8iim")
+
+[node name="text container" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.031000001
+anchor_right = 0.5
+anchor_bottom = 0.031000001
+offset_left = -124.30951
+offset_top = -20.088001
+offset_right = 124.30951
+offset_bottom = 19.911999
+grow_horizontal = 2
+
+[node name="game text" parent="text container" instance=ExtResource("2_n54da")]
+layout_mode = 2
+text = "[center] Treasure: 0/100"
+fit_content = true
+
+[node name="TextureRect" type="TextureRect" parent="text container/game text"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -62,84 +182,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-color = Color(0.641399, 0.17218906, 0, 1)
-
-[node name="ColorRect" type="ColorRect" parent="build container"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.641399, 0.17218906, 0, 1)
-
-[node name="GridContainer" type="GridContainer" parent="build container"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-columns = 6
-
-[node name="map maker" type="Button" parent="build container/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "map maker
-"
-
-[node name="fishmonger" type="Button" parent="build container/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Fishmonger
-"
-
-[node name="harbour" type="Button" parent="build container/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "harbour"
-
-[node name="fencer" type="Button" parent="build container/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Trader"
-
-[node name="tavern" type="Button" parent="build container/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Tavern
-"
-
-[node name="gov man" type="Button" parent="build container/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Governers
-Mansion
-"
-
-[node name="gold text" parent="." instance=ExtResource("2_n54da")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.17881945
-anchor_top = 0.083333336
-anchor_right = 0.30126217
-anchor_bottom = 0.19444445
-grow_horizontal = 1
-grow_vertical = 1
-text = "[center]Current gold: 0"
-metadata/_edit_use_anchors_ = true
-
-[node name="build sound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_f8iim")
+texture = ExtResource("17_3f334")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="build container/GridContainer/map maker" to="." method="_on_map_maker_pressed"]

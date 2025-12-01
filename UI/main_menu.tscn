@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bds484tgdjcw6"]
+[gd_scene load_steps=10 format=3 uid="uid://bds484tgdjcw6"]
 
-[ext_resource type="Script" uid="uid://brkab3seb5a0q" path="res://main_menu.gd" id="1_p8ccj"]
+[ext_resource type="Script" uid="uid://brkab3seb5a0q" path="res://UI/main_menu.gd" id="1_p8ccj"]
+[ext_resource type="Texture2D" uid="uid://b0hn8n0k5j1ls" path="res://Res/ui/backdrop.png" id="2_2mudq"]
+[ext_resource type="Texture2D" uid="uid://1w8vjqwot08s" path="res://Res/ui/play_up.png" id="2_tk8dj"]
+[ext_resource type="Texture2D" uid="uid://csl18oi5h64j3" path="res://Res/ui/tutorial up.png" id="3_4cwpn"]
+[ext_resource type="Texture2D" uid="uid://0umk5spug50a" path="res://Res/ui/play down.png" id="3_ev3b6"]
+[ext_resource type="Texture2D" uid="uid://5vwr0o2odlku" path="res://Res/ui/credits button.png" id="4_f40uw"]
+[ext_resource type="Texture2D" uid="uid://bgpvg1084oepp" path="res://Res/ui/credits button down.png" id="5_f40uw"]
+[ext_resource type="Texture2D" uid="uid://be6nd37u3ktmq" path="res://Res/ui/tutorial down.png" id="5_k0a0m"]
+[ext_resource type="PackedScene" uid="uid://dlqb34m81iits" path="res://UI/game_text.tscn" id="8_k0a0m"]
 
 [node name="main menu" type="Control"]
 layout_mode = 3
@@ -18,4 +26,80 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.60573417, 0.5153954, 0.2878294, 1)
+color = Color(0.5529412, 0.46666667, 0.37254903, 1)
+
+[node name="Backdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.559
+anchor_right = 0.504
+anchor_bottom = 0.559
+offset_left = -595.0
+offset_top = -400.232
+offset_right = 600.39197
+offset_bottom = 399.768
+texture = ExtResource("2_2mudq")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="play button" type="TextureButton" parent="GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_tk8dj")
+texture_pressed = ExtResource("3_ev3b6")
+
+[node name="tutorial button" type="TextureButton" parent="GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_4cwpn")
+texture_pressed = ExtResource("5_k0a0m")
+
+[node name="credits Button" type="TextureButton" parent="GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_f40uw")
+texture_pressed = ExtResource("5_f40uw")
+
+[node name="credits text" parent="." instance=ExtResource("8_k0a0m")]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.90400004
+anchor_top = 0.035
+anchor_right = 0.90400004
+offset_left = -150.40808
+offset_top = 0.3199997
+offset_right = 92.59192
+offset_bottom = -31.0
+text = "[left] Coding -
+	Pre atomic prince
+	Jam bone
+
+Art - 
+	Jam bone
+
+Music - 
+tracks -
+	free pirate music by Alkakrad
+sounds -
+	pixabay
+
+Textures - 
+	High seas textures by Strideth
+
+
+"
+
+[connection signal="button_up" from="GridContainer/play button" to="." method="_on_play_button_button_up"]
+[connection signal="button_up" from="GridContainer/tutorial button" to="." method="_on_tutorial_button_button_up"]
+[connection signal="pressed" from="GridContainer/credits Button" to="." method="_on_credits_button_pressed"]

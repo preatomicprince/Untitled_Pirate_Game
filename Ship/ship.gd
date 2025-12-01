@@ -100,6 +100,7 @@ const CRIT_MULT: float = 2.0
 const MOVE_SPEED = 50 # Const to change speed of all ships moving
 
 func _ready() -> void:
+	
 	if ship_type == Ship_Type.Clipper:
 		carrack_ims.visible = true
 		ship_ims = carrack_ims
