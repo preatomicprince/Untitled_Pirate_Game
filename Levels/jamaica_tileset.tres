@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cq13714u6bbye"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://cq13714u6bbye"]
 
 [ext_resource type="Texture2D" uid="uid://vgfjdofy28a2" path="res://Res/map/to_tom.png" id="1_hs587"]
+[ext_resource type="Texture2D" uid="uid://xi1refad6h77" path="res://Res/map/water tiles.png" id="2_lyxtx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lyxtx"]
 texture = ExtResource("1_hs587")
@@ -11,9 +12,11 @@ texture_region_size = Vector2i(256, 200)
 1:0/0/texture_origin = Vector2i(0, -30)
 2:0/0 = 0
 2:0/0/texture_origin = Vector2i(0, -32)
+2:0/0/modulate = Color(1, 1, 1, 0.36078432)
 2:2/0 = 0
 2:1/0 = 0
 2:1/0/texture_origin = Vector2i(0, -30)
+2:1/0/modulate = Color(1, 1, 1, 0.44313726)
 0:1/0 = 0
 0:1/0/texture_origin = Vector2i(0, -30)
 1:1/0 = 0
@@ -42,9 +45,18 @@ texture_region_size = Vector2i(256, 200)
 3:2/0 = 0
 3:2/0/texture_origin = Vector2i(0, -20)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ho2hj"]
+texture = ExtResource("2_lyxtx")
+texture_region_size = Vector2i(250, 128)
+0:0/0 = 0
+0:1/size_in_atlas = Vector2i(1, 2)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, 31)
+
 [resource]
 tile_shape = 3
 tile_layout = 5
 tile_offset_axis = 1
 tile_size = Vector2i(250, 128)
 sources/0 = SubResource("TileSetAtlasSource_lyxtx")
+sources/1 = SubResource("TileSetAtlasSource_ho2hj")

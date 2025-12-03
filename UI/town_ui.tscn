@@ -184,6 +184,7 @@ texture_disabled = ExtResource("14_x7m0t")
 
 [node name="build sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_f8iim")
+max_distance = 20000.0
 
 [node name="text container" type="GridContainer" parent="."]
 layout_mode = 1

@@ -39,7 +39,7 @@ var MULTIPLIER_ADD : float = 0.5
 var SHIPS_ADD : int = 3
 
 func _ready():
-	pass
+	self.new_map()
 
 
 func _process(delta: float) -> void:
@@ -93,7 +93,7 @@ func check_ables():
 
 
 func set_building(type):
-
+	prints(len(costs.available_land), "at the start")
 	match type:
 		costs.buildings.tavern:
 			var rand_loc = costs.available_land[randi_range(0, len(costs.available_land)-1)]
@@ -130,7 +130,7 @@ func set_building(type):
 			building_layer.set_cell(rand_loc, 0, governers_mansion)
 			costs.available_land.pop_at(costs.available_land.find(rand_loc))
 			costs.current_buildings.append(governers_mansion)
-	
+	prints(len(costs.available_land), "at the end")
 func new_map():
 	"""
 	this function will be called at the begining to work out what tiles are available to 

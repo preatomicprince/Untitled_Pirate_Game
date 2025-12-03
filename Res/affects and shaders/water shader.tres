@@ -1,21 +1,16 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://bagrx44gtm65f"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bagrx44gtm65f"]
 
 [ext_resource type="Shader" uid="uid://copo8c0sesp8y" path="res://Res/affects and shaders/water shader.gdshader" id="1_s1shm"]
-[ext_resource type="Texture2D" uid="uid://cfruu5bs1wk8s" path="res://Res/map/water.png" id="2_wab7e"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6pfmo"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w7kje"]
-noise = SubResource("FastNoiseLite_6pfmo")
 
 [resource]
 shader = ExtResource("1_s1shm")
-shader_parameter/distortion_noise = SubResource("NoiseTexture2D_w7kje")
-shader_parameter/direction = Vector2(3, 2)
-shader_parameter/water_color = Color(0.105882354, 0.2784314, 0.39215687, 1)
-shader_parameter/fractal_color = Color(2.9841065e-05, 0.5921326, 0.97271484, 0.49803922)
-shader_parameter/fractals = ExtResource("2_wab7e")
-shader_parameter/scale = 244.0
-shader_parameter/opacity = 0.5000000074506
-shader_parameter/distortion_strength = 0.85000001266602
-shader_parameter/fractal_strength = 0.0
+shader_parameter/OCTAVE = 1
+shader_parameter/mulscale = 1.0
+shader_parameter/height = 0.1
+shader_parameter/tide = 0.1
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.0
+shader_parameter/waterdeep = 0.3
+shader_parameter/WATER_COL = Color(0.33829284, 0.62754434, 0.8937996, 1)
+shader_parameter/WATER2_COL = Color(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)

@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=4 uid="uid://iv4ooe5vhjh4"]
+[gd_scene load_steps=3 format=4 uid="uid://iv4ooe5vhjh4"]
 
 [ext_resource type="Script" uid="uid://xjhy1qc4clqe" path="res://Game/town_screen.gd" id="1_won63"]
 [ext_resource type="TileSet" uid="uid://cq13714u6bbye" path="res://Levels/jamaica_tileset.tres" id="2_owth5"]
-[ext_resource type="Material" uid="uid://bagrx44gtm65f" path="res://Res/affects and shaders/water shader.tres" id="3_fcojm"]
 
 [node name="Town screen" type="Node2D"]
 script = ExtResource("1_won63")
 
 [node name="sea" type="ColorRect" parent="."]
+visible = false
 offset_left = -787.0
 offset_top = -2.0
 offset_right = 805.0
@@ -17,6 +17,7 @@ color = Color(0.23227313, 0.42687786, 0.50758386, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="land" type="ColorRect" parent="."]
+visible = false
 offset_left = -787.0
 offset_top = -424.0
 offset_right = 805.0
@@ -31,7 +32,6 @@ tile_map_data = PackedByteArray("AAD8/wAAAAACAAEAAAD9/wEAAAACAAEAAAD+/wIAAAACAAE
 tile_set = ExtResource("2_owth5")
 
 [node name="sea layer" type="TileMapLayer" parent="."]
-material = ExtResource("3_fcojm")
 position = Vector2(-3, -151)
 tile_set = ExtResource("2_owth5")
 

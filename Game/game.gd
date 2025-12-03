@@ -67,10 +67,8 @@ func choose_scene(cur : int):
 	match cur:
 		scenes.Battle_field:
 			level.visible = true
-			town_screen.new_map()
 			return
 			
-
 			
 		scenes.Town_builder:
 			#camera.snap_to(town_screen.position)
