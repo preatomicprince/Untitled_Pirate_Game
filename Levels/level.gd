@@ -6,6 +6,8 @@ class_name Level extends Node2D
 @onready var map_layers : Node2D = $"map layers"
 @onready var town_layer : Node2D =$"map layers/town layer"
 @onready var ship_layer : Node2D = $"ship layer"
+#FOR when i can be bothered to do the projectiles properly
+@onready var projectile_layer : Node2D = $"ship layer/projectile tlayer"
 #set current level with an enum
 enum levels {
 	none = 0,

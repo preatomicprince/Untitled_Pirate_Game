@@ -31,6 +31,8 @@ color_ramp = SubResource("GradientTexture1D_js2sh")
 turbulence_enabled = true
 
 [node name="smoke" type="GPUParticles2D"]
+z_index = 1000
+z_as_relative = false
 texture_filter = 1
 amount = 49
 texture = ExtResource("1_q51tl")
